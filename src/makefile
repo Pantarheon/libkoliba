@@ -1,4 +1,4 @@
-#	Copyright 2019 G. Adam Stanislav
+#	Copyright 2019-2021 G. Adam Stanislav
 #	All rights reserved
 #
 #	Redistribution and use in source and binary forms,
@@ -79,27 +79,7 @@ objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 
 lib:	libkoliba.so
 
-build-all: install sltconv pullmat invertmat effimat ConvertRecs
-
-rebuild: clean build-all
-
-sltconv: sltconv.o lib
-	$(CC) $(CFLG) -o sltconv sltconv.o -L$(PREFIX)/lib -lkoliba
-
-pullmat: pullmat.o lib
-	$(CC) $(CFLG) -o pullmat pullmat.o -L$(PREFIX)/lib -lkoliba
-
-invertmat: invertmat.o lib
-	$(CC) $(CFLG) -o invertmat invertmat.o -L$(PREFIX)/lib -lkoliba
-
-effimat: effimat.o lib
-	$(CC) $(CFLG) -o effimat effimat.o -L$(PREFIX)/lib -lkoliba
-
-ConvertRecs: ConvertRecs.o lib
-	$(CC) $(CFLG) -o ConvertRecs ConvertRecs.o -L$(PREFIX)/lib -lkoliba
-
-RotationMatrix: RotationMatrix.o lib
-	$(CC) $(CFLG) -o RotationMatrix RotationMatrix.o -L$(PREFIX)/lib -lkoliba -lm
+rebuild: clean lib
 
 libkoliba.so: $(objects)
 	$(CC) --shared -o libkoliba.so $(objects) -lm
@@ -109,48 +89,10 @@ install: lib
 	cp -p koliba.h $(PREFIX)/include
 	chown root:root $(PREFIX)/include/koliba.h
 
-sltconv.o: sltconv.c koliba.h
-	$(CC) $(CFLG) -c sltconv.c -I$(PREFIX)/include
-
-pullmat.o: pullmat.c koliba.h
-	$(CC) $(CFLG) -c pullmat.c -I$(PREFIX)/include
-
-invertmat.o: invertmat.c koliba.h
-	$(CC) $(CFLG) -c invertmat.c -I$(PREFIX)/include
-
-effimat.o: effimat.c koliba.h
-	$(CC) $(CFLG) -c effimat.c -I$(PREFIX)/include
-
-ConvertRecs.o: ConvertRecs.c koliba.h
-	$(CC) $(CFLG) -c ConvertRecs.c -I$(PREFIX)/include
-
-RotationMatrix.o: RotationMatrix.c koliba.h
-	$(CC) $(CFLG) -c RotationMatrix.c -I$(PREFIX)/include
-
 %.o: %.c koliba.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
-install-sltconv: sltconv
-	install -p -s sltconv $(PREFIX)/bin
-
-install-pullmat: pullmat
-	install -p -s pullmat $(PREFIX)/bin
-
-install-invertmat: invertmat
-	install -p -s invertmat $(PREFIX)/bin
-
-install-effimat: effimat
-	install -p -s effimat $(PREFIX)/bin
-
-install-ConvertRecs: ConvertRecs
-	install -p -s ConvertRecs $(PREFIX)/bin
-
-install-RotationMatrix: RotationMatrix
-	install -p -s RotationMatrix $(PREFIX)/bin
-
-install-all: install install-sltconv install-pullmat install-invertmat install-effimat install-ConvertRecs install-RotationMatrix
-
 clean:
-	rm -f sltconv.o $(objects) sltconv sltconv.o pullmat pullmat.o invertmat invertmat.o effimat effimat.o ConvertRecs ConvertRecs.o RotationMatrix RotationMatrix.o libkoliba.so
+	rm -f $(objects) libkoliba.so
 
 

@@ -3,26 +3,6 @@
 The way to install the koliba library depends on the
 operating system.
 
-## 64-bit Windows
-
-You can simply download the precompiled binaries from
-the [win64](./win64/) directory, place them in a folder,
-and add the folder to the `PATH` environment variable.
-
-Or you can compile it from the source code by changing
-to the [src](./src/) folder and running
-[win64make.bat](./src/win64make.bat) like this,
-
-```
-cd src
-win64make
-```
-
-This assumes you have the Microsoft C compiler (`cl`).
-
-Additionally, if you want to use the koliba library in your
-own programs, you will also need to download [koliba.h](./src/koliba.h).
-
 ## Raspberry Pi
 
 On the 32-bit `raspi` system you can take advantage
@@ -47,8 +27,3 @@ is to compile and install the koliba library, type,
 sudo make install
 ```
 
-If you also want the included utility programs, type,
-
-``` /bin/sh
-sudo make install-all
-```
