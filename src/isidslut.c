@@ -1,6 +1,6 @@
 /*
 
-	rec2020.c
+	isidslut.c
 
 	Copyright 2019 G. Adam Stanislav
 	All rights reserved
@@ -41,19 +41,29 @@
 */
 
 #include "koliba.h"
+#include <string.h>
 
-KLBDC const KOLIBA_RGB KOLIBA_Rec2020 = {
-	0.2627, 0.678, 0.0593
-};
+#if !defined(NULL)
+	#define	NULL	((void*)0)
+#endif
 
-KLBDC const KOLIBA_SLUT KOLIBA_Rec2020Slut = {
-	{0.0000, 0.0000, 0.0000},
-	{0.0593, 0.0593, 0.0593},
-	{0.6780, 0.6780, 0.6780},
-	{0.7373, 0.7373, 0.7373},
-	{0.2627, 0.2627, 0.2627},
-	{0.3220, 0.3220, 0.3220},
-	{0.9407, 0.9407, 0.9407},
-	{1.0000, 1.0000, 1.0000}
-};
+// Determine if a SLUT is Identity SLUT.
+// Do not just memory compare it to our Identity SLUT
+// because of the possibility of negative zeros.
+KLBDC int KOLIBA_IsIdentitySlut(const KOLIBA_SLUT * const sLut) {
+	double *ptr, *idptr;
+	unsigned int i;
 
+	if (sLut == NULL) return 0;
+	for (i = sizeof(KOLIBA_SLUT) / sizeof(double),
+		ptr = (double *)sLut,
+		idptr = (double *)&KOLIBA_IdentitySlut;
+		i > 0;
+		i--,
+		ptr++,
+		idptr++
+	)
+		if (*ptr != *idptr) return 0;
+
+	return 1;
+}

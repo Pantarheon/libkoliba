@@ -1,6 +1,6 @@
 /*
 
-	rec2020.c
+	homeslut.c
 
 	Copyright 2019 G. Adam Stanislav
 	All rights reserved
@@ -42,18 +42,17 @@
 
 #include "koliba.h"
 
-KLBDC const KOLIBA_RGB KOLIBA_Rec2020 = {
-	0.2627, 0.678, 0.0593
-};
+// We "remove" the farba by setting all channels
+// of red, green, and blue to 0; and of cyan,
+// magenta, and white to 1.
 
-KLBDC const KOLIBA_SLUT KOLIBA_Rec2020Slut = {
-	{0.0000, 0.0000, 0.0000},
-	{0.0593, 0.0593, 0.0593},
-	{0.6780, 0.6780, 0.6780},
-	{0.7373, 0.7373, 0.7373},
-	{0.2627, 0.2627, 0.2627},
-	{0.3220, 0.3220, 0.3220},
-	{0.9407, 0.9407, 0.9407},
-	{1.0000, 1.0000, 1.0000}
+KLBDC const KOLIBA_SLUT KOLIBA_HomeSlut = {
+	{0.0, 0.0, 0.0},
+	{0.0, 0.0, 0.0},
+	{0.0, 0.0, 0.0},
+	{1.0, 1.0, 1.0},
+	{0.0, 0.0, 0.0},
+	{1.0, 1.0, 1.0},
+	{1.0, 1.0, 1.0},
+	{1.0, 1.0, 1.0}
 };
-

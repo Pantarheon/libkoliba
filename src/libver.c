@@ -2,7 +2,7 @@
 
 	libver.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-21 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -43,7 +43,7 @@
 #include "koliba.h"
 
 #define	major	0
-#define	minor	1
+#define	minor	2
 
 // Return the version of the library,
 // (major << 16) | minor
