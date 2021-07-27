@@ -2,7 +2,7 @@
 
 	rdcmpslut.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -73,7 +73,8 @@ KLBDC KOLIBA_SLUT * KOLIBA_ReadSlutFromCompatibleOpenFile(KOLIBA_SLUT *sLut, FIL
 
 	if (fread(header, 1, SLTCFILEHEADERBYTES, f) != SLTCFILEHEADERBYTES)
 		return invalid(sLut, ft, KOLIBA_ftunknown);
-	fseek(f, -(SLTCFILEHEADERBYTES), SEEK_CUR);
+	if (fseek(f, -(SLTCFILEHEADERBYTES), SEEK_CUR) != 0)
+		return invalid(sLut, ft, KOLIBA_ftunknown);
 	if (memcmp(header, KOLIBA_sLutHeader, SLTCFILEHEADERBYTES) == 0) {
 		if (ft) *ft = KOLIBA_ftslut;
 		return KOLIBA_ReadSlutFromOpenFile(sLut, f);
