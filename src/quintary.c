@@ -41,6 +41,11 @@
 */
 
 #include "koliba.h"
+#include <math.h>
+
+#if !defined(NULL)
+	#define	NULL	((void*)0)
+#endif
 
 KLBDC const KOLIBA_EFFILUT KOLIBA_QuintaryColorsF[KQC_COUNT] = {
 	{	// red
@@ -336,8 +341,80 @@ KLBDC const KOLIBA_EFFILUT KOLIBA_QuintaryColorsX[KQC_COUNT] = {
 	},
 };
 
+KLBDC const KOLIBA_QUINTARYCOLORS KOLIBA_QuintaryColorCount = KQC_COUNT;
+
 KLBDC unsigned int KOLIBA_QuintarySteps(unsigned int ary) {
 	if (ary > 5) ary = 5;
 	else if (ary == 0) ary = 1;
 	return (1 << (5-ary));
+}
+
+KLBDC KOLIBA_SLUT *KOLIBA_ApplySphericalEfficaciesF(KOLIBA_SLUT *sLut, const KOLIBA_SLUT * const slt, KOLIBA_QUINTARYCOLORS index, const KOLIBA_SLUT * const alt) {
+	KOLIBA_SLUT const * modifier = (alt != NULL) ? alt : &KOLIBA_Rec2020Slut;
+	KOLIBA_QUINTARYCOLORS col = (index < KQC_COUNT) ? index : KQC_red;
+
+	return KOLIBA_ApplyEfficacies(sLut, slt, &KOLIBA_QuintaryColorsF[col], alt);
+}
+
+KLBDC KOLIBA_SLUT *KOLIBA_ApplySphericalEfficaciesX(KOLIBA_SLUT *sLut, const KOLIBA_SLUT * const slt, KOLIBA_QUINTARYCOLORS index, const KOLIBA_SLUT * const alt) {
+	KOLIBA_SLUT const * modifier = (alt != NULL) ? alt : &KOLIBA_Rec2020Slut;
+	KOLIBA_QUINTARYCOLORS col = (index < KQC_COUNT) ? index : KQC_red;
+
+	return KOLIBA_ApplyEfficacies(sLut, slt, &KOLIBA_QuintaryColorsX[col], alt);
+}
+
+KLBDC KOLIBA_SLUT *KOLIBA_ApplySphericalAngleEfficaciesF(KOLIBA_SLUT *sLut, const KOLIBA_SLUT * const slt, double angle, const KOLIBA_SLUT * const alt) {
+	KOLIBA_EFFILUT effi;
+	KOLIBA_QUINTARYCOLORS e0, e1;
+	KOLIBA_SLUT const * modifier = (alt != NULL) ? alt : &KOLIBA_Rec2020Slut;
+
+	// This contraption should return the correct result with any
+	// math library regardless of how it calculates the mod of
+	// a negative number.
+	angle = fmod(360.0 + fmod(angle, 360.0), 360);
+
+	if (angle >= 240.0) {
+		angle -= 240.0;
+		e0    = KQC_blue;
+		e1    = KQC_red;
+	}
+	else if (angle >= 120.0) {
+		angle -=120.0;
+		e0     = KQC_green;
+		e1     = KQC_blue;
+	}
+	else {
+		e0     = KQC_red;
+		e1     = KQC_green;
+	}
+
+	return KOLIBA_ApplyEfficacies(sLut, slt, (KOLIBA_EFFILUT *)KOLIBA_Interpolate((double *)&effi, (double *)(KOLIBA_QuintaryColorsF+e0), angle/120.0, (double *)(KOLIBA_QuintaryColorsF+e1), sizeof(KOLIBA_EFFILUT)/sizeof(double)), alt);
+}
+
+KLBDC KOLIBA_SLUT *KOLIBA_ApplySphericalAngleEfficaciesX(KOLIBA_SLUT *sLut, const KOLIBA_SLUT * const slt, double angle, const KOLIBA_SLUT * const alt) {
+	KOLIBA_EFFILUT effi;
+	KOLIBA_QUINTARYCOLORS e0, e1;
+	KOLIBA_SLUT const * modifier = (alt != NULL) ? alt : &KOLIBA_Rec2020Slut;
+
+	// This contraption should return the correct result with any
+	// math library regardless of how it calculates the mod of
+	// a negative number.
+	angle = fmod(360.0 + fmod(angle, 360.0), 360);
+
+	if (angle >= 240.0) {
+		angle -= 240.0;
+		e0    = KQC_blue;
+		e1    = KQC_red;
+	}
+	else if (angle >= 120.0) {
+		angle -=120.0;
+		e0     = KQC_green;
+		e1     = KQC_blue;
+	}
+	else {
+		e0     = KQC_red;
+		e1     = KQC_green;
+	}
+
+	return KOLIBA_ApplyEfficacies(sLut, slt, (KOLIBA_EFFILUT *)KOLIBA_Interpolate((double *)&effi, (double *)(KOLIBA_QuintaryColorsX+e0), angle/120.0, (double *)(KOLIBA_QuintaryColorsX+e1), sizeof(KOLIBA_EFFILUT)/sizeof(double)), alt);
 }
