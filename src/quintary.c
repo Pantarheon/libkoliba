@@ -388,7 +388,7 @@ KLBDC KOLIBA_SLUT *KOLIBA_ApplySphericalAngleEfficaciesF(KOLIBA_SLUT *sLut, cons
 		e1     = KQC_green;
 	}
 
-	return KOLIBA_ApplyEfficacies(sLut, slt, (KOLIBA_EFFILUT *)KOLIBA_Interpolate((double *)&effi, (double *)(KOLIBA_QuintaryColorsF+e0), angle/120.0, (double *)(KOLIBA_QuintaryColorsF+e1), sizeof(KOLIBA_EFFILUT)/sizeof(double)), modifier);
+	return KOLIBA_ApplyEfficacies(sLut, slt, (KOLIBA_EFFILUT *)KOLIBA_Interpolate((double *)&effi, (double *)(KOLIBA_QuintaryColorsF+e1), angle/120.0, (double *)(KOLIBA_QuintaryColorsF+e0), sizeof(KOLIBA_EFFILUT)/sizeof(double)), modifier);
 }
 
 KLBDC KOLIBA_SLUT *KOLIBA_ApplySphericalAngleEfficaciesX(KOLIBA_SLUT *sLut, const KOLIBA_SLUT * const slt, double angle, const KOLIBA_SLUT * const alt) {
@@ -416,5 +416,5 @@ KLBDC KOLIBA_SLUT *KOLIBA_ApplySphericalAngleEfficaciesX(KOLIBA_SLUT *sLut, cons
 		e1     = KQC_green;
 	}
 
-	return KOLIBA_ApplyEfficacies(sLut, slt, (KOLIBA_EFFILUT *)KOLIBA_Interpolate((double *)&effi, (double *)(KOLIBA_QuintaryColorsX+e0), angle/120.0, (double *)(KOLIBA_QuintaryColorsX+e1), sizeof(KOLIBA_EFFILUT)/sizeof(double)), modifier);
+	return KOLIBA_ApplyEfficacies(sLut, slt, (KOLIBA_EFFILUT *)KOLIBA_Interpolate((double *)&effi, (double *)(KOLIBA_QuintaryColorsX+e1), angle/120.0, (double *)(KOLIBA_QuintaryColorsX+e0), sizeof(KOLIBA_EFFILUT)/sizeof(double)), modifier);
 }
