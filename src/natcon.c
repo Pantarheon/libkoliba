@@ -2,7 +2,7 @@
 
 	natcon.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -51,4 +51,15 @@ KLBHID const KOLIBA_SLUT KOLIBA_NaturalContrastSlut = {
 	{1.0, 0.5, 1.0},	// Magenta
 	{1.0, 1.0, 0.5},	// Yellow
 	{0.5, 0.5, 0.5}		// White
+};
+
+KLBDC const KOLIBA_SLUT KOLIBA_NaturalFarbaContrastSlut = {
+	{0.0, 0.0, 0.0},	// Black
+	{0.0, 0.0, 0.5},	// Blue
+	{0.0, 0.5, 0.0},	// Green
+	{0.5, 1.0, 1.0},	// Cyan
+	{0.5, 0.0, 0.0},	// Red
+	{1.0, 0.5, 1.0},	// Magenta
+	{1.0, 1.0, 0.5},	// Yellow
+	{1.0, 1.0, 1.0}		// White
 };
