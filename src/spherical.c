@@ -1,6 +1,6 @@
 /*
 
-	quintary.c
+	spherical.c
 
 	Copyright 2021 G. Adam Stanislav
 	All rights reserved
@@ -40,6 +40,7 @@
 
 */
 
+#define	SPHERICAL_C
 #include "koliba.h"
 #include <math.h>
 
@@ -47,6 +48,31 @@
 	#define	NULL	((void*)0)
 #endif
 
+KLBHID const KOLIBA_EFFILUT KOLIBA_TriFarbaF[3] = {
+	{	// red
+		1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0
+	},
+	{	// green
+		1.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0
+	},
+	{	// blue
+		1.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0
+	}
+};
+
+KLBHID const KOLIBA_EFFILUT KOLIBA_TriFarbaX[3] = {
+	{	// red
+		1.0, -1.0, -1.0, -1.0, 1.0, 1.0, 1.0, 1.0
+	},
+	{	// green
+		1.0, -1.0, 1.0, 1.0, -1.0, -1.0, 1.0, 1.0
+	},
+	{	// blue
+		1.0, 1.0, -1.0, 1.0, -1.0, 1.0, -1.0, 1.0
+	}
+};
+
+// These are deprecated and will be removed as unnecessary.
 KLBDC const KOLIBA_EFFILUT KOLIBA_QuintaryColorsF[KQC_COUNT] = {
 	{	// red
 		1.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0
@@ -341,84 +367,129 @@ KLBDC const KOLIBA_EFFILUT KOLIBA_QuintaryColorsX[KQC_COUNT] = {
 	},
 };
 
-KLBDC const KOLIBA_QUINTARYCOLORS KOLIBA_QuintaryColorCount = KQC_COUNT;
+static double uhol(double angle, size_t *start, size_t *end) {
+	// This contraption should return the correct result with any
+	// math library regardless of how it calculates the mod of
+	// a negative number.
+	angle = fmod(360.0 + fmod(angle, 360.0), 360.0);
 
-KLBDC unsigned int KOLIBA_QuintarySteps(unsigned int ary) {
-	if (ary > 5) ary = 5;
-	else if (ary == 0) ary = 1;
-	return (1 << (5-ary));
+	if (angle >= 240.0) {
+		angle -= 240.0;
+		*start = 2;
+		*end   = 0;
+	}
+	else if (angle >= 120.0) {
+		angle -=120.0;
+		*start = 1;
+		*end   = 2;
+	}
+	else {
+		*start = 0;
+		*end   = 1;
+	}
+
+	return angle / 120.0;
 }
 
-KLBDC KOLIBA_SLUT *KOLIBA_ApplySphericalEfficaciesF(KOLIBA_SLUT *sLut, const KOLIBA_SLUT * const slt, KOLIBA_QUINTARYCOLORS index, const KOLIBA_SLUT * const alt) {
-	KOLIBA_SLUT const * modifier = (alt != NULL) ? alt : &KOLIBA_Rec2020Slut;
-	KOLIBA_SLUT const * lut = (slt != NULL) ? slt : &KOLIBA_NaturalContrastSlut;
-	KOLIBA_QUINTARYCOLORS col = (index < KQC_COUNT) ? index : KQC_red;
+KLBDC KOLIBA_EFFILUT *KOLIBA_SphericalEffilut(KOLIBA_EFFILUT *effi, double angle, double fx) {
+	KOLIBA_EFFILUT effiF, effiX;
+	size_t start, end;
 
-	return KOLIBA_ApplyEfficacies(sLut, lut, &KOLIBA_QuintaryColorsF[col], modifier);
+	angle = uhol(angle, &start, &end);
+	return (KOLIBA_EFFILUT *)KOLIBA_Interpolate(
+		(double *)effi,
+		KOLIBA_Interpolate((double *)&effiX, (double *)(KOLIBA_TriFarbaX+end), angle, (double *)(KOLIBA_TriFarbaX+start), sizeof(KOLIBA_EFFILUT)/sizeof(double)),
+		fx,
+		KOLIBA_Interpolate((double *)&effiF, (double *)(KOLIBA_TriFarbaF+end), angle, (double *)(KOLIBA_TriFarbaF+start), sizeof(KOLIBA_EFFILUT)/sizeof(double)),
+		sizeof(KOLIBA_EFFILUT)/sizeof(double)
+	);
+}
+
+KLBDC KOLIBA_SLUT *KOLIBA_ApplySphericalEfficacies(KOLIBA_SLUT *sLut, const KOLIBA_SLUT * const slt, double angle, const KOLIBA_SLUT * const alt, double fx) {
+	KOLIBA_EFFILUT effi;
+
+	return KOLIBA_ApplyEfficacies(
+		sLut,
+		(slt != NULL) ? slt : &KOLIBA_NaturalFarbaContrastSlut,
+		KOLIBA_SphericalEffilut(&effi, angle, fx),
+		(alt != NULL) ? alt : &KOLIBA_Rec2020Slut
+	);
+}
+
+// We can combine several of the options along with a few defaults
+// for the purpose of using all this in video editing, typically
+// using some kind of plug-in (such as OpenFX, but we want to make
+// it as flexible as we can). We want the effect to be animatable,
+// i.e., to allow the various parameters to change from frame to
+// frame of the video. For that, we replace all of them with a
+// handful of double arguments.
+//
+// One of them will allow us to choose the "import" SLUT by
+// interpolating between the ILUT and the Natural Farba Contrast
+// LUT. Another will allow us not just to use any angle but
+// to also choose which of the two EFFILUT tables to use, or
+// even anything in-between them (or outside them in extrapolation).
+// Last but not least we need a double to determine which
+// one (or interpolation of which two) out of three atmosphere
+// LUT to use, the three being the Home LUT, the No Farba LUT, and
+// the 2020 LUT. Because we may need to pick two out of three,
+// this double needs to be circular, so we will use an angle
+// in degrees to choose among them. This also allows the user
+// to go through all of them repeatedly in succession.
+//
+// And, we need to offer an efficacy for it all.
+//
+// We can call the effect a color roller.
+
+KLBDC KOLIBA_SLUT *KOLIBA_ColorRoller(KOLIBA_SLUT *sLut, double imp, double angle, double atmo, double fx, double efficacy) {
+	KOLIBA_SLUT slt, alt;
+	KOLIBA_EFFILUT effiF, effiX, effi;
+	size_t start, end;
+	KOLIBA_QUINTARYCOLORS e0, e1;
+	const KOLIBA_SLUT *a0, *a1;
+
+	atmo = uhol(atmo, &start, &end);
+	a0   = (start == 0) ? &KOLIBA_HomeSlut :
+		(start == 1) ? &KOLIBA_Rec2020Slut : &KOLIBA_NoFarbaSlut;
+	a1   = (end   == 0) ? &KOLIBA_HomeSlut :
+		(end   == 1) ? &KOLIBA_Rec2020Slut : &KOLIBA_NoFarbaSlut;
+
+	return KOLIBA_InterpolateSluts(
+		sLut,
+		KOLIBA_ApplySphericalEfficacies(
+			sLut,
+			KOLIBA_InterpolateSluts(
+				&slt,
+				&KOLIBA_NaturalFarbaContrastSlut,
+				-imp,
+				&KOLIBA_IdentitySlut
+			),
+			angle,
+			KOLIBA_InterpolateSluts(
+				&alt, a1, atmo, a0
+			),
+			fx
+		),
+		efficacy,
+		&KOLIBA_IdentitySlut
+	);
+}
+
+
+
+// The rest is deprecated and will be removed in libkoliba v1.0.
+KLBDC KOLIBA_SLUT *KOLIBA_ApplySphericalEfficaciesF(KOLIBA_SLUT *sLut, const KOLIBA_SLUT * const slt, KOLIBA_QUINTARYCOLORS index, const KOLIBA_SLUT * const alt) {
+	return KOLIBA_ApplySphericalEfficacies(sLut, slt, KOLIBA_SphericalToAngle(index), alt, 0);
 }
 
 KLBDC KOLIBA_SLUT *KOLIBA_ApplySphericalEfficaciesX(KOLIBA_SLUT *sLut, const KOLIBA_SLUT * const slt, KOLIBA_QUINTARYCOLORS index, const KOLIBA_SLUT * const alt) {
-	KOLIBA_SLUT const * modifier = (alt != NULL) ? alt : &KOLIBA_Rec2020Slut;
-	KOLIBA_SLUT const * lut = (slt != NULL) ? slt : &KOLIBA_NaturalContrastSlut;
-	KOLIBA_QUINTARYCOLORS col = (index < KQC_COUNT) ? index : KQC_red;
-
-	return KOLIBA_ApplyEfficacies(sLut, lut, &KOLIBA_QuintaryColorsX[col], modifier);
+	return KOLIBA_ApplySphericalEfficacies(sLut, slt, KOLIBA_SphericalToAngle(index), alt, 1.0);
 }
 
 KLBDC KOLIBA_SLUT *KOLIBA_ApplySphericalAngleEfficaciesF(KOLIBA_SLUT *sLut, const KOLIBA_SLUT * const slt, double angle, const KOLIBA_SLUT * const alt) {
-	KOLIBA_EFFILUT effi;
-	KOLIBA_QUINTARYCOLORS e0, e1;
-	KOLIBA_SLUT const * modifier = (alt != NULL) ? alt : &KOLIBA_Rec2020Slut;
-	KOLIBA_SLUT const * lut = (slt != NULL) ? slt : &KOLIBA_NaturalContrastSlut;
-
-	// This contraption should return the correct result with any
-	// math library regardless of how it calculates the mod of
-	// a negative number.
-	angle = fmod(360.0 + fmod(angle, 360.0), 360.0);
-
-	if (angle >= 240.0) {
-		angle -= 240.0;
-		e0    = KQC_blue;
-		e1    = KQC_red;
-	}
-	else if (angle >= 120.0) {
-		angle -=120.0;
-		e0     = KQC_green;
-		e1     = KQC_blue;
-	}
-	else {
-		e0     = KQC_red;
-		e1     = KQC_green;
-	}
-
-	return KOLIBA_ApplyEfficacies(sLut, lut, (KOLIBA_EFFILUT *)KOLIBA_Interpolate((double *)&effi, (double *)(KOLIBA_QuintaryColorsF+e1), angle/120.0, (double *)(KOLIBA_QuintaryColorsF+e0), sizeof(KOLIBA_EFFILUT)/sizeof(double)), modifier);
+	return KOLIBA_ApplySphericalEfficacies(sLut, slt, angle, alt, 0);
 }
 
 KLBDC KOLIBA_SLUT *KOLIBA_ApplySphericalAngleEfficaciesX(KOLIBA_SLUT *sLut, const KOLIBA_SLUT * const slt, double angle, const KOLIBA_SLUT * const alt) {
-	KOLIBA_EFFILUT effi;
-	KOLIBA_QUINTARYCOLORS e0, e1;
-	KOLIBA_SLUT const * modifier = (alt != NULL) ? alt : &KOLIBA_Rec2020Slut;
-	KOLIBA_SLUT const * lut = (slt != NULL) ? slt : &KOLIBA_NaturalContrastSlut;
-
-	// This contraption should return the correct result with any
-	// math library regardless of how it calculates the mod of
-	// a negative number.
-	angle = fmod(360.0 + fmod(angle, 360.0), 360.0);
-
-	if (angle >= 240.0) {
-		angle -= 240.0;
-		e0    = KQC_blue;
-		e1    = KQC_red;
-	}
-	else if (angle >= 120.0) {
-		angle -=120.0;
-		e0     = KQC_green;
-		e1     = KQC_blue;
-	}
-	else {
-		e0     = KQC_red;
-		e1     = KQC_green;
-	}
-
-	return KOLIBA_ApplyEfficacies(sLut, lut, (KOLIBA_EFFILUT *)KOLIBA_Interpolate((double *)&effi, (double *)(KOLIBA_QuintaryColorsX+e1), angle/120.0, (double *)(KOLIBA_QuintaryColorsX+e0), sizeof(KOLIBA_EFFILUT)/sizeof(double)), modifier);
+	return KOLIBA_ApplySphericalEfficacies(sLut, slt, angle, alt, 1.0);
 }
