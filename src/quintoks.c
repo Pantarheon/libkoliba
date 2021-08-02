@@ -41,6 +41,7 @@
 */
 
 #include "koliba.h"
+#include <math.h>
 
 KLBDC const char * const KOLIBA_QuintaryColorTokens[KQC_COUNT] = {
 	"red",
@@ -143,3 +144,18 @@ KLBDC const char * const KOLIBA_QuintaryColorNames[KQC_COUNT] = {
 	"Crimson",
 	"Amaranth"
 };
+
+KLBDC const KOLIBA_QUINTARYCOLORS KOLIBA_QuintaryColorCount = KQC_COUNT;
+
+KLBDC unsigned int KOLIBA_QuintarySteps(unsigned int ary) {
+	if (ary > 5) ary = 5;
+	else if (ary == 0) ary = 1;
+	return (1 << (5-ary));
+}
+
+KLBDC signed int KOLIBA_AngleToQuintaryIndex(double angle) {
+	double d = (fmod(360.0+fmod(angle, 360.0), 360.0)*(double)KQC_COUNT)/360.0;
+	int    i = (int)d;
+
+	return (d == (double)i) ? i : -1;
+}
