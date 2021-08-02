@@ -42,6 +42,7 @@
 
 #include "koliba.h"
 #include <math.h>
+#include <string.h>
 
 KLBDC const char * const KOLIBA_QuintaryColorTokens[KQC_COUNT] = {
 	"red",
@@ -158,4 +159,12 @@ KLBDC signed int KOLIBA_AngleToQuintaryIndex(double angle) {
 	int    i = (int)d;
 
 	return (d == (double)i) ? i : -1;
+}
+
+KLBDC signed int KOLIBA_TokenToQuintaryIndex(const char * const token) {
+	unsigned int i;
+	for (i = 0; i < KQC_COUNT; i++)
+		if (strcmpi(token, KOLIBA_QuintaryColorTokens[i]) == 0)
+			return i;
+	return -1;
 }
