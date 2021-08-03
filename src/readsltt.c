@@ -93,7 +93,7 @@ KLBDC KOLIBA_SLUT * KOLIBA_ReadSlttFromOpenFile(KOLIBA_SLUT *sLut, FILE *f) {
 		&Lut.white.r,
 		&Lut.white.g,
 		&Lut.white.b
-	) != 24) ? memcpy(sLut, &Lut, sizeof(KOLIBA_SLUT)) : invalid(sLut);
+	) == 24) ? memcpy(sLut, &Lut, sizeof(KOLIBA_SLUT)) : invalid(sLut);
 }
 
 // Read a Lut from a named .sltt file. Returns Lut on success,
