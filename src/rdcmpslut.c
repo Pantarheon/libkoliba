@@ -79,7 +79,7 @@ KLBDC KOLIBA_SLUT * KOLIBA_ReadSlutFromCompatibleOpenFile(KOLIBA_SLUT *sLut, FIL
 		if (ft) *ft = KOLIBA_ftslut;
 		return KOLIBA_ReadSlutFromOpenFile(sLut, f);
 	}
-	else if (strcmp(header, "sLut") == 0) {
+	else if (strncmp(header, "sLut", 4) == 0) {
 		if (ft) *ft = KOLIBA_ftsltt;
 		return KOLIBA_ReadSlttFromOpenFile(sLut, f);
 	}
