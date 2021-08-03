@@ -42,20 +42,20 @@
 
 #include "koliba.h"
 
-#define	major	0
-#define	minor	2
+#define	LIBKOLIBA_major	0
+#define	LIBKOLIBA_minor	3
 
 // Return the version of the library,
-// (major << 16) | minor
+// (LIBKOLIBA_major << 16) | LIBKOLIBA_minor
 
 KLBDC unsigned int KOLIBA_GetLibraryVersion(void) {
-	return ((major << 16) | minor);
+	return ((LIBKOLIBA_major << 16) | LIBKOLIBA_minor);
 }
 
 KLBDC unsigned int KOLIBA_GetMajorLibraryVersion(void) {
-	return major;
+	return LIBKOLIBA_major;
 }
 
 KLBDC unsigned int KOLIBA_GetMinorLibraryVersion(void) {
-	return minor;
+	return LIBKOLIBA_minor;
 }

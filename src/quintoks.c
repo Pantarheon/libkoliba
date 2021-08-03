@@ -164,7 +164,7 @@ KLBDC signed int KOLIBA_AngleToQuintaryIndex(double angle) {
 KLBDC signed int KOLIBA_TokenToQuintaryIndex(const char * const token) {
 	unsigned int i;
 	for (i = 0; i < KQC_COUNT; i++)
-		if (strcmpi(token, KOLIBA_QuintaryColorTokens[i]) == 0)
+		if (strcasecmp(token, KOLIBA_QuintaryColorTokens[i]) == 0)
 			return i;
 	return -1;
 }
