@@ -79,12 +79,15 @@ objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 	xyz8abgr.o xyz8argb.o xyz8bgra.o xyz8px.o \
 	yccmat.o yccrgb.o  yshift.o yunshift.o zeroes.o
 
+abjects = asm/win64/fixdbl.obj asm/win64/fixslut.obj asm/win64/sltstr.obj \
+	asm/win64/writesltt.obj asm/win64/readsltt.obj
+
 lib:	koliba.dll
 
 rebuild: clean lib
 
 koliba.dll: $(objects) dllres.o
-	$(CC) -s --shared -o koliba.dll $(objects) asm\win64\fixdbl.obj asm\win64\fixslut.obj asm\win64\sltstr.obj asm\win64\writesltt.obj dllres.o -Wl,--subsystem,windows
+	$(CC) -s --shared -o koliba.dll $(objects) $(abjects) dllres.o -Wl,--subsystem,windows
 
 dllres.o: dll.rc
 	windres -i dll.rc -o dllres.o

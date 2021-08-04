@@ -13,6 +13,47 @@ EXTERN	pfmt, fprintf, fopen, fclose
 
 GLOBAL	KOLIBA_WriteSlttToOpenFile, KOLIBA_WriteSlttToNamedFile
 
+KOLIBA_WriteSlttToNamedFile:
+
+	; On Entry:
+	;
+	;	RCX = address of SLUT to convert and save
+	;	RDX = file name to save to.
+
+	push	rbx
+	sub	rsp, 6*8
+
+	mov	eax, -1
+	mov	rbx, rcx
+	jrcxz	.done
+	mov	rcx, rdx
+	lea	rdx, [rsp+40]
+	jrcxz	.done
+	mov	dword [rdx], 'wb'
+	call	fopen
+
+	test	rax, rax
+	mov	rcx, rbx
+	mov	rdx, rax
+	mov	eax, -1
+	je	.done
+	mov	rbx, rdx
+	call	KOLIBA_WriteSlttToOpenFile
+
+	mov	rcx, rbx
+	mov	rbx, rax
+	call	fclose
+
+	mov	rax, rbx
+
+.done:
+
+	add	rsp, 6*8
+	pop	rbx
+	ret
+
+align 16, int3
+
 KOLIBA_WriteSlttToOpenFile:
 
 	; On Entry:
@@ -57,47 +98,6 @@ rep	movsq
 	add	rsp, STACKBYTES
 	pop	rsi
 	pop	rdi
-	ret
-
-align 16, int3
-
-KOLIBA_WriteSlttToNamedFile:
-
-	; On Entry:
-	;
-	;	RCX = address of SLUT to convert and save
-	;	RDX = file name to save to.
-
-	push	rbx
-	sub	rsp, 6*8
-
-	mov	eax, -1
-	mov	rbx, rcx
-	jrcxz	.done
-	mov	rcx, rdx
-	lea	rdx, [rsp+40]
-	jrcxz	.done
-	mov	dword [rdx], 'wb'
-	call	fopen
-
-	test	rax, rax
-	mov	rcx, rbx
-	mov	rdx, rax
-	mov	al, 1
-	je	.done
-	mov	rbx, rdx
-	call	KOLIBA_WriteSlttToOpenFile
-
-	mov	rcx, rbx
-	mov	rbx, rax
-	call	fclose
-
-	mov	rax, rbx
-
-.done:
-
-	add	rsp, 6*8
-	pop	rbx
 	ret
 
 section .drectve	info
