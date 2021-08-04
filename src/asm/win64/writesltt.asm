@@ -5,10 +5,6 @@
 ;;
 ;;	nasm -f win64 writesltt.asm
 
-section	.rdata
-
-wb	db	'wb', 0
-
 section .text
 
 default rel
@@ -73,21 +69,23 @@ KOLIBA_WriteSlttToNamedFile:
 	;	RDX = file name to save to.
 
 	push	rbx
-	sub	rsp, 4*8
+	sub	rsp, 6*8
 
 	mov	eax, -1
 	mov	rbx, rcx
 	jrcxz	.done
 	mov	rcx, rdx
-	lea	rdx, [wb]
+	lea	rdx, [rsp+40]
 	jrcxz	.done
+	mov	dword [rdx], 'wb'
 	call	fopen
 
 	test	rax, rax
 	mov	rcx, rbx
 	mov	rdx, rax
+	mov	al, 1
 	je	.done
-	mov	rbx, rax
+	mov	rbx, rdx
 	call	KOLIBA_WriteSlttToOpenFile
 
 	mov	rcx, rbx
@@ -98,7 +96,7 @@ KOLIBA_WriteSlttToNamedFile:
 
 .done:
 
-	add	rsp, 4*8
+	add	rsp, 6*8
 	pop	rbx
 	ret
 
