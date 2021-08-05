@@ -91,7 +91,7 @@ rep	movsq
 	movq	r8, xmm2
 	movq	r9, xmm3
 	call	fprintf
-	sub	eax, 414
+	sub	eax, 413
 
 .done:
 
