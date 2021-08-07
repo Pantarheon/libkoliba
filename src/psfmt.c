@@ -1,6 +1,6 @@
 /*
 
-	psfmt.c
+	pKOLIBA_ScanSlttFormat.c
 
 	Copyright 2021 G. Adam Stanislav
 	All rights reserved
@@ -70,7 +70,7 @@ KLBDC const char pfmt[] = "sLut\n"
 	"%.16" PRIX64 " "
 	"%.16" PRIX64 "\n";
 
-KLBDC const char sfmt[] = " sLut\n"
+KLBDC const char KOLIBA_ScanSlttFormat[] = " sLut\n"
 	"%" SCNx64 " "
 	"%" SCNx64 " "
 	"%" SCNx64 "\n"

@@ -68,7 +68,7 @@ KLBDC KOLIBA_SLUT * KOLIBA_ReadSlttFromOpenFile(KOLIBA_SLUT *sLut, FILE *f) {
 
 	return (fscanf(
 		f,
-		sfmt,
+		KOLIBA_ScanSlttFormat,
 		&Lut.black.r,
 		&Lut.black.g,
 		&Lut.black.b,

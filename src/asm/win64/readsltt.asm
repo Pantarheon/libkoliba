@@ -9,7 +9,7 @@ section .text
 
 default rel
 
-EXTERN	sfmt, fscanf, fopen, fclose, KOLIBA_IdentitySlut
+EXTERN	KOLIBA_ScanSlttFormat, fscanf, fopen, fclose, KOLIBA_IdentitySlut
 
 GLOBAL	KOLIBA_ReadSlttFromOpenFile, KOLIBA_ReadSlttFromNamedFile
 
@@ -90,7 +90,7 @@ KOLIBA_ReadSlttFromOpenFile:
 	loop	.loop
 
 	mov	rcx, rdx
-	lea	rdx, [sfmt]
+	lea	rdx, [KOLIBA_ScanSlttFormat]
 	call	fscanf
 	sub	ecx, ecx
 	cmp	eax, 24

@@ -83,7 +83,7 @@ KLBDC KOLIBA_SLUT * KOLIBA_StringToSlut(KOLIBA_SLUT * sLut, const char * const s
 
 	return (sscanf(
 		string,
-		sfmt,
+		KOLIBA_ScanSlttFormat,
 		&sLut->black.r,
 		&sLut->black.g,
 		&sLut->black.b,
