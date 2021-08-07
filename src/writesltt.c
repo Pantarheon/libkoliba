@@ -59,7 +59,7 @@ KLBDC int KOLIBA_WriteSlttToOpenFile(const KOLIBA_SLUT *sLut, FILE *f) {
 	if ((sLut == NULL) || (f == NULL)) return 1;
 	return fprintf(
 		f,
-		pfmt,
+		KOLIBA_PrintSlttFormat,
 		sLut->black.r,
 		sLut->black.g,
 		sLut->black.b,
@@ -84,7 +84,7 @@ KLBDC int KOLIBA_WriteSlttToOpenFile(const KOLIBA_SLUT *sLut, FILE *f) {
 		sLut->white.r,
 		sLut->white.g,
 		sLut->white.b
-	) - SLTAMINCHARS;
+	) - (SLTAMINCHARS-1);
 }
 
 // Write a SLUT to a named .sltt file. Returns 0 on success, non-0

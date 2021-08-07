@@ -49,7 +49,7 @@ KLBDC char * KOLIBA_SlutToString(char * string, const KOLIBA_SLUT * const sLut, 
 
 	sprintf(
 		string,
-		pfmt,
+		KOLIBA_PrintSlttFormat,
 		sLut->black.r,
 		sLut->black.g,
 		sLut->black.b,

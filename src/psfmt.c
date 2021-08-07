@@ -44,7 +44,7 @@
 #include <inttypes.h>
 
 
-KLBDC const char pfmt[] = "sLut\n"
+KLBDC const char KOLIBA_PrintSlttFormat[] = "sLut\n"
 	"%.16" PRIX64 " "
 	"%.16" PRIX64 " "
 	"%.16" PRIX64 "\n"

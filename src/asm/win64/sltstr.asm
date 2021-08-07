@@ -9,7 +9,7 @@ section .text
 
 default rel
 
-EXTERN	pfmt, sfmt, sprintf, sscanf
+EXTERN	KOLIBA_PrintSlttFormat, KOLIBA_ScanSlttFormat, sprintf, sscanf
 
 GLOBAL	KOLIBA_SlutToString, KOLIBA_StringToSlut
 
@@ -49,7 +49,7 @@ KOLIBA_SlutToString:
 rep	movsq
 
 	mov	rcx, rbx
-	lea	rdx, [pfmt]
+	lea	rdx, [KOLIBA_PrintSlttFormat]
 	movq	r8, xmm2
 	movq	r9, xmm3
 	call	sprintf
@@ -92,7 +92,7 @@ KOLIBA_StringToSlut:
 	loop	.loop
 
 	mov	rcx, rdx
-	lea	rdx, [sfmt]
+	lea	rdx, [KOLIBA_ScanSlttFormat]
 	mov	r8, rbx
 	lea	r9, [rbx+8]
 	call	sscanf

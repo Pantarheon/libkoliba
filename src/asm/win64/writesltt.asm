@@ -9,7 +9,7 @@ section .text
 
 default rel
 
-EXTERN	pfmt, fprintf, fopen, fclose
+EXTERN	KOLIBA_PrintSlttFormat, fprintf, fopen, fclose
 
 GLOBAL	KOLIBA_WriteSlttToOpenFile, KOLIBA_WriteSlttToNamedFile
 
@@ -87,7 +87,7 @@ KOLIBA_WriteSlttToOpenFile:
 rep	movsq
 
 	mov	rcx, rdx
-	lea	rdx, [pfmt]
+	lea	rdx, [KOLIBA_PrintSlttFormat]
 	movq	r8, xmm2
 	movq	r9, xmm3
 	call	fprintf
