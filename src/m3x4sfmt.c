@@ -1,6 +1,6 @@
 /*
 
-	psfmt.c
+	m3x4sfmt.c
 
 	Copyright 2021 G. Adam Stanislav
 	All rights reserved
@@ -44,56 +44,32 @@
 #include <inttypes.h>
 
 
-KLBDC const char KOLIBA_PrintSlttFormat[] = "sLut\n"
+KLBDC const char KOLIBA_PrintM34tFormat[] = "m3x4\n"
 	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n"
 	"%.16" PRIX64 " "
 	"%.16" PRIX64 " "
 	"%.16" PRIX64 "\n"
 	"%.16" PRIX64 " "
 	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n"
-	"%.16" PRIX64 " "
 	"%.16" PRIX64 " "
 	"%.16" PRIX64 "\n"
 	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n"
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n"
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n"
 	"%.16" PRIX64 " "
 	"%.16" PRIX64 " "
 	"%.16" PRIX64 "\n";
 
-KLBDC const char KOLIBA_ScanSlttFormat[] = " sLut\n"
+KLBDC const char KOLIBA_ScanM34tFormat[] = " m3x4\n"
 	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n"
 	"%" SCNx64 " "
 	"%" SCNx64 " "
 	"%" SCNx64 "\n"
 	"%" SCNx64 " "
 	"%" SCNx64 " "
-	"%" SCNx64 "\n"
-	"%" SCNx64 " "
 	"%" SCNx64 " "
 	"%" SCNx64 "\n"
 	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n"
-	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n"
-	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n"
 	"%" SCNx64 " "
 	"%" SCNx64 " "
 	"%" SCNx64 "\n";
 
-KLBDC const char KOLIBA_ScanSlttHeaderFormat[] = " sLut ";
+KLBDC const char KOLIBA_ScanM34tHeaderFormat[] = " m3x4 ";

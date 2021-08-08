@@ -55,7 +55,8 @@ objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 	intermat.o interpol.o interslt.o intslut.o \
 	invmat.o invslut.o isidflut.o isidslut.o \
 	kplthead.o ldxapply.o ldxhead.o ldxxyz.o \
-	libver.o liftslut.o linsrgb.o m3x4head.o mal2slut.o malinit.o malsinit.o \
+	libver.o liftslut.o linsrgb.o m34str.o m3x4head.o m3x4sfmt.o \
+	mal2slut.o malinit.o malsinit.o \
 	mals2slut.o mat2cb.o mat3x3.o \
 	matreset.o matrixgain.o matrixlift.o matto3x3.o \
 	mkcube.o mkidcube.o mkpslut.o mmals2slut.o mofarslt.o \
@@ -65,7 +66,7 @@ objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 	ones.o partslt.o pi.o plt2slt.o pltreset.o \
 	pltvalid.o polypx.o polyxyz.o plut2slt.o \
 	psfmt.o purcol.o purery.o px32xyz.o px8xyz.o quintoks.o \
-	rdcmpslut.o readcflt.o readchrm.o readm3x4.o \
+	rdcmpslut.o readcflt.o readchrm.o readm34t.o readm3x4.o \
 	readslut.o rec601.o rec709.o rec2020.o \
 	recrec.o rgb2flut.o rgb2slut.o rgba8srgb.o rgbslut.o rgbycc.o \
 	ring.o sinterpol.o slt2plut.o slt2vert.o \
@@ -74,7 +75,7 @@ objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 	tetramat.o tintflut.o unindxyz.o unindbxyz.o unindoxyz.o unindwxyz.o \
 	valcbtitle.o vert2slt.o vertis1d.o vertismat.o vertpixl.o \
 	vertsamp.o windbxyz.o windoxyz.o windwxyz.o windxyz.o \
-	writecflt.o writechrm.o writem3x4.o \
+	writecflt.o writechrm.o writem34t.o writem3x4.o \
 	writeslut.o xtrctch.o xyz32bgra.o xyz32px.o \
 	xyz8abgr.o xyz8argb.o xyz8bgra.o xyz8px.o \
 	yccmat.o yccrgb.o  yshift.o yunshift.o zeroes.o

@@ -1,6 +1,6 @@
 /*
 
-	psfmt.c
+	readm34t.c
 
 	Copyright 2021 G. Adam Stanislav
 	All rights reserved
@@ -40,60 +40,60 @@
 
 */
 
+#define	USECLIB
 #include "koliba.h"
-#include <inttypes.h>
+#include <stdio.h>
+#include <string.h>
 
+#if !defined(NULL)
+	#define	NULL	((void*)0)
+#endif
 
-KLBDC const char KOLIBA_PrintSlttFormat[] = "sLut\n"
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n"
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n"
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n"
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n"
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n"
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n"
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n"
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n";
+static KOLIBA_MATRIX * invalid(KOLIBA_MATRIX *m3x4) {
+	KOLIBA_ResetMatrix(m3x4);
+	return NULL;
+}
 
-KLBDC const char KOLIBA_ScanSlttFormat[] = " sLut\n"
-	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n"
-	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n"
-	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n"
-	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n"
-	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n"
-	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n"
-	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n"
-	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n";
+// Read a KOLIBA_MATRIX from an open .m34t file. It may be open
+// for reading binary or text data. It remains open upon return,
+// so the caller needs to close it. Returns m3x4 on success, NULL
+// on failure. If, however, m3x4 is not NULL, its contents
+// will be reset on failure.
 
-KLBDC const char KOLIBA_ScanSlttHeaderFormat[] = " sLut ";
+KLBDC KOLIBA_MATRIX * KOLIBA_ReadM34tFromOpenFile(KOLIBA_MATRIX *mat, FILE *f) {
+	KOLIBA_MATRIX m3x4;
+
+	if (mat == NULL) return NULL;
+	if (f == NULL) return invalid(mat);
+
+	return (fscanf(
+		f,
+		KOLIBA_ScanM34tFormat,
+		&m3x4.red.r,
+		&m3x4.red.g,
+		&m3x4.red.b,
+		&m3x4.red.o,
+		&m3x4.green.r,
+		&m3x4.green.g,
+		&m3x4.green.b,
+		&m3x4.green.o,
+		&m3x4.blue.r,
+		&m3x4.blue.g,
+		&m3x4.blue.b,
+		&m3x4.blue.o
+	) == 12) ? memcpy(mat, &m3x4, sizeof(KOLIBA_MATRIX)) : invalid(mat);
+}
+
+// Read a m3x4 from a named .sltt file. Returns m3x4 on success,
+// NULL on failure. If, however, m3x4 is not NULL, its
+// contents will be filled with the identity m3x4 on failure.
+
+KLBDC KOLIBA_MATRIX * KOLIBA_ReadM34tFromNamedFile(KOLIBA_MATRIX *m3x4, char *fname) {
+	FILE *f;
+	KOLIBA_MATRIX *retval;
+
+	if (fname == NULL) return (m3x4 == NULL) ? NULL : invalid(m3x4);
+	retval = KOLIBA_ReadM34tFromOpenFile(m3x4, f = fopen(fname, "rb"));
+	if (f != NULL) fclose(f);
+	return retval;
+}

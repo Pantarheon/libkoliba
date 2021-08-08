@@ -1,6 +1,6 @@
 /*
 
-	psfmt.c
+	m34str.c
 
 	Copyright 2021 G. Adam Stanislav
 	All rights reserved
@@ -41,59 +41,48 @@
 */
 
 #include "koliba.h"
-#include <inttypes.h>
+#include <stdio.h>
+#include <string.h>
 
+KLBDC char * KOLIBA_MatrixToString(char * string, const KOLIBA_MATRIX * const m3x4, unsigned int strsize) {
+	if ((string == NULL) || (m3x4 == NULL) || (strsize < MATAMINCHARS)) return NULL;
 
-KLBDC const char KOLIBA_PrintSlttFormat[] = "sLut\n"
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n"
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n"
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n"
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n"
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n"
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n"
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n"
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n";
+	sprintf(
+		string,
+		KOLIBA_PrintM34tFormat,
+		m3x4->red.r,
+		m3x4->red.g,
+		m3x4->red.b,
+		m3x4->red.o,
+		m3x4->green.r,
+		m3x4->green.g,
+		m3x4->green.b,
+		m3x4->green.o,
+		m3x4->blue.r,
+		m3x4->blue.g,
+		m3x4->blue.b,
+		m3x4->blue.o
+	);
+	return string;
+}
 
-KLBDC const char KOLIBA_ScanSlttFormat[] = " sLut\n"
-	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n"
-	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n"
-	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n"
-	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n"
-	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n"
-	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n"
-	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n"
-	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n";
+KLBDC KOLIBA_MATRIX * KOLIBA_StringToMatrix(KOLIBA_MATRIX * m3x4, const char * const string) {
+	if ((string == NULL) || (m3x4 == NULL)) return NULL;
 
-KLBDC const char KOLIBA_ScanSlttHeaderFormat[] = " sLut ";
+	return (sscanf(
+		string,
+		KOLIBA_ScanM34tFormat,
+		&m3x4->red.r,
+		&m3x4->red.g,
+		&m3x4->red.b,
+		&m3x4->red.o,
+		&m3x4->green.r,
+		&m3x4->green.g,
+		&m3x4->green.b,
+		&m3x4->green.o,
+		&m3x4->blue.r,
+		&m3x4->blue.g,
+		&m3x4->blue.b,
+		&m3x4->blue.o
+	) != 12) ? NULL : m3x4;
+}

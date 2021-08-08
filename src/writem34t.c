@@ -1,6 +1,6 @@
 /*
 
-	psfmt.c
+	writem34t.c
 
 	Copyright 2021 G. Adam Stanislav
 	All rights reserved
@@ -40,60 +40,51 @@
 
 */
 
+#define	USECLIB
 #include "koliba.h"
-#include <inttypes.h>
+#include <stdio.h>
+#include <string.h>
+
+#if !defined(NULL)
+	#define	NULL	((void*)0)
+#endif
 
 
-KLBDC const char KOLIBA_PrintSlttFormat[] = "sLut\n"
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n"
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n"
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n"
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n"
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n"
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n"
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n"
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 " "
-	"%.16" PRIX64 "\n";
+// Write a KOLIBA_MATRIX to an open .m34t file. It remains open
+// upon return, so the caller needs to close it. Returns 0 on
+// success, non-0 on failure.
 
-KLBDC const char KOLIBA_ScanSlttFormat[] = " sLut\n"
-	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n"
-	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n"
-	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n"
-	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n"
-	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n"
-	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n"
-	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n"
-	"%" SCNx64 " "
-	"%" SCNx64 " "
-	"%" SCNx64 "\n";
 
-KLBDC const char KOLIBA_ScanSlttHeaderFormat[] = " sLut ";
+KLBDC int KOLIBA_WriteM34tToOpenFile(const KOLIBA_MATRIX *m3x4, FILE *f) {
+	if ((m3x4 == NULL) || (f == NULL)) return 1;
+	return fprintf(
+		f,
+		KOLIBA_PrintM34tFormat,
+		m3x4->red.r,
+		m3x4->red.g,
+		m3x4->red.b,
+		m3x4->red.o,
+		m3x4->green.r,
+		m3x4->green.g,
+		m3x4->green.b,
+		m3x4->green.o,
+		m3x4->blue.r,
+		m3x4->blue.g,
+		m3x4->blue.b,
+		m3x4->blue.o
+	) - (SLTAMINCHARS-1);
+}
+
+// Write a KOLIBA_MATRIX to a named .m34t file.
+// Returns 0 on success, non-0 on failure.
+
+KLBDC int KOLIBA_WriteM34tToNamedFile(const KOLIBA_MATRIX *m3x4, const char *fname) {
+	FILE *f;
+	int retval;
+
+	if ((m3x4 == NULL) || (fname == NULL) || ((f = fopen(fname, "wb")) == NULL)) return -1;
+	retval = KOLIBA_WriteM34tToOpenFile(m3x4, f);
+	fclose(f);
+	return retval;
+}
+
