@@ -64,6 +64,7 @@ static KOLIBA_SLUT * invalid(KOLIBA_SLUT *sLut, KOLIBA_ftype *ft, KOLIBA_ftype e
 KLBDC KOLIBA_SLUT * KOLIBA_ReadSlutFromCompatibleOpenFile(KOLIBA_SLUT *sLut, FILE *f, KOLIBA_ftype *ft) {
 	KOLIBA_SLUT Lut;
 	unsigned char header[SLTCFILEHEADERBYTES];
+	double d;
 
 	if (sLut == NULL) {
 		if (ft) *ft = KOLIBA_ftnoslut;
@@ -79,7 +80,7 @@ KLBDC KOLIBA_SLUT * KOLIBA_ReadSlutFromCompatibleOpenFile(KOLIBA_SLUT *sLut, FIL
 		if (ft) *ft = KOLIBA_ftslut;
 		return KOLIBA_ReadSlutFromOpenFile(sLut, f);
 	}
-	else if (strncmp(header, "sLut", 4) == 0) {
+	else if (sscanf(header, KOLIBA_ScanSlttHeaderFormat, &d) == 1) {
 		if (ft) *ft = KOLIBA_ftsltt;
 		return KOLIBA_ReadSlttFromOpenFile(sLut, f);
 	}
@@ -89,6 +90,13 @@ KLBDC KOLIBA_SLUT * KOLIBA_ReadSlutFromCompatibleOpenFile(KOLIBA_SLUT *sLut, FIL
 		if (KOLIBA_ConvertMatrixToSlut(sLut, KOLIBA_ReadMatrixFromOpenFile(&m3x4, f)) == NULL)
 			return invalid(sLut, ft, KOLIBA_ftmatrix);
 		else if (ft) *ft = KOLIBA_ftmatrix;
+	}
+	else if (sscanf(header, KOLIBA_ScanM34tHeaderFormat, &d) == 1) {
+		KOLIBA_MATRIX m3x4;
+
+		if (KOLIBA_ConvertMatrixToSlut(sLut, KOLIBA_ReadM34tFromOpenFile(&m3x4, f)) == NULL)
+			return invalid(sLut, ft, KOLIBA_ftm34t);
+		else if (ft) *ft = KOLIBA_ftm34t;
 	}
 	else if (memcmp(header, KOLIBA_chrmHeader, SLTCFILEHEADERBYTES) == 0) {
 		KOLIBA_MATRIX m3x4;

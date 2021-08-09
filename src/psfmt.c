@@ -96,4 +96,4 @@ KLBDC const char KOLIBA_ScanSlttFormat[] = " sLut\n"
 	"%" SCNx64 " "
 	"%" SCNx64 "\n";
 
-KLBDC const char KOLIBA_ScanSlttHeaderFormat[] = " sLut ";
+KLBDC const char KOLIBA_ScanSlttHeaderFormat[] = " sLut\n%" SCNx64 " ";

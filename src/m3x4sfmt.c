@@ -72,4 +72,4 @@ KLBDC const char KOLIBA_ScanM34tFormat[] = " m3x4\n"
 	"%" SCNx64 " "
 	"%" SCNx64 "\n";
 
-KLBDC const char KOLIBA_ScanM34tHeaderFormat[] = " m3x4 ";
+KLBDC const char KOLIBA_ScanM34tHeaderFormat[] = " m3x4\n%" SCNx64 " ";
