@@ -63,7 +63,7 @@ static KOLIBA_SLUT * invalid(KOLIBA_SLUT *sLut, KOLIBA_ftype *ft, KOLIBA_ftype e
 
 KLBDC KOLIBA_SLUT * KOLIBA_ReadSlutFromCompatibleOpenFile(KOLIBA_SLUT *sLut, FILE *f, KOLIBA_ftype *ft) {
 	KOLIBA_SLUT Lut;
-	unsigned char header[SLTCFILEHEADERBYTES];
+	unsigned char header[SLTCFILEHEADERBYTES+1];
 	double d;
 
 	if (sLut == NULL) {
@@ -76,6 +76,10 @@ KLBDC KOLIBA_SLUT * KOLIBA_ReadSlutFromCompatibleOpenFile(KOLIBA_SLUT *sLut, FIL
 		return invalid(sLut, ft, KOLIBA_ftunknown);
 	if (fseek(f, -(SLTCFILEHEADERBYTES), SEEK_CUR) != 0)
 		return invalid(sLut, ft, KOLIBA_ftunknown);
+
+	// This should limit sscanf input to the bytes read into the header.
+	header[SLTCFILEHEADERBYTES] = '\0';
+
 	if (memcmp(header, KOLIBA_sLutHeader, SLTCFILEHEADERBYTES) == 0) {
 		if (ft) *ft = KOLIBA_ftslut;
 		return KOLIBA_ReadSlutFromOpenFile(sLut, f);
