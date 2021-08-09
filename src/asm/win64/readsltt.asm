@@ -3,7 +3,7 @@
 ;;	Copyright 2021 G. Adam Stanislav
 ;;	All rights reserved
 ;;
-;;	nasm -f win64 writesltt.asm
+;;	nasm -f win64 readsltt.asm
 
 section .text
 
