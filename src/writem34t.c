@@ -72,7 +72,7 @@ KLBDC int KOLIBA_WriteM34tToOpenFile(const KOLIBA_MATRIX *m3x4, FILE *f) {
 		m3x4->blue.g,
 		m3x4->blue.b,
 		m3x4->blue.o
-	) - (SLTAMINCHARS-1);
+	) - (MATAMINCHARS-1);
 }
 
 // Write a KOLIBA_MATRIX to a named .m34t file.
