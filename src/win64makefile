@@ -55,7 +55,7 @@ objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 	intermat.o interpol.o interslt.o intslut.o \
 	invmat.o invslut.o isidflut.o isidslut.o \
 	kplthead.o ldxapply.o ldxhead.o ldxxyz.o \
-	libver.o liftslut.o linsrgb.o m34str.o m3x4head.o m3x4sfmt.o \
+	libver.o liftslut.o linsrgb.o m3x4head.o m3x4sfmt.o \
 	mal2slut.o malinit.o malsinit.o \
 	mals2slut.o mat2cb.o mat3x3.o \
 	matreset.o matrixgain.o matrixlift.o matto3x3.o \
@@ -81,7 +81,8 @@ objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 	yccmat.o yccrgb.o  yshift.o yunshift.o zeroes.o
 
 abjects = asm/win64/fixdbl.obj asm/win64/fixslut.obj asm/win64/sltstr.obj \
-	asm/win64/writesltt.obj asm/win64/readsltt.obj asm/win64/readm34t.obj 
+	asm/win64/writesltt.obj asm/win64/readsltt.obj asm/win64/readm34t.obj \
+	asm/win64/m34str.obj
 
 lib:	koliba.dll
 
