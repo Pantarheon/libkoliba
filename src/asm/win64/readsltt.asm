@@ -62,7 +62,7 @@ KOLIBA_ReadSlttFromOpenFile:
 	;
 	; On Exit:
 	;
-	;	RAX = 0 on success, non-0 on failure
+	;	RAX = SLUT on success, NULL on failure
 
 %define	STACKBYTES	(8*(22+4+24))
 
