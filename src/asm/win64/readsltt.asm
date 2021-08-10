@@ -23,7 +23,7 @@ KOLIBA_ReadSlttFromNamedFile:
 	push	rbx
 	sub	rsp, 6*8
 
-	mov	eax, -1
+	sub	eax, eax
 	mov	rbx, rcx
 	jrcxz	.done
 	mov	rcx, rdx
@@ -35,7 +35,6 @@ KOLIBA_ReadSlttFromNamedFile:
 	test	rax, rax
 	mov	rcx, rbx
 	mov	rdx, rax
-	mov	eax, -1
 	je	.done
 	mov	rbx, rdx
 	call	KOLIBA_ReadSlttFromOpenFile
