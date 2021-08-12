@@ -84,7 +84,7 @@ KLBDC KOLIBA_MATRIX * KOLIBA_ReadM34tFromOpenFile(KOLIBA_MATRIX *mat, FILE *f) {
 	) == 12) ? memcpy(mat, &m3x4, sizeof(KOLIBA_MATRIX)) : invalid(mat);
 }
 
-// Read a m3x4 from a named .sltt file. Returns m3x4 on success,
+// Read a m3x4 from a named .m34t file. Returns m3x4 on success,
 // NULL on failure. If, however, m3x4 is not NULL, its
 // contents will be filled with the identity m3x4 on failure.
 
