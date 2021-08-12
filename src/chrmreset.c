@@ -71,3 +71,7 @@ KLBDC KOLIBA_CHROMAT * KOLIBA_SetChromaticMatrixModel(KOLIBA_CHROMAT * chrm, con
 	if (chrm != NULL) KOLIBA_SetChromaModel(&chrm->model, model);
 	return chrm;
 }
+
+KLBDC KOLIBA_CHROMAT * KOLIBA_ResetChromat(KOLIBA_CHROMAT * chrm) {
+	return KOLIBA_ResetChromaticMatrix(chrm, &KOLIBA_Rec2020);
+}
