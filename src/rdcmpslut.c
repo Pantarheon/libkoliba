@@ -110,6 +110,14 @@ KLBDC KOLIBA_SLUT * KOLIBA_ReadSlutFromCompatibleOpenFile(KOLIBA_SLUT *sLut, FIL
 			return invalid(sLut, ft, KOLIBA_ftchrm);
 		else if (ft) *ft = KOLIBA_ftchrm;
 	}
+	else if (sscanf(header, KOLIBA_ScanChrtHeaderFormat, &d) == 1) {
+		KOLIBA_MATRIX m3x4;
+		KOLIBA_CHROMAT chrm;
+
+		if (KOLIBA_ConvertMatrixToSlut(sLut, KOLIBA_ChromaticMatrix(&m3x4, KOLIBA_ReadChrtFromOpenFile(&chrm, f))) == NULL)
+			return invalid(sLut, ft, KOLIBA_ftchrt);
+		else if (ft) *ft = KOLIBA_ftchrt;
+	}
 	else if (memcmp(header, KOLIBA_cFltHeader, SLTCFILEHEADERBYTES) == 0) {
 		KOLIBA_CFLT cFlt;
 
