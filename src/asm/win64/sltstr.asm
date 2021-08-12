@@ -9,7 +9,8 @@ section .text
 
 default rel
 
-EXTERN	KOLIBA_PrintSlttFormat, KOLIBA_ScanSlttFormat, sprintf, sscanf
+EXTERN	KOLIBA_PrintSlttFormat, KOLIBA_ScanSlttFormat
+EXTERN	KOLIBA_DoublesToString, KOLIBA_StringToDoubles
 
 GLOBAL	KOLIBA_SlutToString, KOLIBA_StringToSlut
 
@@ -23,45 +24,10 @@ KOLIBA_SlutToString:
 	;
 	; On Exit:
 	;
-	;	RAX = address of string from RCX, or NULL.
-
-%define	STACKBYTES	(8*(22+4))
-
-	push	rbx
-	push	rdi
-	push	rsi
-	sub	rsp, STACKBYTES
-
-	lea	rsi, [rdx+16]
-	lea	rdi, [rsp+32]
-
-	sub	eax, eax
-	mov	rbx, rcx
-	test	rdx, rdx
-	jrcxz	.done
-	je	.done
-	movsd	xmm2, [rdx]
-	movsd	xmm3, [rdx+8]
-	cmp	r8d, 414
-	mov	ecx, 22
-	jb	.done
-
-rep	movsq
-
-	mov	rcx, rbx
-	lea	rdx, [KOLIBA_PrintSlttFormat]
-	movq	r8, xmm2
-	movq	r9, xmm3
-	call	sprintf
-	mov	rax, rbx
-
-.done:
-
-	add	rsp, STACKBYTES
-	pop	rsi
-	pop	rdi
-	pop	rbx
-	ret
+	
+	mov	r9d, 24
+	lea	r10, [KOLIBA_PrintSlttFormat]
+	jmp	KOLIBA_DoublesToString
 
 align 16, int3
 KOLIBA_StringToSlut:
@@ -75,38 +41,9 @@ KOLIBA_StringToSlut:
 	;
 	;	RAX = address of the SLUT, or NULL
 
-	push	rbx
-	sub	rsp, STACKBYTES
-
-	jrcxz	.done
-	mov	rbx, rcx
-	sub	ecx, ecx
-	test	rdx, rdx
-	mov	cl, 22
-	je	.done
-
-.loop:
-
-	lea	r8, [rbx+16+8*(rcx-1)]
-	mov	[rsp+32+8*(rcx-1)], r8
-	loop	.loop
-
-	mov	rcx, rdx
-	lea	rdx, [KOLIBA_ScanSlttFormat]
-	mov	r8, rbx
-	lea	r9, [rbx+8]
-	call	sscanf
-
-	sub	ecx, ecx
-	cmp	eax, 24
-	cmovne	rbx, rcx
-	mov	rax, rbx
-
-.done:
-
-	add	rsp, STACKBYTES
-	pop	rbx
-	ret
+	mov	r8d, 24
+	lea	r9, [KOLIBA_ScanSlttFormat]
+	jmp	KOLIBA_StringToDoubles
 
 
 section .drectve	info
