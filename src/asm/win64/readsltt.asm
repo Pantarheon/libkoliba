@@ -9,9 +9,28 @@ section .text
 
 default rel
 
-EXTERN	KOLIBA_ScanSlttFormat, fscanf, fopen, fclose, KOLIBA_IdentitySlut
+EXTERN	KOLIBA_ScanSlttFormat, KOLIBA_ResetSlut
+EXTERN	KOLIBA_ReadDoublesFromOpenFile, fopen, fclose
 
 GLOBAL	KOLIBA_ReadSlttFromOpenFile, KOLIBA_ReadSlttFromNamedFile
+
+KOLIBA_ReadSlttFromOpenFile:
+
+	; On Entry:
+	;
+	;	RCX = address of output SLUT
+	;	RDX = handle of FILE to read from
+	;
+	; On Exit:
+	;
+	;	RAX = SLUT on success, NULL on failure
+
+	mov	r8d, 24
+	lea	r9, [KOLIBA_ScanSlttFormat]
+	lea	r10, [KOLIBA_ResetSlut]
+	jmp	KOLIBA_ReadDoublesFromOpenFile
+
+align 16, int3
 
 KOLIBA_ReadSlttFromNamedFile:
 
@@ -49,65 +68,6 @@ KOLIBA_ReadSlttFromNamedFile:
 
 	add	rsp, 6*8
 	pop	rbx
-	ret
-
-align 16, int3
-
-KOLIBA_ReadSlttFromOpenFile:
-
-	; On Entry:
-	;
-	;	RCX = address of output SLUT
-	;	RDX = handle of FILE to read from
-	;
-	; On Exit:
-	;
-	;	RAX = SLUT on success, NULL on failure
-
-%define	STACKBYTES	(8*(22+4+24))
-
-	push	rdi
-	push	rsi
-	sub	rsp, STACKBYTES
-
-	mov	rdi, rcx
-	sub	eax, eax
-
-	test	rdx, rdx
-	jrcxz	.done
-	lea	rsi, [KOLIBA_IdentitySlut]
-	je	.copy
-
-	mov	ecx, 22
-	lea	r8, [rsp+STACKBYTES-(8*24)]
-	lea	r9, [rsp+STACKBYTES-(8*23)]
-
-.loop:
-
-	lea	rax, [rsp+STACKBYTES-(8*22)+8*(rcx-1)]
-	mov	[rsp+32+8*(rcx-1)], rax
-	loop	.loop
-
-	mov	rcx, rdx
-	lea	rdx, [KOLIBA_ScanSlttFormat]
-	call	fscanf
-	sub	ecx, ecx
-	cmp	eax, 24
-	cmovne	rax, rcx
-	jne	.copy
-	mov	rax, rdi
-	lea	rsi, [rsp+STACKBYTES-(8*24)]
-
-.copy:
-
-	mov	ecx, 24
-rep	movsq
-
-.done:
-
-	add	rsp, STACKBYTES
-	pop	rsi
-	pop	rdi
 	ret
 
 section .drectve	info
