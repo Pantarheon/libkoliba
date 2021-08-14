@@ -42,7 +42,7 @@ objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 	bgra32xyz.o bgra8xyz.o bindbxyz.o bindoxyz.o bindwxyz.o bindxyz.o \
 	byte255.o calcsum.o cb2mat.o \
 	cbreset.o cflthead.o checksum.o \
-	chrmhead.o chrmreset.o chrmsfmt.o chroma.o chrreset.o chrtstr.o cmyx.o colmask.o \
+	chrmhead.o chrmreset.o chrmsfmt.o chroma.o chrreset.o cmyx.o colmask.o \
 	dblsrgb.o deffiset.o diachroma.o dichroma.o dicrhead.o effiflut.o \
 	effilut.o effinc.o effinv.o effiset.o effislut.o erythropia.o \
 	externpx.o externxyz.o \
@@ -66,7 +66,7 @@ objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 	ones.o partslt.o pi.o plt2slt.o pltreset.o \
 	pltvalid.o polypx.o polyxyz.o plut2slt.o \
 	psfmt.o purcol.o purery.o px32xyz.o px8xyz.o quintoks.o \
-	rdcmpslut.o readcflt.o readchrm.o readchrt.o readm3x4.o \
+	rdcmpslut.o readcflt.o readchrm.o readm3x4.o \
 	readslut.o rec601.o rec709.o rec2020.o \
 	recrec.o rgb2flut.o rgb2slut.o rgba8srgb.o rgbslut.o rgbycc.o \
 	ring.o sinterpol.o slt2plut.o slt2vert.o \
@@ -83,6 +83,7 @@ objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 abjects = asm/win64/fixdbl.obj asm/win64/fixslut.obj asm/win64/sltstr.obj \
 	asm/win64/writesltt.obj asm/win64/readsltt.obj asm/win64/readm34t.obj \
 	asm/win64/m34str.obj asm/win64/writem34t.obj asm/win64/doublestr.obj 
+	asm/win64/chrtstr.obj asm/win64/readdbls.obj asm/win64/readchrt.obj 
 
 lib:	koliba.dll
 
