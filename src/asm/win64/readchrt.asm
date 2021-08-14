@@ -9,8 +9,8 @@ section .text
 
 default rel
 
-EXTERN	KOLIBA_ScanChrtFormat, fscanf, fopen, fclose, KOLIBA_ResetChromat
-EXTERN	KOLIBA_ReadDoublesFromOpenFile
+EXTERN	KOLIBA_ScanChrtFormat, KOLIBA_ResetChromat
+EXTERN	KOLIBA_ReadDoublesFromOpenFile, fopen, fclose
 
 GLOBAL	KOLIBA_ReadChrtFromOpenFile, KOLIBA_ReadChrtFromNamedFile
 
