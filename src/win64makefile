@@ -42,7 +42,7 @@ objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 	bgra32xyz.o bgra8xyz.o bindbxyz.o bindoxyz.o bindwxyz.o bindxyz.o \
 	byte255.o calcsum.o cb2mat.o \
 	cbreset.o cflthead.o checksum.o \
-	chrmhead.o chrmreset.o chrmsfmt.o chroma.o chrreset.o cmyx.o colmask.o \
+	chrmhead.o chrmreset.o chroma.o chrreset.o cmyx.o colmask.o \
 	dblsrgb.o deffiset.o diachroma.o dichroma.o dicrhead.o effiflut.o \
 	effilut.o effinc.o effinv.o effiset.o effislut.o erythropia.o \
 	externpx.o externxyz.o \
@@ -55,8 +55,7 @@ objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 	intermat.o interpol.o interslt.o intslut.o \
 	invmat.o invslut.o isidflut.o isidslut.o \
 	kplthead.o ldxapply.o ldxhead.o ldxxyz.o \
-	libver.o liftslut.o linsrgb.o m3x4head.o m3x4sfmt.o \
-	mal2slut.o malinit.o malsinit.o \
+	libver.o liftslut.o linsrgb.o m3x4head.o mal2slut.o malinit.o malsinit.o \
 	mals2slut.o mat2cb.o mat3x3.o \
 	matreset.o matrixgain.o matrixlift.o matto3x3.o \
 	mkcube.o mkidcube.o mkpslut.o mmals2slut.o mofarslt.o \
@@ -64,8 +63,8 @@ objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 	nan.o natcon.o nfslut.o \
 	nmatrow.o nofarba.o nosvit.o offsetslut.o \
 	ones.o partslt.o pi.o plt2slt.o pltreset.o \
-	pltvalid.o polypx.o polyxyz.o plut2slt.o \
-	psfmt.o purcol.o purery.o px32xyz.o px8xyz.o quintoks.o \
+	pltvalid.o polypx.o polyxyz.o \
+	plut2slt.o purcol.o purery.o px32xyz.o px8xyz.o quintoks.o \
 	rdcmpslut.o readcflt.o readchrm.o readm3x4.o \
 	readslut.o rec601.o rec709.o rec2020.o \
 	recrec.o rgb2flut.o rgb2slut.o rgba8srgb.o rgbslut.o rgbycc.o \
@@ -74,32 +73,71 @@ objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 	slut2cube.o sluthead.o slutis1d.o spherical.o srgba8bytes.o \
 	tetramat.o tintflut.o unindxyz.o unindbxyz.o unindoxyz.o unindwxyz.o \
 	valcbtitle.o vert2slt.o vertis1d.o vertismat.o vertpixl.o \
-	vertsamp.o windbxyz.o windoxyz.o windwxyz.o windxyz.o \
-	writecflt.o writechrm.o writem3x4.o \
-	writeslut.o xtrctch.o xyz32bgra.o xyz32px.o \
-	xyz8abgr.o xyz8argb.o xyz8bgra.o xyz8px.o \
+	vertsamp.o windbxyz.o windoxyz.o windwxyz.o windxyz.o writecflt.o writechrm.o writem3x4.o \
+	writeslut.o xtrctch.o xyz32bgra.o xyz32px.o xyz8abgr.o xyz8argb.o xyz8bgra.o xyz8px.o \
 	yccmat.o yccrgb.o  yshift.o yunshift.o zeroes.o
-
-abjects = asm/win64/fixdbl.obj asm/win64/fixslut.obj asm/win64/sltstr.obj \
-	asm/win64/writesltt.obj asm/win64/readsltt.obj asm/win64/readm34t.obj \
-	asm/win64/m34str.obj asm/win64/writem34t.obj asm/win64/doublestr.obj \
-	asm/win64/chrtstr.obj asm/win64/readdbls.obj asm/win64/readchrt.obj \
-	asm/win64/writedbls.obj 
 
 lib:	koliba.dll
 
-rebuild: clean lib
+build-all: lib sltconv.exe pullmat.exe invertmat.exe effimat.exe ConvertRecs.exe RotationMatrix.exe quintluts.exe
+
+rebuild: clean build-all
+
+sltconv.exe: sltconv.o lib sltconvres.o
+	$(CC) $(CFLG) -o sltconv.exe sltconv.o sltconvres.o -L. -lkoliba
+
+sltconvres.o: sltconv.rc
+	windres -i sltconv.rc -o sltconvres.o
+
+pullmat.exe: pullmat.o lib
+	$(CC) $(CFLG) -o pullmat.exe pullmat.o -L. -lkoliba
+
+invertmat.exe: invertmat.o lib
+	$(CC) $(CFLG) -o invertmat.exe invertmat.o -L. -lkoliba
+
+effimat.exe: effimat.o lib
+	$(CC) $(CFLG) -o effimat.exe effimat.o -L. -lkoliba
+
+ConvertRecs.exe: ConvertRecs.o lib
+	$(CC) $(CFLG) -o ConvertRecs.exe ConvertRecs.o -L. -lkoliba
+
+RotationMatrix.exe: RotationMatrix.o lib
+	$(CC) $(CFLG) -o RotationMatrix.exe RotationMatrix.o -L. -lkoliba -lm
+
+quintluts.exe: quintluts.o lib
+	$(CC) $(CFLG) -o quintluts.exe quintluts.o -L. -lkoliba
 
 koliba.dll: $(objects) dllres.o
-	$(CC) -s --shared -o koliba.dll $(objects) $(abjects) dllres.o -Wl,--subsystem,windows
+	$(CC) -s --shared -o koliba.dll $(objects) asm\win64\fixdbl.obj asm\win64\fixslut.obj dllres.o -Wl,--subsystem,windows
 
 dllres.o: dll.rc
 	windres -i dll.rc -o dllres.o
+
+sltconv.o: sltconv.c koliba.h
+	$(CC) $(CFLG) -c sltconv.c -I.
+
+pullmat.o: pullmat.c koliba.h
+	$(CC) $(CFLG) -c pullmat.c -I.
+
+invertmat.o: invertmat.c koliba.h
+	$(CC) $(CFLG) -c invertmat.c -I.
+
+effimat.o: effimat.c koliba.h
+	$(CC) $(CFLG) -c effimat.c -I.
+
+ConvertRecs.o: ConvertRecs.c koliba.h
+	$(CC) $(CFLG) -c ConvertRecs.c -I.
+
+RotationMatrix.o: RotationMatrix.c koliba.h
+	$(CC) $(CFLG) -c RotationMatrix.c -I.
+
+quintluts.o: quintluts.c koliba.h
+	$(CC) $(CFLG) -c quintluts.c -I.
 
 %.o: %.c koliba.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
 clean:
-	rm -f $(objects) koliba.dll
+	rm -f sltconv.o $(objects) sltconv.exe sltconv.o pullmat.exe pullmat.o invertmat.exe invertmat.o effimat.exe effimat.o ConvertRecs.exe ConvertRecs.o RotationMatrix.exe RotationMatrix.o quintluts.exe quintluts.o koliba.dll
 
 
