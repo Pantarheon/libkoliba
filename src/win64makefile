@@ -82,7 +82,7 @@ objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 
 abjects = asm/win64/fixdbl.obj asm/win64/fixslut.obj asm/win64/sltstr.obj \
 	asm/win64/writesltt.obj asm/win64/readsltt.obj asm/win64/readm34t.obj \
-	asm/win64/m34str.obj asm/win64/writem34t.obj asm/win64/doublestr.obj 
+	asm/win64/m34str.obj asm/win64/writem34t.obj asm/win64/doublestr.obj \
 	asm/win64/chrtstr.obj asm/win64/readdbls.obj asm/win64/readchrt.obj 
 
 lib:	koliba.dll
