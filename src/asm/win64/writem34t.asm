@@ -9,7 +9,8 @@ section .text
 
 default rel
 
-EXTERN	KOLIBA_PrintM34tFormat, fprintf, fopen, fclose
+EXTERN	KOLIBA_PrintM34tFormat, fopen, fclose
+EXTERN	KOLIBA_WriteDoublesToOpenFile
 
 GLOBAL	KOLIBA_WriteM34tToOpenFile, KOLIBA_WriteM34tToNamedFile
 
@@ -63,42 +64,11 @@ KOLIBA_WriteM34tToOpenFile:
 	;
 	; On Exit:
 	;
-	;	RAX = 0 on success, non-0 on failure
+	;	EAX = 0 on success, non-0 on failure
 
-%define	STACKBYTES	(8*(10+5))
-
-	push	rdi
-	push	rsi
-	sub	rsp, STACKBYTES
-
-	lea	rsi, [rcx+16]
-	sub	eax, eax
-	lea	rdi, [rsp+32]
-
-	mov	al, 1
-	test	rdx, rdx
-	mov	r8, rcx
-	jrcxz	.done
-	mov	ecx, 10
-	je	.done
-	movsd	xmm2, [r8]
-	movsd	xmm3, [r8+8]
-
-rep	movsq
-
-	mov	rcx, rdx
-	lea	rdx, [KOLIBA_PrintM34tFormat]
-	movq	r8, xmm2
-	movq	r9, xmm3
-	call	fprintf
-	sub	eax, 209
-
-.done:
-
-	add	rsp, STACKBYTES
-	pop	rsi
-	pop	rdi
-	ret
+	mov	r8d, 12
+	lea	r9, [KOLIBA_PrintM34tFormat]
+	jmp	KOLIBA_WriteDoublesToOpenFile
 
 section .drectve	info
 
