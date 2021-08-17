@@ -118,6 +118,17 @@ KLBDC KOLIBA_SLUT * KOLIBA_ReadSlutFromCompatibleOpenFile(KOLIBA_SLUT *sLut, FIL
 			return invalid(sLut, ft, KOLIBA_ftchrt);
 		else if (ft) *ft = KOLIBA_ftchrt;
 	}
+	else if (memcmp(header+1, KOLIBA_dicrHeader+1, SLTCFILEHEADERBYTES-1) == 0) {
+		KOLIBA_MATRIX m3x4;
+		KOLIBA_DICHROMA dicr;
+		unsigned int normalize, channel;
+
+		if ((KOLIBA_ReadDichromaticMatrixFromOpenFile(&dicr, f, &normalize, &channel) == NULL) ||
+		(KOLIBA_DichromaticMatrix(&m3x4, &dicr, normalize, channel) == NULL) ||
+		(KOLIBA_ConvertMatrixToSlut(sLut, &m3x4) == NULL) )
+			return invalid(sLut, ft, KOLIBA_ftdicr);
+		else if (ft) *ft = KOLIBA_ftdicr;
+	}
 	else if (memcmp(header, KOLIBA_cFltHeader, SLTCFILEHEADERBYTES) == 0) {
 		KOLIBA_CFLT cFlt;
 

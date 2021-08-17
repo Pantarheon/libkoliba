@@ -64,6 +64,7 @@ static KOLIBA_MATRIX * invalid(KOLIBA_MATRIX *mat, KOLIBA_ftype *ft, KOLIBA_ftyp
 KLBDC KOLIBA_MATRIX * KOLIBA_ReadMatrixFromCompatibleOpenFile(KOLIBA_MATRIX *mat, FILE *f, KOLIBA_ftype *ft) {
 	unsigned char header[SLTCFILEHEADERBYTES+1];
 	double d;
+	unsigned int normalize, channel;
 
 	if (mat == NULL) {
 		if (ft) *ft = KOLIBA_ftnoslut;
@@ -102,6 +103,14 @@ KLBDC KOLIBA_MATRIX * KOLIBA_ReadMatrixFromCompatibleOpenFile(KOLIBA_MATRIX *mat
 		if (KOLIBA_ChromaticMatrix(mat, KOLIBA_ReadChrtFromOpenFile(&chrm, f)) == NULL)
 			return invalid(mat, ft, KOLIBA_ftchrt);
 		else if (ft) *ft = KOLIBA_ftchrt;
+	}
+	else if (memcmp(header+1, KOLIBA_dicrHeader+1, SLTCFILEHEADERBYTES-1) == 0) {
+		KOLIBA_DICHROMA dicr;
+
+		if ((KOLIBA_ReadDichromaticMatrixFromOpenFile(&dicr, f, &normalize, &channel) == NULL) ||
+		(KOLIBA_DichromaticMatrix(mat, &dicr, normalize, channel) == NULL))
+			return invalid(mat, ft, KOLIBA_ftdicr);
+		else if (ft) *ft = KOLIBA_ftdicr;
 	}
 	else return invalid(mat, ft, KOLIBA_ftunknown);
 
