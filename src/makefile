@@ -68,7 +68,7 @@ objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 	ones.o partslt.o pi.o plt2slt.o pltreset.o \
 	pltvalid.o polypx.o polyxyz.o plut2slt.o \
 	psfmt.o purcol.o purery.o px32xyz.o px8xyz.o quintoks.o \
-	rdcmpmtx.o rdcmpslut.o readcflt.o readchrm.o readchrt.o \
+	rdcmpmtx.o rdcmpslut.o readcflt.o readchrm.o readdicr.o readchrt.o \
 	readm34t.o readm3x4.o readsltt.o \
 	readslut.o rec601.o rec709.o rec2020.o \
 	recrec.o rgb2flut.o rgb2slut.o rgba8srgb.o rgbslut.o rgbycc.o \
@@ -78,7 +78,8 @@ objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 	tetramat.o tintflut.o unindxyz.o unindbxyz.o unindoxyz.o unindwxyz.o \
 	valcbtitle.o vert2slt.o vertis1d.o vertismat.o vertpixl.o \
 	vertsamp.o windbxyz.o windoxyz.o windwxyz.o windxyz.o \
-	writecflt.o writechrm.o writechrt.o writem34t.o writem3x4.o writesltt.o \
+	writecflt.o writechrm.o writechrt.o writedicr.o writem34t.o \
+	writem3x4.o writesltt.o \
 	writeslut.o xtrctch.o xyz32bgra.o xyz32px.o \
 	xyz8abgr.o xyz8argb.o xyz8bgra.o xyz8px.o \
 	yccmat.o yccrgb.o  yshift.o yunshift.o zeroes.o 
