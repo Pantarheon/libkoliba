@@ -69,7 +69,7 @@ KLBDC KOLIBA_DICHROMA * KOLIBA_ReadDichromaticMatrixFromOpenFile(KOLIBA_DICHROMA
 	if (f == NULL) return invalid(dicr);
 
 	if (fread(header, 1, SLTCFILEHEADERBYTES, f) != SLTCFILEHEADERBYTES) return invalid(dicr);
-	if (((header[0] & 0xF0) != 0xA0) ||
+	if (((header[0] & 0xF4) != 0xA0) || ((header[0] & 0x03) == 3) ||
 	(memcmp(header+1, &KOLIBA_dicrHeader[1], SLTCFILEHEADERBYTES-1) != 0))
 		return invalid(dicr);
 	if (fread(&mat, 1, sizeof(KOLIBA_DICHROMA2), f) != sizeof(KOLIBA_DICHROMA2)) return invalid(dicr);
