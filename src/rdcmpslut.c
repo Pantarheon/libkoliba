@@ -63,8 +63,12 @@ static KOLIBA_SLUT * invalid(KOLIBA_SLUT *sLut, KOLIBA_ftype *ft, KOLIBA_ftype e
 
 KLBDC KOLIBA_SLUT * KOLIBA_ReadSlutFromCompatibleOpenFile(KOLIBA_SLUT *sLut, FILE *f, KOLIBA_ftype *ft) {
 	KOLIBA_SLUT Lut;
+	KOLIBA_MATRIX m3x4;
+	KOLIBA_CHROMAT chrm;
+	KOLIBA_DICHROMA dicr;
+	KOLIBA_CFLT cFlt;
+	unsigned int normalize, channel;
 	unsigned char header[SLTCFILEHEADERBYTES+1];
-	double d;
 
 	if (sLut == NULL) {
 		if (ft) *ft = KOLIBA_ftnoslut;
@@ -80,63 +84,51 @@ KLBDC KOLIBA_SLUT * KOLIBA_ReadSlutFromCompatibleOpenFile(KOLIBA_SLUT *sLut, FIL
 	// This should limit sscanf input to the bytes read into the header.
 	header[SLTCFILEHEADERBYTES] = '\0';
 
-	if (memcmp(header, KOLIBA_sLutHeader, SLTCFILEHEADERBYTES) == 0) {
-		if (ft) *ft = KOLIBA_ftslut;
-		return KOLIBA_ReadSlutFromOpenFile(sLut, f);
+	switch(KOLIBA_GetFileDataFormat(header)) {
+		case KOLIBA_ftslut:
+			if (ft) *ft = KOLIBA_ftslut;
+			return KOLIBA_ReadSlutFromOpenFile(sLut, f);
+			break;
+		case KOLIBA_ftsltt:
+			if (ft) *ft = KOLIBA_ftsltt;
+			return KOLIBA_ReadSlttFromOpenFile(sLut, f);
+			break;
+		case KOLIBA_ftmatrix:
+			if (KOLIBA_ConvertMatrixToSlut(sLut, KOLIBA_ReadMatrixFromOpenFile(&m3x4, f)) == NULL)
+				return invalid(sLut, ft, KOLIBA_ftmatrix);
+			else if (ft) *ft = KOLIBA_ftmatrix;
+			break;
+		case KOLIBA_ftm34t:
+			if (KOLIBA_ConvertMatrixToSlut(sLut, KOLIBA_ReadM34tFromOpenFile(&m3x4, f)) == NULL)
+				return invalid(sLut, ft, KOLIBA_ftm34t);
+			else if (ft) *ft = KOLIBA_ftm34t;
+			break;
+		case KOLIBA_ftchrm:
+			if (KOLIBA_ConvertMatrixToSlut(sLut, KOLIBA_ChromaticMatrix(&m3x4, KOLIBA_ReadChromaticMatrixFromOpenFile(&chrm, f))) == NULL)
+				return invalid(sLut, ft, KOLIBA_ftchrm);
+			else if (ft) *ft = KOLIBA_ftchrm;
+			break;
+		case KOLIBA_ftchrt:
+			if (KOLIBA_ConvertMatrixToSlut(sLut, KOLIBA_ChromaticMatrix(&m3x4, KOLIBA_ReadChrtFromOpenFile(&chrm, f))) == NULL)
+				return invalid(sLut, ft, KOLIBA_ftchrt);
+			else if (ft) *ft = KOLIBA_ftchrt;
+			break;
+		case KOLIBA_ftdicr:
+			if ((KOLIBA_ReadDichromaticMatrixFromOpenFile(&dicr, f, &normalize, &channel) == NULL) ||
+			(KOLIBA_DichromaticMatrix(&m3x4, &dicr, normalize, channel) == NULL) ||
+			(KOLIBA_ConvertMatrixToSlut(sLut, &m3x4) == NULL) )
+				return invalid(sLut, ft, KOLIBA_ftdicr);
+			else if (ft) *ft = KOLIBA_ftdicr;
+			break;
+		case KOLIBA_ftcflt:
+			if (KOLIBA_ConvertColorFilterToSlut(sLut, KOLIBA_ReadColorFilterFromOpenFile(&cFlt, f)) == NULL)
+				return invalid(sLut, ft, KOLIBA_ftcflt);
+			else if (ft) *ft = KOLIBA_ftcflt;
+			break;
+		default:
+			return invalid(sLut, ft, KOLIBA_ftunknown);
+			break;
 	}
-	else if (sscanf(header, KOLIBA_ScanSlttHeaderFormat, &d) == 1) {
-		if (ft) *ft = KOLIBA_ftsltt;
-		return KOLIBA_ReadSlttFromOpenFile(sLut, f);
-	}
-	else if (memcmp(header, KOLIBA_m3x4Header, SLTCFILEHEADERBYTES) == 0) {
-		KOLIBA_MATRIX m3x4;
-
-		if (KOLIBA_ConvertMatrixToSlut(sLut, KOLIBA_ReadMatrixFromOpenFile(&m3x4, f)) == NULL)
-			return invalid(sLut, ft, KOLIBA_ftmatrix);
-		else if (ft) *ft = KOLIBA_ftmatrix;
-	}
-	else if (sscanf(header, KOLIBA_ScanM34tHeaderFormat, &d) == 1) {
-		KOLIBA_MATRIX m3x4;
-
-		if (KOLIBA_ConvertMatrixToSlut(sLut, KOLIBA_ReadM34tFromOpenFile(&m3x4, f)) == NULL)
-			return invalid(sLut, ft, KOLIBA_ftm34t);
-		else if (ft) *ft = KOLIBA_ftm34t;
-	}
-	else if (memcmp(header, KOLIBA_chrmHeader, SLTCFILEHEADERBYTES) == 0) {
-		KOLIBA_MATRIX m3x4;
-		KOLIBA_CHROMAT chrm;
-
-		if (KOLIBA_ConvertMatrixToSlut(sLut, KOLIBA_ChromaticMatrix(&m3x4, KOLIBA_ReadChromaticMatrixFromOpenFile(&chrm, f))) == NULL)
-			return invalid(sLut, ft, KOLIBA_ftchrm);
-		else if (ft) *ft = KOLIBA_ftchrm;
-	}
-	else if (sscanf(header, KOLIBA_ScanChrtHeaderFormat, &d) == 1) {
-		KOLIBA_MATRIX m3x4;
-		KOLIBA_CHROMAT chrm;
-
-		if (KOLIBA_ConvertMatrixToSlut(sLut, KOLIBA_ChromaticMatrix(&m3x4, KOLIBA_ReadChrtFromOpenFile(&chrm, f))) == NULL)
-			return invalid(sLut, ft, KOLIBA_ftchrt);
-		else if (ft) *ft = KOLIBA_ftchrt;
-	}
-	else if (memcmp(header+1, KOLIBA_dicrHeader+1, SLTCFILEHEADERBYTES-1) == 0) {
-		KOLIBA_MATRIX m3x4;
-		KOLIBA_DICHROMA dicr;
-		unsigned int normalize, channel;
-
-		if ((KOLIBA_ReadDichromaticMatrixFromOpenFile(&dicr, f, &normalize, &channel) == NULL) ||
-		(KOLIBA_DichromaticMatrix(&m3x4, &dicr, normalize, channel) == NULL) ||
-		(KOLIBA_ConvertMatrixToSlut(sLut, &m3x4) == NULL) )
-			return invalid(sLut, ft, KOLIBA_ftdicr);
-		else if (ft) *ft = KOLIBA_ftdicr;
-	}
-	else if (memcmp(header, KOLIBA_cFltHeader, SLTCFILEHEADERBYTES) == 0) {
-		KOLIBA_CFLT cFlt;
-
-		if (KOLIBA_ConvertColorFilterToSlut(sLut, KOLIBA_ReadColorFilterFromOpenFile(&cFlt, f)) == NULL)
-			return invalid(sLut, ft, KOLIBA_ftcflt);
-		else if (ft) *ft = KOLIBA_ftcflt;
-	}
-	else return invalid(sLut, ft, KOLIBA_ftunknown);
 
 	return sLut;
 }
