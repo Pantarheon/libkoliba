@@ -60,5 +60,9 @@ KLBDC KOLIBA_ftype KOLIBA_GetFileDataFormat(const unsigned char * const header) 
 		return KOLIBA_ftdicr;
 	else if (memcmp(header, KOLIBA_cFltHeader, SLTCFILEHEADERBYTES) == 0)
 		return KOLIBA_ftcflt;
+	else if (
+			(memcmp(header, KOLIBA_kPltHeader00, SLTCFILEHEADERBYTES) == 0) ||
+			(memcmp(header, KOLIBA_kPltHeader01, SLTCFILEHEADERBYTES) == 0)
+		) return KOLIBA_ftpalette;
 	else return KOLIBA_GetStringDataFormat(header);
 }
