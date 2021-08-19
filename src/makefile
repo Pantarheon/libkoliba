@@ -57,7 +57,7 @@ objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 	idplt.o idplut.o idsfac.o idslut.o indbxyz.o indcxyz.o indoxyz.o indwxyz.o indxyz.o interflut.o \
 	intermat.o interpol.o interslt.o intslut.o \
 	invmat.o invslut.o isidflut.o isidslut.o \
-	kplthead.o ldxapply.o ldxhead.o ldxxyz.o \
+	kplthead.o kpltsfmt.o ldxapply.o ldxhead.o ldxxyz.o \
 	libver.o liftslut.o linsrgb.o m34str.o m3x4head.o m3x4sfmt.o \
 	mal2slut.o malinit.o malsinit.o \
 	mals2slut.o mat2cb.o mat3x3.o \
