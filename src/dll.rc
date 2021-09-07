@@ -2,8 +2,8 @@
 
 // DLL version information.
 VS_VERSION_INFO    VERSIONINFO
-FILEVERSION        0,1,0,2
-PRODUCTVERSION     0,1,0,2
+FILEVERSION        0,4,0,0
+PRODUCTVERSION     0,4,0,0
 FILEFLAGSMASK      VS_FFI_FILEFLAGSMASK
 #ifdef _DEBUG
   FILEFLAGS        VS_FF_DEBUG | VS_FF_PRERELEASE
@@ -20,12 +20,12 @@ BEGIN
     BEGIN
       VALUE "CompanyName", "Pantarheon"
       VALUE "FileDescription", "Koliba library."
-      VALUE "FileVersion", "0.1.0.2"
+      VALUE "FileVersion", "0.4.0.0"
       VALUE "InternalName", "libkoliba"
       VALUE "LegalCopyright", "© 2019-2021 G. Adam Stanislav"
       VALUE "OriginalFilename", "koliba.dll"
       VALUE "ProductName", "Koliba Library"
-      VALUE "ProductVersion", "0.1.0.2"
+      VALUE "ProductVersion", "0.4.0.0"
     END
   END
   BLOCK "VarFileInfo"
