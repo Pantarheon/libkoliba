@@ -66,14 +66,14 @@ objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 	msflt.o msslt.o mulmats.o mulsluts.o \
 	nan.o natcon.o nfslut.o \
 	nmatrow.o nofarba.o nosvit.o offsetslut.o \
-	ones.o partslt.o pi.o plt2slt.o pltreset.o \
+	ones.o pal8rgba.o partslt.o pi.o plt2slt.o pltreset.o \
 	pltvalid.o polypx.o polyxyz.o plut2slt.o \
 	psfmt.o purcol.o purery.o px32xyz.o px8xyz.o quintoks.o \
 	rdcmpmtx.o rdcmpslut.o readcflt.o readchrm.o readdicr.o readkplt.o readchrt.o \
 	readm34t.o readm3x4.o readsltt.o \
 	readslut.o rec601.o rec709.o rec2020.o \
 	recrec.o rgb2flut.o rgb2slut.o rgba8srgb.o rgbslut.o rgbycc.o \
-	ring.o sinterpol.o slt2plut.o slt2vert.o \
+	ring.o sinterpol.o slt2pal.o slt2plut.o slt2vert.o \
 	sltcfs.o sltfactors.o sltismat.o sltms.o sltreset.o \
 	slut2cube.o sluthead.o slutis1d.o spherical.o srgba8bytes.o \
 	tetramat.o tintflut.o unindxyz.o unindbxyz.o unindoxyz.o unindwxyz.o \
