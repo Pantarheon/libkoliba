@@ -3311,6 +3311,12 @@ KLBDC KOLIBA_ARGB8PIXEL * KOLIBA_XyzToArgb8Pixel(
 	const unsigned char * const oconv
 );
 
+KLBDC KOLIBA_ARGB8PIXEL * KOLIBA_ScaledXyzToArgb8Pixel(
+	KOLIBA_ARGB8PIXEL * px,
+	const KOLIBA_XYZ * const xyz,
+	const unsigned char * const oconv
+);
+
 KLBDC KOLIBA_XYZ * KOLIBA_Argb8PixelToXyz(
 	KOLIBA_XYZ *xyz,
 	const KOLIBA_ARGB8PIXEL * const px,
