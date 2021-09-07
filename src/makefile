@@ -48,8 +48,8 @@ objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 	dblsrgb.o deffiset.o diachroma.o dichroma.o dicrhead.o effiflut.o \
 	effilut.o effinc.o effinv.o effiset.o effislut.o erythropia.o \
 	externpx.o externxyz.o \
-	fflut.o findex.o fixdbl.o \
-	fixslut.o flbinflut.o flinflut.o fltcube.o fltismat.o fltscube.o flutms.o \
+	fflut.o findex.o fixdbl.o fixslut.o \
+	flbinflut.o flinflut.o fltcube.o fltismat.o fltscale.o fltscube.o flutms.o \
 	flutslut.o flutter.o flwinflut.o flyxyz.o frange.o fund.o gainslut.o \
 	gamma.o gcomp.o getdtafmt.o getstrfmt.o \
 	gray2flut.o gray2slut.o gsmat.o homeslut.o \
