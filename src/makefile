@@ -82,7 +82,7 @@ objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 	writecflt.o writechrm.o writechrt.o writedicr.o writekplt.o writem34t.o \
 	writem3x4.o writesltt.o \
 	writeslut.o xtrctch.o xyz32bgra.o xyz32px.o \
-	xyz8abgr.o xyz8argb.o xyz8bgra.o xyz8px.o \
+	xyz8abgr.o xyz8argb.o xyz8bgra.o xyz8px.o xyz8pxs.o \
 	yccmat.o yccrgb.o  yshift.o yunshift.o zeroes.o 
 
 lib:	libkoliba.so
