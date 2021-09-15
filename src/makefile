@@ -78,7 +78,7 @@ objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 	slut2cube.o sluthead.o slutis1d.o spherical.o srgba8bytes.o \
 	tetramat.o tintflut.o unindxyz.o unindbxyz.o unindoxyz.o unindwxyz.o \
 	valcbtitle.o vert2slt.o vertis1d.o vertismat.o vertpixl.o \
-	vertsamp.o windbxyz.o windoxyz.o windwxyz.o windxyz.o \
+	vertsamp.o windbxyz.o windoxyz.o windwxyz.o windxyz.o word65535.o \
 	writecflt.o writechrm.o writechrt.o writedicr.o writekplt.o writem34t.o \
 	writem3x4.o writesltt.o \
 	writeslut.o xtrctch.o xyz32bgra.o xyz8bgras.o xyz32px.o \
