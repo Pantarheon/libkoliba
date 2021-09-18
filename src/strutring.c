@@ -121,7 +121,7 @@ KLBDC KOLIBA_SLUT * KOLIBA_ApplyStrutRing(KOLIBA_SLUT *sLut, const KOLIBA_VERTEX
 	sLut->yellow.g         = y;
 	sLut->yellow.b         = c;
 
-	if (strut != 0.0) switch (plut) {
+	if (strut != 1.0) switch (plut) {
 		case KOLIBA_PlutRed:
 			KOLIBA_Interpolate((double *)&sLut->red, (double *)ring, strut, (double *)&KOLIBA_IdentitySlut.red, sizeof(KOLIBA_VERTEX)/sizeof(double));
 			break;
