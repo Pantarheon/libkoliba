@@ -92,6 +92,7 @@ KLBDC KOLIBA_MATRIX * KOLIBA_ReadMatrixFromCompatibleOpenFile(KOLIBA_MATRIX *mat
 			if (KOLIBA_ReadM34tFromOpenFile(mat, f) == NULL)
 				return invalid(mat, ft, KOLIBA_ftm34t);
 			else if (ft) *ft = KOLIBA_ftm34t;
+			break;
 		case KOLIBA_ftchrm:
 			if (KOLIBA_ChromaticMatrix(mat, KOLIBA_ReadChromaticMatrixFromOpenFile(&chrm, f)) == NULL)
 				return invalid(mat, ft, KOLIBA_ftchrm);
