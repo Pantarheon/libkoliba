@@ -2,7 +2,7 @@
 
 	nmatrow.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -51,19 +51,14 @@
 
 KLBHID KOLIBA_ROW * KOLIBA_NormalizeMatrixRow(KOLIBA_ROW *row, unsigned int wade) {
 	if ((row != NULL) && (wade != 0)) {
-		double sum = row->r + row->g + row->b + row->o;
+		double sum = row->r + row->g + row->b;
 		if (sum != 0.0) {
-			row->r /= sum;
-			row->g /= sum;
-			row->b /= sum;
-			row->o /= sum;
-		}
-		else if ((sum -= row->o) != 0.0) {
 			row->r /= sum;
 			row->g /= sum;
 			row->b /= sum;
 			row->o  = 0.0;
 		}
+		else return NULL;
 	}
 	return row;
 }
