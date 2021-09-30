@@ -49,7 +49,7 @@
 
 // Normalize matrix row. Or not.
 
-KLBHID KOLIBA_ROW * KOLIBA_NormalizeMatrixRow(KOLIBA_ROW *row, unsigned int wade) {
+KLBDC KOLIBA_ROW * KOLIBA_NormalizeMatrixRow(KOLIBA_ROW *row, unsigned int wade) {
 	if ((row != NULL) && (wade != 0)) {
 		double sum = row->r + row->g + row->b;
 		if (sum != 0.0) {
