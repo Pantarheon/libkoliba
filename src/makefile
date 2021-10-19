@@ -67,7 +67,7 @@ objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 	nan.o natcon.o nfslut.o \
 	nmatrow.o nofarba.o nosvit.o offsetslut.o \
 	ones.o pal8rgba.o partslt.o pi.o plt2slt.o pltreset.o \
-	pltvalid.o polypx.o polyxyz.o plut2slt.o \
+	pltvalid.o polypx.o polyxyz.o plut2slt.o plutreset.o \
 	psfmt.o purcol.o purery.o px32xyz.o px8xyz.o quintoks.o \
 	rdcmpmtx.o rdcmpslut.o readcflt.o readchrm.o readdicr.o readkplt.o readchrt.o \
 	readm34t.o readm3x4.o readsltt.o \
