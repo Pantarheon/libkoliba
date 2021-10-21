@@ -2,7 +2,7 @@
 
 	isidslut.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -50,11 +50,11 @@
 // Determine if a SLUT is Identity SLUT.
 // Do not just memory compare it to our Identity SLUT
 // because of the possibility of negative zeros.
-KLBDC int KOLIBA_IsIdentitySlut(const KOLIBA_SLUT * const sLut) {
+KLBDC bool KOLIBA_IsIdentitySlut(const KOLIBA_SLUT * const sLut) {
 	double *ptr, *idptr;
 	unsigned int i;
 
-	if (sLut == NULL) return 0;
+	if (sLut == NULL) return false;
 	for (i = sizeof(KOLIBA_SLUT) / sizeof(double),
 		ptr = (double *)sLut,
 		idptr = (double *)&KOLIBA_IdentitySlut;
@@ -63,7 +63,7 @@ KLBDC int KOLIBA_IsIdentitySlut(const KOLIBA_SLUT * const sLut) {
 		ptr++,
 		idptr++
 	)
-		if (*ptr != *idptr) return 0;
+		if (*ptr != *idptr) return false;
 
-	return 1;
+	return true;
 }

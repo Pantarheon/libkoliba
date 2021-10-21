@@ -2,7 +2,7 @@
 
 	mofarslt.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -52,7 +52,7 @@
 
 // Convert a monofarba into a SLUT. Vertices listed in the flags byte will
 // have the primary saturation, the rest of them the secondary saturation.
-KLBDC KOLIBA_SLUT * KOLIBA_MonoFarbaToSlut(KOLIBA_SLUT * output, const KOLIBA_RGB * const gray, double primarysaturation, double secondarysaturation, unsigned char flags) {
+KLBDC KOLIBA_SLUT * KOLIBA_MonoFarbaToSlut(KOLIBA_SLUT * output, const KOLIBA_RGB * const gray, double primarysaturation, double secondarysaturation, uint8_t flags) {
 	KOLIBA_SLUT sLut;
 
 	if (output == NULL) return NULL;

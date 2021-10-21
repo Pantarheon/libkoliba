@@ -2,7 +2,7 @@
 
 	isidflut.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -43,21 +43,22 @@
 #include "koliba.h"
 #include <string.h>
 
+
 #if !defined(NULL)
 	#define	NULL	((void*)0)
 #endif
 
 // Determine if a FLUT is Identity FLUT.
-KLBDC int KOLIBA_IsIdentityFlut(const KOLIBA_FLUT * const fLut) {
+KLBDC bool KOLIBA_IsIdentityFlut(const KOLIBA_FLUT * const fLut) {
 	double *ptr;
 	unsigned int i, j;
 
-	if (fLut == NULL) return 0;
+	if (fLut == NULL) return false;
 	for (i = 3, ptr = (double *)fLut; i > 0; i--, ptr++) {
-		for (j = 3; j > 0; j--, ptr++) if (*ptr != 0.0) return 0;
-		if (*ptr != 1.0) return 0;
+		for (j = 3; j > 0; j--, ptr++) if (*ptr != 0.0) return false;
+		if (*ptr != 1.0) return false;
 	}
-	for (i = 12; i > 0; i--, ptr++) if (*ptr != 0.0) return 0;
+	for (i = 12; i > 0; i--, ptr++) if (*ptr != 0.0) return false;
 
-	return 1;
+	return true;
 }
