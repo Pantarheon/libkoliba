@@ -140,7 +140,7 @@
 	_KOLIBA_FLUT(const KOLIBA_DICHROMA *dichroma, bool normalize, unsigned int channel) {
 		KOLIBA_MATRIX mat;
 		KOLIBA_FLUT *f = malloc(sizeof(KOLIBA_FLUT));
-		return KOLIBA_ConvertMatrixToFlut(f, KOLIBA_DichromaticMatrix(&mat, dichroma, (unsigned int)normalize, channel));
+		return KOLIBA_ConvertMatrixToFlut(f, KOLIBA_DichromaticMatrix(&mat, dichroma, normalize, channel));
 	}
 
 	void fix(void) {KOLIBA_FixFlut($self);}

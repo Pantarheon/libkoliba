@@ -2,7 +2,7 @@
 
 	dichroma.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -51,7 +51,7 @@
 // an angle (in degrees) and its complement. Optionally,
 // the matrix may be normalized to preserve the brightness.
 
-KLBDC KOLIBA_MATRIX * KOLIBA_DichromaticMatrix(KOLIBA_MATRIX * mat, const KOLIBA_DICHROMA * const dicr, unsigned int normalize, unsigned int channel) {
+KLBDC KOLIBA_MATRIX * KOLIBA_DichromaticMatrix(KOLIBA_MATRIX * mat, const KOLIBA_DICHROMA * const dicr, bool normalize, unsigned int channel) {
 	KOLIBA_MATRIX m, m2;
 	KOLIBA_CHROMAT chrm;
 

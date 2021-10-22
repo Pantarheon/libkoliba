@@ -59,8 +59,8 @@ KLBDC KOLIBA_MATRIX * KOLIBA_ConvertChannelBlendToMatrix(KOLIBA_MATRIX * matrix,
 	if ((blend == NULL) || (matrix == NULL)) return NULL;
 
 	memcpy(&mat, &blend->mat, sizeof(KOLIBA_MATRIX));
-	KOLIBA_NormalizeMatrixRow(&mat.red,   blend->nr || blend->na);
-	KOLIBA_NormalizeMatrixRow(&mat.green, blend->ng || blend->na);
-	KOLIBA_NormalizeMatrixRow(&mat.blue,  blend->nb || blend->na);
+	KOLIBA_NormalizeMatrixRow(&mat.red,   (bool)(blend->nr || blend->na));
+	KOLIBA_NormalizeMatrixRow(&mat.green, (bool)(blend->ng || blend->na));
+	KOLIBA_NormalizeMatrixRow(&mat.blue,  (bool)(blend->nb || blend->na));
 	return (KOLIBA_MATRIX *)KOLIBA_InterpolateMatrices(matrix, &mat, blend->efficacy, &KOLIBA_IdentityMatrix);
 }
