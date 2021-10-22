@@ -2,7 +2,7 @@
 
 	fltismat.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -46,13 +46,13 @@
 	#define	NULL	((void*)0)
 #endif
 
-KLBDC int KOLIBA_FlutIsMatrix(const KOLIBA_FLUT * const f) {
+KLBDC bool KOLIBA_FlutIsMatrix(const KOLIBA_FLUT * const f) {
 	double *ptr;
 	int i;
 
-	if (f == NULL) return 0;
+	if (f == NULL) return false;
 
-	for (i = 0, ptr = (double *)&(f->yellow); i < 12; i++, ptr++) if (*ptr != 0.0) return 0;
+	for (i = 0, ptr = (double *)&(f->yellow); i < 12; i++, ptr++) if (*ptr != 0.0) return false;
 
-	return 1;
+	return true;
 }
