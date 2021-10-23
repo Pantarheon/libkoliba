@@ -150,19 +150,19 @@
 		return KOLIBA_ConvertMatrixToFlut(f, KOLIBA_AnachromaticMatrix(&mat, anachroma, normalize, channel%3));
 	}
 
-	void fix(void) {KOLIBA_FixFlut($self);}
-	void efficacy(double efficacy) {KOLIBA_FlutEfficacy($self,$self,efficacy);}
+	void fix(void) {$self=KOLIBA_FixFlut($self);}
+	void efficacy(double efficacy) {$self=KOLIBA_FlutEfficacy($self,$self,efficacy);}
 
 	void interpolate(KOLIBA_FLUT *modifier, double rate) {
-		KOLIBA_InterpolateFluts($self,$self,rate,modifier);
+		$self=KOLIBA_InterpolateFluts($self,$self,rate,modifier);
 	}
 
 	KOLIBA_FLAGS flags(void) {return KOLIBA_FlutFlags($self);}
 	bool isidentity(void) {return KOLIBA_IsIdentityFlut($self);}
-	void scale(double factor) {KOLIBA_ScaleFlut($self,$self,factor);}
+	void scale(double factor) {$self=KOLIBA_ScaleFlut($self,$self,factor);}
 
 	void monofarba(const KOLIBA_RGB * gray, double primary, double secondary, uint8_t flags) {
-		KOLIBA_MonoFarbaToFlut($self,gray,primary,secondary,flags);
+		$self=KOLIBA_MonoFarbaToFlut($self,gray,primary,secondary,flags);
 	}
 
 	void redmonofarba(void) {
@@ -170,15 +170,15 @@
 		KOLIBA_VERTICES vert;
 
 		KOLIBA_SlutToVertices(&vert, KOLIBA_MonoFarbaToSlut(&sLut, NULL, 1.25, -0.25, KOLIBA_SLUTRED));
-		KOLIBA_ConvertSlutToFlut($self,&vert);
+		$self=KOLIBA_ConvertSlutToFlut($self,&vert);
 	}
 
-	void gray(const KOLIBA_RGB * const gray=NULL) {KOLIBA_ConvertGrayToFlut($self,gray);}
-	void color(const KOLIBA_RGB * const color=NULL) {KOLIBA_ConvertRgbToFlut($self,color);}
+	void gray(const KOLIBA_RGB * const gray=NULL) {$self=KOLIBA_ConvertGrayToFlut($self,gray);}
+	void color(const KOLIBA_RGB * const color=NULL) {$self=KOLIBA_ConvertRgbToFlut($self,color);}
 	bool ismatrix(void) {return KOLIBA_FlutIsMatrix($self);}
 
 	void flutter(const KOLIBA_FLUT * const modifier) {
-		KOLIBA_Flutter($self, $self, modifier);
+		$self=KOLIBA_Flutter($self, $self, modifier);
 	}
 
 	~_KOLIBA_FLUT() {
