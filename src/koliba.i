@@ -49,9 +49,26 @@
 #ifndef	KOLIBA_SWG
 #define	KOLIBA_SWG
 
+/*
+	The #defines inside the module change the names of the C structs
+	into the names of the classes available in whatever scripting
+	language we use this for. They affect the output of the
+	C preprocessor.
+
+	They must appear before the #include, and they must be repeated
+	exactly the same before the %include outside the module statement.
+	That way the redefinition is applied both, here in the SWIG source
+	code and in the koliba_wrap.c file SWIG produces.
+
+	The %renames, on the other hand, are processed by SWIG, not by
+	the C preprocessor.
+*/
 %module	koliba
 %{
-	#include "koliba.h"
+#define	KOLIBA_FLUT	flut
+#define	KOLIBA_SLUT	slut
+
+#include "koliba.h"
 %}
 
 /* Strip KOLIBA_ from function and data names.  */
@@ -95,11 +112,15 @@
 %ignore KOLIBA_ConvertChromatToFlut;
 %ignore KOLIBA_ConvertDichromaticMatrixToFlut;
 %ignore KOLIBA_ConvertAnachromaticMatrixToFlut;
+%ignore KOLIBA_ConvertDiachromaticMatrixToFlut;
+
+#define	KOLIBA_FLUT	flut
+#define	KOLIBA_SLUT	slut
 
 %include "koliba.h"
 #include <stdbool.h>
 
-/* Convert the _KOLIBA_FLUT structure into a class. */
+/* Convert the _KOLIBA_FLUT structure into class koliba.flut(). */
 %extend _KOLIBA_FLUT {
 	_KOLIBA_FLUT(KOLIBA_FLUT *fLut = &KOLIBA_IdentityFlut) {
 		KOLIBA_FLUT *f = malloc(sizeof(KOLIBA_FLUT));
@@ -148,6 +169,12 @@
 		KOLIBA_MATRIX mat;
 		KOLIBA_FLUT *f = malloc(sizeof(KOLIBA_FLUT));
 		return KOLIBA_ConvertMatrixToFlut(f, KOLIBA_AnachromaticMatrix(&mat, anachroma, normalize, channel%3));
+	}
+
+	_KOLIBA_FLUT(const KOLIBA_DIACHROMA *diachroma, bool normalize=false) {
+		KOLIBA_MATRIX mat;
+		KOLIBA_FLUT *f = malloc(sizeof(KOLIBA_FLUT));
+		return KOLIBA_ConvertMatrixToFlut(f, KOLIBA_DiachromaticMatrix(&mat, diachroma, normalize));
 	}
 
 	void fix(void) {$self=KOLIBA_FixFlut($self);}

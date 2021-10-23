@@ -2,7 +2,7 @@
 
 	diachroma.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -49,7 +49,7 @@
 
 // Create a diachromatic matrix, defined by three chromas.
 
-KLBDC KOLIBA_MATRIX * KOLIBA_DiachromaticMatrix(KOLIBA_MATRIX * mat, const KOLIBA_DIACHROMA * const dacr, unsigned int normalize) {
+KLBDC KOLIBA_MATRIX * KOLIBA_DiachromaticMatrix(KOLIBA_MATRIX * mat, const KOLIBA_DIACHROMA * const dacr, bool normalize) {
 	KOLIBA_MATRIX m, m1, m2;
 	KOLIBA_CHROMAT chrm;
 
