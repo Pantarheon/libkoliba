@@ -94,6 +94,7 @@
 %ignore KOLIBA_ConvertChromaMatrixToFlut;
 %ignore KOLIBA_ConvertChromatToFlut;
 %ignore KOLIBA_ConvertDichromaticMatrixToFlut;
+%ignore KOLIBA_ConvertAnachromaticMatrixToFlut;
 
 %include "koliba.h"
 #include <stdbool.h>
@@ -137,10 +138,16 @@
 		return KOLIBA_ConvertChromatToFlut(f,chromat);
 	}
 
-	_KOLIBA_FLUT(const KOLIBA_DICHROMA *dichroma, bool normalize, unsigned int channel) {
+	_KOLIBA_FLUT(const KOLIBA_DICHROMA *dichroma, bool normalize=false, unsigned int channel=0) {
 		KOLIBA_MATRIX mat;
 		KOLIBA_FLUT *f = malloc(sizeof(KOLIBA_FLUT));
-		return KOLIBA_ConvertMatrixToFlut(f, KOLIBA_DichromaticMatrix(&mat, dichroma, normalize, channel));
+		return KOLIBA_ConvertMatrixToFlut(f, KOLIBA_DichromaticMatrix(&mat, dichroma, normalize, channel%3));
+	}
+
+	_KOLIBA_FLUT(const KOLIBA_ANACHROMA *anachroma, bool normalize=false, unsigned int channel=0) {
+		KOLIBA_MATRIX mat;
+		KOLIBA_FLUT *f = malloc(sizeof(KOLIBA_FLUT));
+		return KOLIBA_ConvertMatrixToFlut(f, KOLIBA_AnachromaticMatrix(&mat, anachroma, normalize, channel%3));
 	}
 
 	void fix(void) {KOLIBA_FixFlut($self);}

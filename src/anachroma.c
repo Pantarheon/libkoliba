@@ -2,7 +2,7 @@
 
 	anachroma.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -54,7 +54,7 @@
 // Create an anachromatic matrix, defined by two chromas
 // and a gray channel.
 
-KLBDC KOLIBA_MATRIX * KOLIBA_AnachromaticMatrix(KOLIBA_MATRIX * mat, const KOLIBA_ANACHROMA * const ancr, unsigned int normalize, unsigned int channel) {
+KLBDC KOLIBA_MATRIX * KOLIBA_AnachromaticMatrix(KOLIBA_MATRIX * mat, const KOLIBA_ANACHROMA * const ancr, bool normalize, unsigned int channel) {
 	KOLIBA_MATRIX m, m1, m2;
 	KOLIBA_CHROMAT chrm;
 
