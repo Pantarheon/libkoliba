@@ -79,6 +79,7 @@ KLBDC KOLIBA_SLUT * KOLIBA_SetFarbosity(KOLIBA_SLUT *sLut, double center, double
 		sLut->magenta.r = v;
 		sLut->magenta.g = m;
 		sLut->magenta.b = v;
+
 		sLut->yellow.r  = v;
 		sLut->yellow.g  = v;
 		sLut->yellow.b  = m;

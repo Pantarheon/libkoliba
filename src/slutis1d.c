@@ -2,7 +2,7 @@
 
 	slutis1d.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -46,7 +46,7 @@
 	#define	NULL	((void*)0)
 #endif
 
-KLBDC int KOLIBA_SlutIs1D(const KOLIBA_SLUT * const s) {
+KLBDC bool KOLIBA_SlutIs1D(const KOLIBA_SLUT * const s) {
 	return ((s != NULL) &&
 		(s->black.r == s->blue.r) &&
 		(s->black.r == s->green.r) &&

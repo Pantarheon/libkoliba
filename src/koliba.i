@@ -65,8 +65,50 @@
 */
 %module	koliba
 %{
+/*
+
+	Copyright 2021 G. Adam Stanislav
+	All rights reserved
+
+	Redistribution and use in source and binary forms,
+	with or without modification, are permitted provided
+	that the following conditions are met:
+
+	1. Redistributions of source code must retain the
+	above copyright notice, this list of conditions
+	and the following disclaimer.
+
+	2. Redistributions in binary form must reproduce the
+	above copyright notice, this list of conditions and
+	the following disclaimer in the documentation and/or
+	other materials provided with the distribution.
+
+	3. Neither the name of the copyright holder nor the
+	names of its contributors may be used to endorse or
+	promote products derived from this software without
+	specific prior written permission.
+
+	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS
+	AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+	WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+	IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+	FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+	SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+	FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY,
+	OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+	PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+	DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+	CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+	STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+	OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+*/
+
 #define	KOLIBA_FLUT	flut
 #define	KOLIBA_SLUT	slut
+#define	KOLIBA_PLUT	plut
+#define KOLIBA_EFFILUT elut
 
 #include "koliba.h"
 %}
@@ -113,14 +155,36 @@
 %ignore KOLIBA_ConvertDichromaticMatrixToFlut;
 %ignore KOLIBA_ConvertAnachromaticMatrixToFlut;
 %ignore KOLIBA_ConvertDiachromaticMatrixToFlut;
+%ignore KOLIBA_ApplyPureErythropy;
+
+%ignore KOLIBA_FixSlut;
+%ignore KOLIBA_SlutEfficacy;
+%ignore KOLIBA_InterpolateSluts;
+%ignore KOLIBA_InterpolateSlutVertices;
+%ignore KOLIBA_ApplyEfficacies;
+%ignore KOLIBA_SlutEfficacy;
+%ignore KOLIBA_ApplyNaturalContrasts;
+%ignore KOLIBA_SetEfficacies;
+%ignore KOLIBA_SetDualEfficacies;
+%ignore KOLIBA_ColorRoller;
+%ignore KOLIBA_ApplySphericalEfficacies;
+%ignore KOLIBA_SetFarbosity;
+%ignore KOLIBA_IsIdentitySlut;
+%ignore KOLIBA_ConvertFlutToSlut;
+%ignore KOLIBA_ConvertPlutToSlut;
+%ignore KOLIBA_VerticesToSlut;
+%ignore KOLIBA_SlutIs1D;
 
 #define	KOLIBA_FLUT	flut
 #define	KOLIBA_SLUT	slut
+#define	KOLIBA_PLUT	plut
+#define KOLIBA_EFFILUT elut
 
 %include "koliba.h"
 #include <stdbool.h>
 
 /* Convert the _KOLIBA_FLUT structure into class koliba.flut(). */
+
 %extend _KOLIBA_FLUT {
 	_KOLIBA_FLUT(KOLIBA_FLUT *fLut = &KOLIBA_IdentityFlut) {
 		KOLIBA_FLUT *f = malloc(sizeof(KOLIBA_FLUT));
@@ -133,12 +197,12 @@
 		KOLIBA_FLUT *f = malloc(sizeof(KOLIBA_FLUT));
 		return KOLIBA_ConvertSlutToFlut(f,KOLIBA_SlutToVertices(&v,sLut));
 	}
-
+/*
 	_KOLIBA_FLUT(KOLIBA_VERTICES *vertices) {
 		KOLIBA_FLUT *f = malloc(sizeof(KOLIBA_FLUT));
 		return KOLIBA_ConvertSlutToFlut(f,vertices);
 	}
-
+*/
 	_KOLIBA_FLUT(KOLIBA_MATRIX *matrix) {
 		KOLIBA_FLUT *f = malloc(sizeof(KOLIBA_FLUT));
 		return KOLIBA_ConvertMatrixToFlut(f,matrix);
@@ -208,7 +272,129 @@
 		$self=KOLIBA_Flutter($self, $self, modifier);
 	}
 
+	void purery(const KOLIBA_VERTEX * const red=NULL) {
+		$self=KOLIBA_ApplyPureErythropy($self, (red) ? red : (KOLIBA_VERTEX *)&($self->red));
+	}
+
 	~_KOLIBA_FLUT() {
+		free($self);
+	}
+}
+
+%extend _KOLIBA_SLUT {
+	_KOLIBA_SLUT(KOLIBA_SLUT *sLut = &KOLIBA_IdentitySlut) {
+		KOLIBA_SLUT *s = malloc(sizeof(KOLIBA_SLUT));
+		memcpy(s, sLut, sizeof(KOLIBA_SLUT));
+		return s;
+	}
+
+	_KOLIBA_SLUT(KOLIBA_SLUT *sLut, double efficacy) {
+		KOLIBA_SLUT *s = malloc(sizeof(KOLIBA_SLUT));
+		return KOLIBA_SlutEfficacy(s, sLut, efficacy);
+	}
+
+	_KOLIBA_SLUT(
+		double import,
+		double angle=225.0,
+		double atmosphere=0.0,
+		double fx=-0.5,
+		double efficacy=1.0
+	) {
+		KOLIBA_SLUT *s = malloc(sizeof(KOLIBA_SLUT));
+		return KOLIBA_ColorRoller(s, import, angle, atmosphere, fx, efficacy);
+	}
+
+	_KOLIBA_SLUT(KOLIBA_FLUT *fLut) {
+		KOLIBA_SLUT *s = malloc(sizeof(KOLIBA_SLUT));
+		KOLIBA_ConvertFlutToSlut(s, fLut);
+		return s;
+	}
+
+	_KOLIBA_SLUT(KOLIBA_PLUT *pLut) {
+		KOLIBA_SLUT *s = malloc(sizeof(KOLIBA_SLUT));
+		KOLIBA_ConvertPlutToSlut(s, pLut);
+		return s;
+	}
+
+	_KOLIBA_SLUT(KOLIBA_VERTICES *vertices) {
+		KOLIBA_SLUT *s = malloc(sizeof(KOLIBA_SLUT));
+		KOLIBA_VerticesToSlut(s, vertices);
+		return s;
+	}
+
+	void fix(void) {KOLIBA_FixSlut($self);}
+	void efficacy(double efficacy) {KOLIBA_SlutEfficacy($self,$self,efficacy);}
+
+	void interpolate(KOLIBA_SLUT *modifier, double rate=0.5) {
+		KOLIBA_InterpolateSluts($self,$self,rate,modifier);
+	}
+
+	void interpolate(KOLIBA_SLUT *source, KOLIBA_SLUT *modifier, double rate=0.5) {
+		KOLIBA_InterpolateSluts($self,source,rate,modifier);
+	}
+
+	void interpolate(KOLIBA_SLUT *modifier, unsigned char flags, double rate=0.5) {
+		KOLIBA_InterpolateSlutVertices($self,$self,modifier,rate,flags);
+	}
+
+	void interpolate(KOLIBA_SLUT *source, KOLIBA_SLUT *modifier, unsigned char flags, double rate=0.5) {
+		KOLIBA_InterpolateSlutVertices($self,source,modifier,rate,flags);
+	}
+
+	void interpolate(KOLIBA_SLUT *modifier, KOLIBA_EFFILUT *efficacies) {
+		KOLIBA_ApplyEfficacies($self,$self,efficacies,modifier);
+	}
+
+	void interpolate(KOLIBA_SLUT *source, KOLIBA_SLUT *modifier, KOLIBA_EFFILUT *efficacies) {
+		KOLIBA_ApplyEfficacies($self,source,efficacies,modifier);
+	}
+
+	void efficacy(double efficacy) {KOLIBA_SlutEfficacy($self,$self,efficacy);}
+
+	void natcon(const KOLIBA_EFFILUT * const efficacies) {
+		KOLIBA_ApplyNaturalContrasts($self, efficacies);
+	}
+
+	void natcon(double efficacy) {
+		KOLIBA_EFFILUT efficacies;
+		KOLIBA_SetEfficacies(&efficacies, efficacy);
+		KOLIBA_ApplyNaturalContrasts($self, &efficacies);
+	}
+
+	void natcon(double cmyk, double rgbw) {
+		KOLIBA_EFFILUT efficacies;
+		KOLIBA_SetDualEfficacies(&efficacies, cmyk, rgbw);
+		KOLIBA_ApplyNaturalContrasts($self, &efficacies);
+	}
+
+	void colorRoller(
+		double import=0.5,
+		double angle=225.0,
+		double atmosphere=0.0,
+		double fx=-0.5,
+		double efficacy=1.0
+	)
+	{
+		KOLIBA_ColorRoller($self, import, angle, atmosphere, fx, efficacy);
+	}
+
+	void spherical(
+		double angle=0.0,
+		 const KOLIBA_SLUT * const atmosphere = NULL,
+		 double fx = 0.0
+	)
+	{
+		KOLIBA_ApplySphericalEfficacies($self,$self,angle,atmosphere,fx);
+	}
+
+	void farbosity(double center=0.5, double width=1.0) {
+		KOLIBA_SetFarbosity($self, center, width);
+	}
+
+	bool isidentity(void) {return(KOLIBA_IsIdentitySlut($self));}
+	bool is1d(void) {return KOLIBA_SlutIs1D($self);}
+
+	~_KOLIBA_SLUT() {
 		free($self);
 	}
 }
