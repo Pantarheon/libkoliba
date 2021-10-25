@@ -2,7 +2,7 @@
 
 	vert2slt.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -47,34 +47,24 @@
 #endif
 
 // Copy a KOLIBA_VERTICES structure into a
-// KOLIBA_SLUT structure.
+// KOLIBA_SLUT structure. If some or all
+// vertices are null, copy defaults to the
+// corresponding fields of the SLUT.
 KLBDC KOLIBA_SLUT *KOLIBA_VerticesToSlut(KOLIBA_SLUT *sLut, KOLIBA_VERTICES * const v) {
-	if ((v == NULL) || (sLut == NULL)) return NULL;
-
-	sLut->black.r   = v->black->r;
-	sLut->black.g   = v->black->g;
-	sLut->black.b   = v->black->b;
-	sLut->blue.r    = v->blue->r;
-	sLut->blue.g    = v->blue->g;
-	sLut->blue.b    = v->blue->b;
-	sLut->green.r   = v->green->r;
-	sLut->green.g   = v->green->g;
-	sLut->green.b   = v->green->b;
-	sLut->cyan.r    = v->cyan->r;
-	sLut->cyan.g    = v->cyan->g;
-	sLut->cyan.b    = v->cyan->b;
-	sLut->red.r     = v->red->r;
-	sLut->red.g     = v->red->g;
-	sLut->red.b     = v->red->b;
-	sLut->magenta.r = v->magenta->r;
-	sLut->magenta.g = v->magenta->g;
-	sLut->magenta.b = v->magenta->b;
-	sLut->yellow.r  = v->yellow->r;
-	sLut->yellow.g  = v->yellow->g;
-	sLut->yellow.b  = v->yellow->b;
-	sLut->white.r   = v->white->r;
-	sLut->white.g   = v->white->g;
-	sLut->white.b   = v->white->b;
+	if (sLut != NULL) {
+		if (v == NULL)
+			memcpy(sLut, &KOLIBA_IdentitySlut, sizeof(KOLIBA_SLUT));
+		else {
+			memcpy(&sLut->black,   (v->black   != NULL) ? v->black   : &KOLIBA_IdentitySlut.black, sizeof(KOLIBA_VERTEX));
+			memcpy(&sLut->blue,    (v->blue    != NULL) ? v->blue    : &KOLIBA_IdentitySlut.blue, sizeof(KOLIBA_VERTEX));
+			memcpy(&sLut->green,   (v->green   != NULL) ? v->green   : &KOLIBA_IdentitySlut.green, sizeof(KOLIBA_VERTEX));
+			memcpy(&sLut->cyan,    (v->cyan    != NULL) ? v->cyan    : &KOLIBA_IdentitySlut.cyan, sizeof(KOLIBA_VERTEX));
+			memcpy(&sLut->red,     (v->red     != NULL) ? v->red     : &KOLIBA_IdentitySlut.red, sizeof(KOLIBA_VERTEX));
+			memcpy(&sLut->magenta, (v->magenta != NULL) ? v->magenta : &KOLIBA_IdentitySlut.magenta, sizeof(KOLIBA_VERTEX));
+			memcpy(&sLut->yellow,  (v->yellow  != NULL) ? v->yellow  : &KOLIBA_IdentitySlut.yellow, sizeof(KOLIBA_VERTEX));
+			memcpy(&sLut->white,   (v->white   != NULL) ? v->white   : &KOLIBA_IdentitySlut.white, sizeof(KOLIBA_VERTEX));
+		}
+	}
 
 	return sLut;
 }

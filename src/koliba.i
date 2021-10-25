@@ -174,6 +174,11 @@
 %ignore KOLIBA_ConvertPlutToSlut;
 %ignore KOLIBA_VerticesToSlut;
 %ignore KOLIBA_SlutIs1D;
+%ignore KOLIBA_SlutSelect;
+%ignore KOLIBA_InvertSlutVertices;
+%ignore KOLIBA_ApplyGainToSlutVertices;
+%ignore KOLIBA_ApplyLiftToSlutVertices;
+%ignore KOLIBA_AddOffsetToSlutVertices;
 
 #define	KOLIBA_FLUT	flut
 #define	KOLIBA_SLUT	slut
@@ -187,9 +192,8 @@
 
 %extend _KOLIBA_FLUT {
 	_KOLIBA_FLUT(KOLIBA_FLUT *fLut = &KOLIBA_IdentityFlut) {
-		KOLIBA_FLUT *f = malloc(sizeof(KOLIBA_FLUT));
-		memcpy(f, fLut, sizeof(KOLIBA_FLUT));
-		return f;
+		return (fLut == NULL) ? NULL :
+			(KOLIBA_FLUT *)memcpy(malloc(sizeof(KOLIBA_FLUT)), fLut, sizeof(KOLIBA_FLUT));
 	}
 
 	_KOLIBA_FLUT(KOLIBA_SLUT *sLut) {
@@ -283,9 +287,8 @@
 
 %extend _KOLIBA_SLUT {
 	_KOLIBA_SLUT(KOLIBA_SLUT *sLut = &KOLIBA_IdentitySlut) {
-		KOLIBA_SLUT *s = malloc(sizeof(KOLIBA_SLUT));
-		memcpy(s, sLut, sizeof(KOLIBA_SLUT));
-		return s;
+		return (sLut == NULL) ? NULL :
+			(KOLIBA_SLUT *)memcpy(malloc(sizeof(KOLIBA_SLUT)),sLut, sizeof(KOLIBA_SLUT));
 	}
 
 	_KOLIBA_SLUT(KOLIBA_SLUT *sLut, double efficacy) {
@@ -393,6 +396,26 @@
 
 	bool isidentity(void) {return(KOLIBA_IsIdentitySlut($self));}
 	bool is1d(void) {return KOLIBA_SlutIs1D($self);}
+
+	void copy(const KOLIBA_SLUT *const lut, unsigned char flags=KOLIBA_SLUTALL) {
+		KOLIBA_SlutSelect($self,lut,flags);
+	}
+
+	void invert(unsigned char flags=KOLIBA_SLUTALL) {
+		KOLIBA_InvertSlutVertices($self,flags);
+	}
+
+	void gain(double gain, unsigned char flags=KOLIBA_SLUTALL) {
+		KOLIBA_ApplyGainToSlutVertices($self, flags, gain);
+	}
+
+	void lift(double lift, unsigned char flags=KOLIBA_SLUTALL) {
+		KOLIBA_ApplyLiftToSlutVertices($self, flags, lift);
+	}
+
+	void offset(double offset, unsigned char flags=KOLIBA_SLUTALL) {
+		KOLIBA_AddOffsetToSlutVertices($self, flags, offset);
+	}
 
 	~_KOLIBA_SLUT() {
 		free($self);
