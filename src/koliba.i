@@ -198,8 +198,9 @@
 
 	_KOLIBA_FLUT(KOLIBA_SLUT *sLut) {
 		KOLIBA_VERTICES v;
-		KOLIBA_FLUT *f = malloc(sizeof(KOLIBA_FLUT));
-		return KOLIBA_ConvertSlutToFlut(f,KOLIBA_SlutToVertices(&v,sLut));
+
+		return (sLut == NULL) ? NULL :
+			KOLIBA_ConvertSlutToFlut(malloc(sizeof(KOLIBA_FLUT)),KOLIBA_SlutToVertices(&v,sLut));
 	}
 /*
 	_KOLIBA_FLUT(KOLIBA_VERTICES *vertices) {
@@ -285,6 +286,8 @@
 	}
 }
 
+/* Convert the _KOLIBA_SLUT structure into class koliba.slut(). */
+
 %extend _KOLIBA_SLUT {
 	_KOLIBA_SLUT(KOLIBA_SLUT *sLut = &KOLIBA_IdentitySlut) {
 		return (sLut == NULL) ? NULL :
@@ -292,8 +295,8 @@
 	}
 
 	_KOLIBA_SLUT(KOLIBA_SLUT *sLut, double efficacy) {
-		KOLIBA_SLUT *s = malloc(sizeof(KOLIBA_SLUT));
-		return KOLIBA_SlutEfficacy(s, sLut, efficacy);
+		return (sLut == NULL) ? NULL :
+			(KOLIBA_SLUT *)KOLIBA_SlutEfficacy(malloc(sizeof(KOLIBA_SLUT)), sLut, efficacy);
 	}
 
 	_KOLIBA_SLUT(
@@ -308,9 +311,8 @@
 	}
 
 	_KOLIBA_SLUT(KOLIBA_FLUT *fLut) {
-		KOLIBA_SLUT *s = malloc(sizeof(KOLIBA_SLUT));
-		KOLIBA_ConvertFlutToSlut(s, fLut);
-		return s;
+		return (fLut == NULL) ? NULL :
+			KOLIBA_ConvertFlutToSlut(malloc(sizeof(KOLIBA_SLUT)), fLut);
 	}
 
 	_KOLIBA_SLUT(KOLIBA_PLUT *pLut) {
@@ -320,9 +322,8 @@
 	}
 
 	_KOLIBA_SLUT(KOLIBA_VERTICES *vertices) {
-		KOLIBA_SLUT *s = malloc(sizeof(KOLIBA_SLUT));
-		KOLIBA_VerticesToSlut(s, vertices);
-		return s;
+		// This works even if vertices == NULL.
+		return KOLIBA_VerticesToSlut(malloc(sizeof(KOLIBA_SLUT)), vertices);
 	}
 
 	void fix(void) {KOLIBA_FixSlut($self);}

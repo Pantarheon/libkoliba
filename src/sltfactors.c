@@ -2,7 +2,7 @@
 
 	sltfactors.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -48,11 +48,34 @@
 #endif
 
 // Precalculate sLut factors, store them in KOLIBA_FLUT.
+// Replace any missing vertices by default values.
 
-KLBDC KOLIBA_FLUT * KOLIBA_ConvertSlutToFlut(KOLIBA_FLUT *f, const KOLIBA_VERTICES * const s) {
+KLBDC KOLIBA_FLUT * KOLIBA_ConvertSlutToFlut(KOLIBA_FLUT *f, const KOLIBA_VERTICES * const v) {
 	KOLIBA_FLUT sf;
+	KOLIBA_VERTICES *s;
 
-	if ((f == NULL) || (s == NULL)) return NULL;
+	if (f == NULL) return NULL;
+
+	if (v == NULL) {
+		s->black   = (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.black);
+		s->blue    = (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.blue);
+		s->green   = (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.green);
+		s->cyan    = (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.cyan);
+		s->red     = (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.red);
+		s->magenta = (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.magenta);
+		s->yellow  = (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.yellow);
+		s->white   = (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.white);
+	}
+	else {
+		s->black   = (v->black   != NULL) ? v->black   : (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.black);
+		s->blue    = (v->blue    != NULL) ? v->blue    : (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.blue);
+		s->green   = (v->green   != NULL) ? v->green   : (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.green);
+		s->cyan    = (v->cyan    != NULL) ? v->cyan    : (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.cyan);
+		s->red     = (v->red     != NULL) ? v->red     : (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.red);
+		s->magenta = (v->magenta != NULL) ? v->magenta : (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.magenta);
+		s->yellow  = (v->yellow  != NULL) ? v->yellow  : (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.yellow);
+		s->white   = (v->white   != NULL) ? v->white   : (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.white);
+	}
 
 	sf.black.r		= s->black->r;
 	sf.black.g		= s->black->g;
