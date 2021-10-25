@@ -52,62 +52,62 @@
 
 KLBDC KOLIBA_FLUT * KOLIBA_ConvertSlutToFlut(KOLIBA_FLUT *f, const KOLIBA_VERTICES * const v) {
 	KOLIBA_FLUT sf;
-	KOLIBA_VERTICES *s;
+	KOLIBA_VERTICES s;
 
 	if (f == NULL) return NULL;
 
 	if (v == NULL) {
-		s->black   = (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.black);
-		s->blue    = (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.blue);
-		s->green   = (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.green);
-		s->cyan    = (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.cyan);
-		s->red     = (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.red);
-		s->magenta = (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.magenta);
-		s->yellow  = (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.yellow);
-		s->white   = (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.white);
+		s.black   = (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.black);
+		s.blue    = (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.blue);
+		s.green   = (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.green);
+		s.cyan    = (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.cyan);
+		s.red     = (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.red);
+		s.magenta = (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.magenta);
+		s.yellow  = (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.yellow);
+		s.white   = (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.white);
 	}
 	else {
-		s->black   = (v->black   != NULL) ? v->black   : (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.black);
-		s->blue    = (v->blue    != NULL) ? v->blue    : (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.blue);
-		s->green   = (v->green   != NULL) ? v->green   : (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.green);
-		s->cyan    = (v->cyan    != NULL) ? v->cyan    : (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.cyan);
-		s->red     = (v->red     != NULL) ? v->red     : (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.red);
-		s->magenta = (v->magenta != NULL) ? v->magenta : (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.magenta);
-		s->yellow  = (v->yellow  != NULL) ? v->yellow  : (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.yellow);
-		s->white   = (v->white   != NULL) ? v->white   : (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.white);
+		s.black   = (v->black   != NULL) ? v->black   : (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.black);
+		s.blue    = (v->blue    != NULL) ? v->blue    : (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.blue);
+		s.green   = (v->green   != NULL) ? v->green   : (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.green);
+		s.cyan    = (v->cyan    != NULL) ? v->cyan    : (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.cyan);
+		s.red     = (v->red     != NULL) ? v->red     : (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.red);
+		s.magenta = (v->magenta != NULL) ? v->magenta : (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.magenta);
+		s.yellow  = (v->yellow  != NULL) ? v->yellow  : (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.yellow);
+		s.white   = (v->white   != NULL) ? v->white   : (KOLIBA_VERTEX *)&(KOLIBA_IdentitySlut.white);
 	}
 
-	sf.black.r		= s->black->r;
-	sf.black.g		= s->black->g;
-	sf.black.b		= s->black->b;
+	sf.black.r		= s.black->r;
+	sf.black.g		= s.black->g;
+	sf.black.b		= s.black->b;
 
-	sf.red.r		= s->red->r - s->black->r;
-	sf.red.g		= s->red->g - s->black->g;
-	sf.red.b		= s->red->b - s->black->b;
+	sf.red.r		= s.red->r - s.black->r;
+	sf.red.g		= s.red->g - s.black->g;
+	sf.red.b		= s.red->b - s.black->b;
 
-	sf.green.r		= s->green->r - s->black->r;
-	sf.green.g		= s->green->g - s->black->g;
-	sf.green.b		= s->green->b - s->black->b;
+	sf.green.r		= s.green->r - s.black->r;
+	sf.green.g		= s.green->g - s.black->g;
+	sf.green.b		= s.green->b - s.black->b;
 
-	sf.blue.r		= s->blue->r - s->black->r;
-	sf.blue.g		= s->blue->g - s->black->g;
-	sf.blue.b		= s->blue->b - s->black->b;
+	sf.blue.r		= s.blue->r - s.black->r;
+	sf.blue.g		= s.blue->g - s.black->g;
+	sf.blue.b		= s.blue->b - s.black->b;
 
-	sf.yellow.r		= s->black->r + s->yellow->r - s->green->r - s->red->r;
-	sf.yellow.g		= s->black->g + s->yellow->g - s->green->g - s->red->g;
-	sf.yellow.b		= s->black->b + s->yellow->b - s->green->b - s->red->b;
+	sf.yellow.r		= s.black->r + s.yellow->r - s.green->r - s.red->r;
+	sf.yellow.g		= s.black->g + s.yellow->g - s.green->g - s.red->g;
+	sf.yellow.b		= s.black->b + s.yellow->b - s.green->b - s.red->b;
 
-	sf.magenta.r	= s->black->r + s->magenta->r - s->blue->r - s->red->r;
-	sf.magenta.g	= s->black->g + s->magenta->g - s->blue->g - s->red->g;
-	sf.magenta.b	= s->black->b + s->magenta->b - s->blue->b - s->red->b;
+	sf.magenta.r	= s.black->r + s.magenta->r - s.blue->r - s.red->r;
+	sf.magenta.g	= s.black->g + s.magenta->g - s.blue->g - s.red->g;
+	sf.magenta.b	= s.black->b + s.magenta->b - s.blue->b - s.red->b;
 
-	sf.cyan.r		= s->black->r + s->cyan->r - s->blue->r - s->green->r;
-	sf.cyan.g		= s->black->g + s->cyan->g - s->blue->g - s->green->g;
-	sf.cyan.b		= s->black->b + s->cyan->b - s->blue->b - s->green->b;
+	sf.cyan.r		= s.black->r + s.cyan->r - s.blue->r - s.green->r;
+	sf.cyan.g		= s.black->g + s.cyan->g - s.blue->g - s.green->g;
+	sf.cyan.b		= s.black->b + s.cyan->b - s.blue->b - s.green->b;
 
-	sf.white.r		= s->blue->r + s->green->r + s->red->r + s->white->r - s->black->r - s->cyan->r - s->magenta->r - s->yellow->r;
-	sf.white.g		= s->blue->g + s->green->g + s->red->g + s->white->g - s->black->g - s->cyan->g - s->magenta->g - s->yellow->g;
-	sf.white.b		= s->blue->b + s->green->b + s->red->b + s->white->b - s->black->b - s->cyan->b - s->magenta->b - s->yellow->b;
+	sf.white.r		= s.blue->r + s.green->r + s.red->r + s.white->r - s.black->r - s.cyan->r - s.magenta->r - s.yellow->r;
+	sf.white.g		= s.blue->g + s.green->g + s.red->g + s.white->g - s.black->g - s.cyan->g - s.magenta->g - s.yellow->g;
+	sf.white.b		= s.blue->b + s.green->b + s.red->b + s.white->b - s.black->b - s.cyan->b - s.magenta->b - s.yellow->b;
 
 	return memcpy(f, KOLIBA_FixFlut(&sf), sizeof(KOLIBA_FLUT));
 }
