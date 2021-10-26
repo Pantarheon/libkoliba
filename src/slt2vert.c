@@ -2,7 +2,7 @@
 
 	slt2vert.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -48,17 +48,19 @@
 
 // Load a KOLIBA_VERTICES structure from a
 // KOLIBA_SLUT structure.
-KLBDC KOLIBA_VERTICES *KOLIBA_SlutToVertices(KOLIBA_VERTICES *v, KOLIBA_SLUT * const sLut) {
-	if ((v == NULL) || (sLut == NULL)) return NULL;
+KLBDC KOLIBA_VERTICES *KOLIBA_SlutToVertices(KOLIBA_VERTICES *v, KOLIBA_SLUT * const s) {
+	if (v) {
+		KOLIBA_SLUT *sLut = (s) ? (KOLIBA_SLUT *)s : (KOLIBA_SLUT *)&KOLIBA_IdentitySlut;
 
-	v->black   = &sLut->black;
-	v->blue    = &sLut->blue;
-	v->green   = &sLut->green;
-	v->cyan    = &sLut->cyan;
-	v->red     = &sLut->red;
-	v->magenta = &sLut->magenta;
-	v->yellow  = &sLut->yellow;
-	v->white   = &sLut->white;
+		v->black   = &sLut->black;
+		v->blue    = &sLut->blue;
+		v->green   = &sLut->green;
+		v->cyan    = &sLut->cyan;
+		v->red     = &sLut->red;
+		v->magenta = &sLut->magenta;
+		v->yellow  = &sLut->yellow;
+		v->white   = &sLut->white;
+	}
 
 	return v;
 }
