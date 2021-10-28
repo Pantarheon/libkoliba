@@ -109,6 +109,8 @@
 #define	KOLIBA_SLUT	slut
 #define	KOLIBA_PLUT	plut
 #define KOLIBA_EFFILUT elut
+#define KOLIBA_VERTICES vertices
+#define KOLIBA_RGB	vertex
 
 #include "koliba.h"
 %}
@@ -179,11 +181,17 @@
 %ignore KOLIBA_ApplyGainToSlutVertices;
 %ignore KOLIBA_ApplyLiftToSlutVertices;
 %ignore KOLIBA_AddOffsetToSlutVertices;
+%ignore KOLIBA_SlutToString;
+%ignore KOLIBA_StringToSlut;
+%ignore KOLIBA_ApplyEfficacyToSlutVertices;
+%ignore KOLIBA_ApplyContrastToSlutVertices;
 
 #define	KOLIBA_FLUT	flut
 #define	KOLIBA_SLUT	slut
 #define	KOLIBA_PLUT	plut
 #define KOLIBA_EFFILUT elut
+#define KOLIBA_VERTICES vertices
+#define KOLIBA_RGB	vertex
 
 %include "koliba.h"
 #include <stdbool.h>
@@ -202,12 +210,12 @@
 		return (sLut == NULL) ? NULL :
 			KOLIBA_ConvertSlutToFlut(malloc(sizeof(KOLIBA_FLUT)),KOLIBA_SlutToVertices(&v,sLut));
 	}
-/*
+
 	_KOLIBA_FLUT(KOLIBA_VERTICES *vertices) {
 		KOLIBA_FLUT *f = malloc(sizeof(KOLIBA_FLUT));
 		return KOLIBA_ConvertSlutToFlut(f,vertices);
 	}
-*/
+
 	_KOLIBA_FLUT(KOLIBA_MATRIX *matrix) {
 		KOLIBA_FLUT *f = malloc(sizeof(KOLIBA_FLUT));
 		return KOLIBA_ConvertMatrixToFlut(f,matrix);
@@ -326,6 +334,29 @@
 		return KOLIBA_VerticesToSlut(malloc(sizeof(KOLIBA_SLUT)), vertices);
 	}
 
+	_KOLIBA_SLUT(char *filename) {
+		KOLIBA_SLUT *sLut = malloc(sizeof(KOLIBA_SLUT));
+		if ((sLut) &&
+			(KOLIBA_ReadSlutFromCompatibleNamedFile(sLut, filename, NULL) == NULL)) {
+				free(sLut);
+				return NULL;
+		}
+		return sLut;
+	}
+
+	// Convert SLUT to a text string.
+	char *marshal(void) {
+		return KOLIBA_SlutToString(malloc(SLTAMINCHARS), $self, SLTAMINCHARS);
+	}
+
+	// Convert a text string to sLut
+	bool marshal(char *m) {
+		KOLIBA_SLUT s;
+		if (KOLIBA_StringToSlut(&s, m) == NULL) return false;
+		memcpy($self, &s, sizeof(KOLIBA_SLUT));
+		return true;
+	}
+
 	void fix(void) {KOLIBA_FixSlut($self);}
 	void efficacy(double efficacy) {KOLIBA_SlutEfficacy($self,$self,efficacy);}
 
@@ -354,6 +385,15 @@
 	}
 
 	void efficacy(double efficacy) {KOLIBA_SlutEfficacy($self,$self,efficacy);}
+
+	void efficacy(double efficacy, unsigned char flags) {
+		KOLIBA_InterpolateSlutVertices(
+			$self, $self,
+			&KOLIBA_IdentitySlut,
+			efficacy,
+			flags
+		);
+	}
 
 	void natcon(const KOLIBA_EFFILUT * const efficacies) {
 		KOLIBA_ApplyNaturalContrasts($self, efficacies);
@@ -418,7 +458,46 @@
 		KOLIBA_AddOffsetToSlutVertices($self, flags, offset);
 	}
 
+	void contrast(
+		double contrast,
+		unsigned char flags=KOLIBA_SLUTALL,
+		KOLIBA_SLUT *centers=&KOLIBA_SvitContrastSlut
+	) {KOLIBA_ApplyContrastToSlutVertices($self,centers,flags,contrast);}
+
 	~_KOLIBA_SLUT() {
+		free($self);
+	}
+}
+
+/* Convert the _KOLIBA_VERTICES structure into class koliba.vertices(). */
+
+%extend _KOLIBA_VERTICES {
+	_KOLIBA_VERTICES(KOLIBA_SLUT *sLut=&KOLIBA_IdentitySlut) {
+		return KOLIBA_SlutToVertices(malloc(sizeof(KOLIBA_VERTICES)),sLut);
+	}
+
+	~_KOLIBA_VERTICES() {
+		free($self);
+	}
+}
+
+/* Convert the _KOLIBA_RGB structure into class koliba.vertex(). */
+
+%extend _KOLIBA_RGB {
+	_KOLIBA_RGB(KOLIBA_RGB *vertex=NULL) {
+		return (vertex) ? memcpy(malloc(sizeof(KOLIBA_RGB)),vertex,sizeof(KOLIBA_RGB)) :
+		calloc(1, sizeof(KOLIBA_RGB));
+	}
+
+	_KOLIBA_RGB(double red, double green, double blue) {
+		KOLIBA_RGB *v = malloc(sizeof(KOLIBA_RGB));
+		v->r = red;
+		v->g = green;
+		v->b = blue;
+		return(v);
+	}
+
+	~_KOLIBA_RGB() {
 		free($self);
 	}
 }
