@@ -60,5 +60,7 @@ KLBDC KOLIBA_ftype KOLIBA_GetStringDataFormat(const unsigned char * const data) 
 		return KOLIBA_ftm34t;
 	else if (sscanf(data, KOLIBA_ScanChrtHeaderFormat, &d) == 1)
 		return KOLIBA_ftchrt;
+	else if (sscanf(data, KOLIBA_ScanPlttHeaderFormat, &d) == 1)
+		return KOLIBA_ftkptt;
 	else return KOLIBA_ftunknown;
 }
