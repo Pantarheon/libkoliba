@@ -460,8 +460,8 @@
 
 	void contrast(
 		double contrast,
-		unsigned char flags=KOLIBA_SLUTALL,
-		KOLIBA_SLUT *centers=&KOLIBA_SvitContrastSlut
+		unsigned char flags=KOLIBA_SLUTSVIT,
+		KOLIBA_SLUT *centers=&KOLIBA_ContrastSlut
 	) {KOLIBA_ApplyContrastToSlutVertices($self,centers,flags,contrast);}
 
 	~_KOLIBA_SLUT() {
