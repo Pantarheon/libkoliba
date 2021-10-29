@@ -3622,6 +3622,8 @@ KLBDC unsigned int KOLIBA_GetMinorLibraryVersion(void);
 // the values to be human readable). Thankfully, the C printf and scanf
 // routines make it very easy to print and scan real values as hexadecinal
 // text.
+//
+// We call this process Koliba Marshaling.
 
 // Get the data type of a Koliba data string.
 // The string mut be at least SLTCFILEHEADERBYTES
@@ -3683,10 +3685,16 @@ KLBDC KOLIBA_CHROMAT * KOLIBA_StringToChromat(
 	const char * const string
 );
 
+KLBDC KOLIBA_SLUT * KOLIBA_MarshalSlutFromCompatibleString(KOLIBA_SLUT *sLut, const unsigned char * const string, KOLIBA_ftype *ft);
+
+
 // Text version of Koliba palette (.pltt)
 KLBDC extern const char KOLIBA_PrintPlttFormat[];
 KLBDC extern const char KOLIBA_ScanPlttFormat[];
 KLBDC extern const char KOLIBA_ScanPlttHeaderFormat[];
+
+
+KLBDC KOLIBA_SLUT * KOLIBA_MarshalSlutFromCompatibleString(KOLIBA_SLUT *sLut, const unsigned char * const string, KOLIBA_ftype *ft);
 
 
 

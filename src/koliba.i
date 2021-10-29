@@ -352,7 +352,7 @@
 	// Convert a text string to sLut
 	bool marshal(char *m) {
 		KOLIBA_SLUT s;
-		if (KOLIBA_StringToSlut(&s, m) == NULL) return false;
+		if (KOLIBA_MarshalSlutFromCompatibleString(&s, m, NULL) == NULL) return false;
 		memcpy($self, &s, sizeof(KOLIBA_SLUT));
 		return true;
 	}
