@@ -4240,7 +4240,6 @@ KLBHID KOLIBA_SLUT * KOLIBA_CopyColorToSlutVertices(KOLIBA_SLUT *sLut, const KOL
 // Some locally useful data.
 KLBHID extern const KOLIBA_SLUT KOLIBA_Ones;
 KLBHID extern const KOLIBA_SLUT KOLIBA_NaturalContrastSlut;
-KLBHID extern const KOLIBA_SLUT KOLIBA_Rec2020Slut;
 KLBHID extern const double KOLIBA_NaN;
 
 // And some globally useful.
@@ -4248,6 +4247,7 @@ KLBDC extern const KOLIBA_SLUT KOLIBA_NaturalFarbaContrastSlut;
 KLBDC const KOLIBA_SLUT KOLIBA_ContrastSlut;
 KLBDC const KOLIBA_SLUT KOLIBA_FarbaContrastSlut;
 KLBDC const KOLIBA_SLUT KOLIBA_SvitContrastSlut;
+KLBDC extern const KOLIBA_SLUT KOLIBA_Rec2020Slut;
 
 
 

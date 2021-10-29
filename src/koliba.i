@@ -464,6 +464,20 @@
 		KOLIBA_SLUT *centers=&KOLIBA_ContrastSlut
 	) {KOLIBA_ApplyContrastToSlutVertices($self,centers,flags,contrast);}
 
+	void saturation(
+		double saturation,
+		unsigned char flags=KOLIBA_SLUTFARBA,
+		KOLIBA_RGB *gray=NULL
+	) {
+		KOLIBA_SLUT temp;
+		KOLIBA_ApplySaturationToSlutVertices(
+			$self,
+			(gray==NULL)?&KOLIBA_Rec2020Slut:KOLIBA_ConvertGrayToSlut(&temp,gray),
+			flags,
+			saturation
+		);
+	}
+
 	~_KOLIBA_SLUT() {
 		free($self);
 	}
