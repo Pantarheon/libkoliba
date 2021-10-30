@@ -185,6 +185,23 @@
 %ignore KOLIBA_StringToSlut;
 %ignore KOLIBA_ApplyEfficacyToSlutVertices;
 %ignore KOLIBA_ApplyContrastToSlutVertices;
+%ignore KOLIBA_ConvertGrayToFlut;
+%ignore KOLIBA_ConvertRgbToSlut;
+%ignore	KOLIBA_ResetSlut;
+%ignore KOLIBA_DiscardSlutSvit;
+%ignore KOLIBA_DiscardSlutFarba;
+%ignore KOLIBA_ResetSlutBlack;
+%ignore KOLIBA_ResetSlutBlue;
+%ignore KOLIBA_ResetSlutGreen;
+%ignore KOLIBA_ResetSlutCyan;
+%ignore KOLIBA_ResetSlutRed;
+%ignore KOLIBA_ResetSlutMagenta;
+%ignore KOLIBA_ResetSlutYellow;
+%ignore KOLIBA_ResetSlutWhite;
+%ignore KOLIBA_ConvertMatrixToSlut;
+%ignore KOLIBA_SlutIsMatrix;
+
+%ignore KOLIBA_VerticesIsMatrix;
 
 #define	KOLIBA_FLUT	flut
 #define	KOLIBA_SLUT	slut
@@ -325,13 +342,23 @@
 
 	_KOLIBA_SLUT(KOLIBA_PLUT *pLut) {
 		KOLIBA_SLUT *s = malloc(sizeof(KOLIBA_SLUT));
-		KOLIBA_ConvertPlutToSlut(s, pLut);
-		return s;
+		if (KOLIBA_ConvertPlutToSlut(s, pLut))
+			return s;
+		free(s);
+		return NULL;
 	}
 
 	_KOLIBA_SLUT(KOLIBA_VERTICES *vertices) {
 		// This works even if vertices == NULL.
 		return KOLIBA_VerticesToSlut(malloc(sizeof(KOLIBA_SLUT)), vertices);
+	}
+
+	_KOLIBA_SLUT(KOLIBA_MATRIX *matrix) {
+		KOLIBA_SLUT *sLut = malloc(sizeof(KOLIBA_SLUT));
+		if (KOLIBA_ConvertMatrixToSlut(sLut, matrix))
+			return sLut;
+		free (sLut);
+		return NULL;
 	}
 
 	_KOLIBA_SLUT(char *filename) {
@@ -464,7 +491,7 @@
 		KOLIBA_SLUT *centers=&KOLIBA_ContrastSlut
 	) {KOLIBA_ApplyContrastToSlutVertices($self,centers,flags,contrast);}
 
-	void saturation(
+	void KOLIBA_ApplySaturationToSlutVertices(
 		double saturation,
 		unsigned char flags=KOLIBA_SLUTFARBA,
 		KOLIBA_RGB *gray=NULL
@@ -478,6 +505,29 @@
 		);
 	}
 
+		void monofarba(const KOLIBA_RGB * gray, double primary, double secondary, uint8_t flags) {
+			$self=KOLIBA_MonoFarbaToSlut($self,gray,primary,secondary,flags);
+		}
+
+		void redmonofarba(void) {
+			KOLIBA_MonoFarbaToSlut($self, NULL, 1.25, -0.25, KOLIBA_SLUTRED);
+		}
+
+		void gray(const KOLIBA_RGB * const gray=NULL) {$self=KOLIBA_ConvertGrayToSlut($self,gray);}
+		void color(const KOLIBA_RGB * const color=NULL) {$self=KOLIBA_ConvertRgbToSlut($self,color);}
+
+		void reset(void) {KOLIBA_ResetSlut($self);}
+		void resetSvit(void) {KOLIBA_DiscardSlutSvit($self,$self);}
+		void resetFarba(void) {KOLIBA_DiscardSlutFarba($self,$self);}
+		void resetBlack(void) {KOLIBA_ResetSlutBlack($self);}
+		void resetBlue(void) {KOLIBA_ResetSlutBlue($self);}
+		void resetCyan(void) {KOLIBA_ResetSlutCyan($self);}
+		void resetRed(void) {KOLIBA_ResetSlutRed($self);}
+		void resetMagenta(void) {KOLIBA_ResetSlutMagenta($self);}
+		void resetYellow(void) {KOLIBA_ResetSlutYellow($self);}
+		void resetWhite(void) {KOLIBA_ResetSlutWhite($self);}
+		bool ismatrix(void) {return KOLIBA_SlutIsMatrix($self);}
+
 	~_KOLIBA_SLUT() {
 		free($self);
 	}
@@ -489,6 +539,8 @@
 	_KOLIBA_VERTICES(KOLIBA_SLUT *sLut=&KOLIBA_IdentitySlut) {
 		return KOLIBA_SlutToVertices(malloc(sizeof(KOLIBA_VERTICES)),sLut);
 	}
+
+	bool ismatrix(void) {return KOLIBA_VerticesIsMatrix($self);}
 
 	~_KOLIBA_VERTICES() {
 		free($self);

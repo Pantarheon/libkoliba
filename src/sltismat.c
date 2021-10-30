@@ -2,7 +2,7 @@
 
 	sltismat.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -46,8 +46,8 @@
 	#define	NULL	((void*)0)
 #endif
 
-KLBDC int KOLIBA_SlutIsMatrix(const KOLIBA_SLUT * const s) {
-	if (s == NULL) return 0;
+KLBDC bool KOLIBA_SlutIsMatrix(const KOLIBA_SLUT * const s) {
+	if (s == NULL) return false;
 
 	return (
 		(s->white.r   == s->red.r + s->green.r + s->blue.r - 2.0 * s->black.r) &&
