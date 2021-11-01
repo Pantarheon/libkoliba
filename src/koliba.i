@@ -215,6 +215,11 @@
 %ignore KOLIBA_ConvertMalletsToSlut;
 %ignore KOLIBA_ConvertColorFilterToSlut;
 %ignore KOLIBA_ApplyStrutRing;
+%ignore KOLIBA_ReadSlutFromCompatibleNamedFile;
+%ignore KOLIBA_WriteSlutToNamedFile;
+%ignore KOLIBA_ReadSlutFromNamedFile;
+%ignore KOLIBA_WriteSlttToNamedFile;
+%ignore KOLIBA_ReadSlttFromNamedFile;
 
 %ignore KOLIBA_VerticesIsMatrix;
 
@@ -642,8 +647,8 @@
 		KOLIBA_MonoFarbaToSlut($self, NULL, 1.25, -0.25, KOLIBA_SLUTRED);
 	}
 
-	void gray(const KOLIBA_RGB * const gray=NULL) {$self=KOLIBA_ConvertGrayToSlut($self,gray);}
-	void color(const KOLIBA_RGB * const color=NULL) {$self=KOLIBA_ConvertRgbToSlut($self,color);}
+	void gray(const KOLIBA_RGB * const gray=NULL) {KOLIBA_ConvertGrayToSlut($self,gray);}
+	void color(const KOLIBA_RGB * const color=NULL) {KOLIBA_ConvertRgbToSlut($self,color);}
 
 	void reset(void) {KOLIBA_ResetSlut($self);}
 	void resetSvit(void) {KOLIBA_DiscardSlutSvit($self,$self);}
@@ -678,6 +683,10 @@
 	}
 
 	bool checksum(double sum) {return KOLIBA_CheckSlut($self,sum);}
+	bool write(char *filename) {return (KOLIBA_WriteSlutToNamedFile($self,filename)==0);}
+	bool read(char *filename) {return(KOLIBA_ReadSlutFromNamedFile($self,filename)!=NULL);}
+	bool marshalWrite(char *filename) {return(KOLIBA_WriteSlttToNamedFile($self,filename)==0);}
+	bool marshalRead(char *filename) {return(KOLIBA_ReadSlttFromNamedFile($self,filename)!=NULL);}
 
 	~_KOLIBA_SLUT() {
 		free($self);
