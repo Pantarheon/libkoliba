@@ -677,6 +677,8 @@
 		else KOLIBA_ConvertMalletsToSlut($self,$self,mallets,gray,count);
 	}
 
+	bool checksum(double sum) {return KOLIBA_CheckSlut($self,sum);}
+
 	~_KOLIBA_SLUT() {
 		free($self);
 	}
