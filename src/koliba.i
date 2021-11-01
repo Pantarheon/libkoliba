@@ -222,6 +222,7 @@
 %ignore KOLIBA_ReadSlttFromNamedFile;
 
 %ignore KOLIBA_VerticesIsMatrix;
+%ignore KOLIBA_VerticesIs1D;
 
 #define	KOLIBA_FLUT	flut
 #define	KOLIBA_SLUT	slut
@@ -701,6 +702,7 @@
 	}
 
 	bool ismatrix(void) {return KOLIBA_VerticesIsMatrix($self);}
+	bool is1d(void) {return KOLIBA_VerticesIs1D($self);}
 
 	~_KOLIBA_VERTICES() {
 		free($self);
