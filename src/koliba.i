@@ -125,6 +125,7 @@
 %rename(OneDFlutFlags) KOLIBA_1DFlutFlags;
 %rename(EightBitBuffer) KOLIBA_8BitBuffer;
 %ignore KOLIBA_360;
+%ignore KOLIBA_GetStringDataFormat;
 
 /* This code/data is internal to libkoliba and is not exported.      */
 /* But it is listed in koliba.h, so we have tell SWIG to ignore it.  */
@@ -200,6 +201,20 @@
 %ignore KOLIBA_ResetSlutWhite;
 %ignore KOLIBA_ConvertMatrixToSlut;
 %ignore KOLIBA_SlutIsMatrix;
+%ignore KOLIBA_MultiplySluts;
+%ignore KOLIBA_ConvertChannelBlendToSlut;
+%ignore KOLIBA_ConvertChromaMatrixToSlut;
+%ignore KOLIBA_ConvertChromatToSlut;
+%ignore KOLIBA_ConvertDichromaticMatrixToSlut;
+%ignore KOLIBA_ConvertAnachromaticMatrixToSlut;
+%ignore KOLIBA_ConvertDiachromaticMatrixToSlut;
+%ignore KOLIBA_ConvertPaletteToSlut;
+%ignore KOLIBA_ApplyErythropy;
+%ignore KOLIBA_ConvertMalletToSlut;
+%ignore KOLIBA_MultiplyMalletsToSlut;
+%ignore KOLIBA_ConvertMalletsToSlut;
+%ignore KOLIBA_ConvertColorFilterToSlut;
+%ignore KOLIBA_ApplyStrutRing;
 
 %ignore KOLIBA_VerticesIsMatrix;
 
@@ -212,6 +227,13 @@
 
 %include "koliba.h"
 #include <stdbool.h>
+
+%inline %{
+	KOLIBA_ftype stringFormat(char *string) {
+		KOLIBA_ftype ftype = KOLIBA_GetStringDataFormat(string);
+		return (ftype <= KOLIBA_ftunknown) ? KOLIBA_ftnoslut : ftype;
+	}
+%}
 
 /* Convert the _KOLIBA_FLUT structure into class koliba.flut(). */
 
@@ -243,7 +265,7 @@
 		return KOLIBA_ConvertChannelBlendToFlut(f,blend);
 	}
 
-	_KOLIBA_FLUT(const KOLIBA_CHROMA * chroma, const KOLIBA_RGB * model) {
+	_KOLIBA_FLUT(const KOLIBA_CHROMA * chroma, const KOLIBA_RGB * model=&KOLIBA_Rec2020) {
 		KOLIBA_FLUT *f = malloc(sizeof(KOLIBA_FLUT));
 		return KOLIBA_ConvertChromaMatrixToFlut(f,chroma,model);
 	}
@@ -269,6 +291,32 @@
 		KOLIBA_MATRIX mat;
 		KOLIBA_FLUT *f = malloc(sizeof(KOLIBA_FLUT));
 		return KOLIBA_ConvertMatrixToFlut(f, KOLIBA_DiachromaticMatrix(&mat, diachroma, normalize));
+	}
+
+	// Convert FLUT to a text string.
+	char *__str__() {
+		static char s[1024];
+		sprintf(s,
+			"fLut   [\n"
+			"black   [%g, %g, %g]\n"
+			"red     [%g, %g, %g]\n"
+			"green   [%g, %g, %g]\n"
+			"blue    [%g, %g, %g]\n"
+			"yellow  [%g, %g, %g]\n"
+			"magenta [%g, %g, %g]\n"
+			"cyan    [%g, %g, %g]\n"
+			"white   [%g, %g, %g]\n"
+			"       ]",
+			$self->black.r, $self->black.g, $self->black.b,
+			$self->red.r, $self->red.g, $self->red.b,
+			$self->green.r, $self->green.g, $self->green.b,
+			$self->blue.r, $self->blue.g, $self->blue.b,
+			$self->yellow.r, $self->yellow.g, $self->yellow.b,
+			$self->magenta.r, $self->magenta.g, $self->magenta.b,
+			$self->cyan.r, $self->cyan.g, $self->cyan.b,
+			$self->white.r, $self->white.g, $self->white.b
+		);
+		return s;
 	}
 
 	void fix(void) {$self=KOLIBA_FixFlut($self);}
@@ -298,7 +346,7 @@
 	void color(const KOLIBA_RGB * const color=NULL) {$self=KOLIBA_ConvertRgbToFlut($self,color);}
 	bool ismatrix(void) {return KOLIBA_FlutIsMatrix($self);}
 
-	void flutter(const KOLIBA_FLUT * const modifier) {
+	void cluster(const KOLIBA_FLUT * const modifier) {
 		$self=KOLIBA_Flutter($self, $self, modifier);
 	}
 
@@ -361,6 +409,60 @@
 		return NULL;
 	}
 
+	_KOLIBA_SLUT(KOLIBA_CHANNELBLEND *blend) {
+		KOLIBA_SLUT *f = malloc(sizeof(KOLIBA_SLUT));
+		return KOLIBA_ConvertChannelBlendToSlut(f,blend);
+	}
+
+	_KOLIBA_SLUT(const KOLIBA_CHROMA * chroma, const KOLIBA_RGB * model=&KOLIBA_Rec2020) {
+		KOLIBA_SLUT *sLut = malloc(sizeof(KOLIBA_SLUT));
+		return KOLIBA_ConvertChromaMatrixToSlut(sLut,chroma,model);
+	}
+
+	_KOLIBA_SLUT(const KOLIBA_CHROMAT *chromat) {
+		KOLIBA_SLUT *sLut = malloc(sizeof(KOLIBA_SLUT));
+		return KOLIBA_ConvertChromatToSlut(sLut,chromat);
+	}
+
+	_KOLIBA_SLUT(const KOLIBA_DICHROMA *dichroma, bool normalize=false, unsigned int channel=0) {
+		KOLIBA_MATRIX mat;
+		KOLIBA_SLUT *sLut = malloc(sizeof(KOLIBA_SLUT));
+		return KOLIBA_ConvertMatrixToSlut(sLut, KOLIBA_DichromaticMatrix(&mat, dichroma, normalize, channel%3));
+	}
+
+	_KOLIBA_SLUT(const KOLIBA_ANACHROMA *anachroma, bool normalize=false, unsigned int channel=0) {
+		KOLIBA_MATRIX mat;
+		KOLIBA_SLUT *sLut = malloc(sizeof(KOLIBA_SLUT));
+		return KOLIBA_ConvertMatrixToSlut(sLut, KOLIBA_AnachromaticMatrix(&mat, anachroma, normalize, channel%3));
+	}
+
+	_KOLIBA_SLUT(const KOLIBA_DIACHROMA *diachroma, bool normalize=false) {
+		KOLIBA_MATRIX mat;
+		KOLIBA_SLUT *sLut = malloc(sizeof(KOLIBA_SLUT));
+		return KOLIBA_ConvertMatrixToSlut(sLut, KOLIBA_DiachromaticMatrix(&mat, diachroma, normalize));
+	}
+
+	_KOLIBA_SLUT(const KOLIBA_PALETTE *palette) {
+		KOLIBA_SLUT *sLut = malloc(sizeof(KOLIBA_SLUT));
+		if (KOLIBA_ConvertPaletteToSlut(sLut, palette)) return sLut;
+		free (sLut);
+		return NULL;
+	}
+
+	_KOLIBA_SLUT(const KOLIBA_MALLET *mallet, const KOLIBA_RGB *gray=NULL) {
+		KOLIBA_SLUT *sLut = malloc(sizeof(KOLIBA_SLUT));
+		return KOLIBA_ConvertMalletToSlut(sLut,NULL,mallet,gray);
+	}
+
+	_KOLIBA_SLUT(const KOLIBA_CFLT *colorFilter) {
+		if (colorFilter == NULL) return NULL;
+		return KOLIBA_ConvertColorFilterToSlut(malloc(sizeof(KOLIBA_SLUT)),colorFilter);
+	}
+
+	_KOLIBA_SLUT(const KOLIBA_VERTEX *ring, KOLIBA_Pluts plut=KOLIBA_PlutRed, double strut=1.0) {
+		return (ring==NULL) ? NULL : KOLIBA_ApplyStrutRing(malloc(sizeof(KOLIBA_SLUT)),ring,plut,strut);
+	}
+
 	_KOLIBA_SLUT(char *filename) {
 		KOLIBA_SLUT *sLut = malloc(sizeof(KOLIBA_SLUT));
 		if ((sLut) &&
@@ -371,17 +473,44 @@
 		return sLut;
 	}
 
-	// Convert SLUT to a text string.
+	// Convert SLUT to a marshaling string.
 	char *marshal(void) {
-		return KOLIBA_SlutToString(malloc(SLTAMINCHARS), $self, SLTAMINCHARS);
+		static char string[SLTAMINCHARS];
+		return KOLIBA_SlutToString(string, $self, SLTAMINCHARS);
 	}
 
-	// Convert a text string to sLut
+	// Convert a marshaling` string to sLut
 	bool marshal(char *m) {
 		KOLIBA_SLUT s;
 		if (KOLIBA_MarshalSlutFromCompatibleString(&s, m, NULL) == NULL) return false;
 		memcpy($self, &s, sizeof(KOLIBA_SLUT));
 		return true;
+	}
+
+	// Convert SLUT to a text string.
+	char *__str__() {
+		static char s[1024];
+		sprintf(s,
+			"sLut   [\n"
+			"black   [%g, %g, %g]\n"
+			"blue    [%g, %g, %g]\n"
+			"green   [%g, %g, %g]\n"
+			"cyan    [%g, %g, %g]\n"
+			"red     [%g, %g, %g]\n"
+			"magenta [%g, %g, %g]\n"
+			"yellow  [%g, %g, %g]\n"
+			"white   [%g, %g, %g]\n"
+			"       ]",
+			$self->black.r, $self->black.g, $self->black.b,
+			$self->blue.r, $self->blue.g, $self->blue.b,
+			$self->green.r, $self->green.g, $self->green.b,
+			$self->cyan.r, $self->cyan.g, $self->cyan.b,
+			$self->red.r, $self->red.g, $self->red.b,
+			$self->magenta.r, $self->magenta.g, $self->magenta.b,
+			$self->yellow.r, $self->yellow.g, $self->yellow.b,
+			$self->white.r, $self->white.g, $self->white.b
+		);
+		return s;
 	}
 
 	void fix(void) {KOLIBA_FixSlut($self);}
@@ -505,28 +634,48 @@
 		);
 	}
 
-		void monofarba(const KOLIBA_RGB * gray, double primary, double secondary, uint8_t flags) {
-			$self=KOLIBA_MonoFarbaToSlut($self,gray,primary,secondary,flags);
-		}
+	void monofarba(const KOLIBA_RGB * gray, double primary, double secondary, uint8_t flags) {
+		$self=KOLIBA_MonoFarbaToSlut($self,gray,primary,secondary,flags);
+	}
 
-		void redmonofarba(void) {
-			KOLIBA_MonoFarbaToSlut($self, NULL, 1.25, -0.25, KOLIBA_SLUTRED);
-		}
+	void redmonofarba(void) {
+		KOLIBA_MonoFarbaToSlut($self, NULL, 1.25, -0.25, KOLIBA_SLUTRED);
+	}
 
-		void gray(const KOLIBA_RGB * const gray=NULL) {$self=KOLIBA_ConvertGrayToSlut($self,gray);}
-		void color(const KOLIBA_RGB * const color=NULL) {$self=KOLIBA_ConvertRgbToSlut($self,color);}
+	void gray(const KOLIBA_RGB * const gray=NULL) {$self=KOLIBA_ConvertGrayToSlut($self,gray);}
+	void color(const KOLIBA_RGB * const color=NULL) {$self=KOLIBA_ConvertRgbToSlut($self,color);}
 
-		void reset(void) {KOLIBA_ResetSlut($self);}
-		void resetSvit(void) {KOLIBA_DiscardSlutSvit($self,$self);}
-		void resetFarba(void) {KOLIBA_DiscardSlutFarba($self,$self);}
-		void resetBlack(void) {KOLIBA_ResetSlutBlack($self);}
-		void resetBlue(void) {KOLIBA_ResetSlutBlue($self);}
-		void resetCyan(void) {KOLIBA_ResetSlutCyan($self);}
-		void resetRed(void) {KOLIBA_ResetSlutRed($self);}
-		void resetMagenta(void) {KOLIBA_ResetSlutMagenta($self);}
-		void resetYellow(void) {KOLIBA_ResetSlutYellow($self);}
-		void resetWhite(void) {KOLIBA_ResetSlutWhite($self);}
-		bool ismatrix(void) {return KOLIBA_SlutIsMatrix($self);}
+	void reset(void) {KOLIBA_ResetSlut($self);}
+	void resetSvit(void) {KOLIBA_DiscardSlutSvit($self,$self);}
+	void resetFarba(void) {KOLIBA_DiscardSlutFarba($self,$self);}
+	void resetBlack(void) {KOLIBA_ResetSlutBlack($self);}
+	void resetBlue(void) {KOLIBA_ResetSlutBlue($self);}
+	void resetCyan(void) {KOLIBA_ResetSlutCyan($self);}
+	void resetRed(void) {KOLIBA_ResetSlutRed($self);}
+	void resetMagenta(void) {KOLIBA_ResetSlutMagenta($self);}
+	void resetYellow(void) {KOLIBA_ResetSlutYellow($self);}
+	void resetWhite(void) {KOLIBA_ResetSlutWhite($self);}
+	bool ismatrix(void) {return KOLIBA_SlutIsMatrix($self);}
+
+	void cluster(const KOLIBA_SLUT * const modifier) {
+		$self=KOLIBA_MultiplySluts($self, $self, modifier);
+	}
+
+	void erythropy(void) {KOLIBA_ApplyErythropy($self,$self);}
+
+	void mallet(const KOLIBA_MALLET *mallet, const KOLIBA_RGB *gray=NULL) {
+		KOLIBA_ConvertMalletToSlut($self,$self,mallet,gray);
+	}
+
+	void mallets(
+		const KOLIBA_MALLET *mallets,
+		unsigned int count,
+		const KOLIBA_RGB *gray=NULL,
+		bool cluster=true
+	) {
+		if (cluster) KOLIBA_MultiplyMalletsToSlut($self,$self,mallets,gray,count);
+		else KOLIBA_ConvertMalletsToSlut($self,$self,mallets,gray,count);
+	}
 
 	~_KOLIBA_SLUT() {
 		free($self);
@@ -561,6 +710,18 @@
 		v->g = green;
 		v->b = blue;
 		return(v);
+	}
+
+	void set(double r, double g, double b) {
+		$self->r = r;
+		$self->g = g;
+		$self->b = b;
+	}
+
+	char *__str__() {
+		static char s[128];
+		sprintf(s, "rgb[%g, %g, %g]", $self->r, $self->g, $self->b);
+		return s;
 	}
 
 	~_KOLIBA_RGB() {
