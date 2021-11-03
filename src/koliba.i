@@ -111,6 +111,8 @@
 #define KOLIBA_EFFILUT elut
 #define KOLIBA_VERTICES vertices
 #define KOLIBA_RGB	vertex
+#define KOLIBA_ROW row
+#define KOLIBA_MATRIX matrix
 
 #include "koliba.h"
 %}
@@ -223,6 +225,24 @@
 
 %ignore KOLIBA_VerticesIsMatrix;
 %ignore KOLIBA_VerticesIs1D;
+%ignore KOLIBA_FarbaRange;
+
+%ignore KOLIBA_ConvertSlutToPlut;
+%ignore KOLIBA_ResetPlut;
+
+%ignore KOLIBA_NormalizeMatrixRow;
+%ignore KOLIBA_InterpolateMatrices;
+%ignore KOLIBA_MatrixEfficacy;
+%ignore KOLIBA_ConvertFlutToMatrix;
+%ignore KOLIBA_ConvertSlutToMatrix;
+%ignore KOLIBA_ResetMatrix;
+%ignore KOLIBA_ResetMatrixRed;
+%ignore KOLIBA_ResetMatrixGreen;
+%ignore KOLIBA_ResetMatrixBlue;
+%ignore KOLIBA_MatrixSpan;
+%ignore KOLIBA_MultiplyMatrices;
+%ignore KOLIBA_MatrixLift;
+%ignore KOLIBA_MatrixGain;
 
 #define	KOLIBA_FLUT	flut
 #define	KOLIBA_SLUT	slut
@@ -230,6 +250,8 @@
 #define KOLIBA_EFFILUT elut
 #define KOLIBA_VERTICES vertices
 #define KOLIBA_RGB	vertex
+#define KOLIBA_ROW row
+#define KOLIBA_MATRIX matrix
 
 %include "koliba.h"
 #include <stdbool.h>
@@ -395,8 +417,13 @@
 	}
 
 	_KOLIBA_SLUT(KOLIBA_PLUT *pLut) {
-		KOLIBA_SLUT *s = malloc(sizeof(KOLIBA_SLUT));
-		if (KOLIBA_ConvertPlutToSlut(s, pLut))
+		KOLIBA_PLUT p;
+		KOLIBA_SLUT *s;
+		if (pLut == NULL) return NULL;
+		memcpy(&p, pLut, sizeof(KOLIBA_PLUT));
+		if (p.divisor < 1.0) p.divisor = 1.0;
+		s = malloc(sizeof(KOLIBA_SLUT));
+		if (KOLIBA_ConvertPlutToSlut(s, &p))
 			return s;
 		free(s);
 		return NULL;
@@ -689,6 +716,12 @@
 	bool marshalWrite(char *filename) {return(KOLIBA_WriteSlttToNamedFile($self,filename)==0);}
 	bool marshalRead(char *filename) {return(KOLIBA_ReadSlttFromNamedFile($self,filename)!=NULL);}
 
+	void farbaRange(const KOLIBA_RGB * from=NULL, const KOLIBA_RGB * to=NULL) {
+		KOLIBA_VERTICES v;
+		KOLIBA_SlutToVertices(&v,$self);
+		KOLIBA_FarbaRange(&v, from, to);
+	}
+
 	~_KOLIBA_SLUT() {
 		free($self);
 	}
@@ -703,6 +736,10 @@
 
 	bool ismatrix(void) {return KOLIBA_VerticesIsMatrix($self);}
 	bool is1d(void) {return KOLIBA_VerticesIs1D($self);}
+
+	void farbaRange(const KOLIBA_RGB * from=NULL, const KOLIBA_RGB * to=NULL) {
+		KOLIBA_FarbaRange($self, from, to);
+	}
 
 	~_KOLIBA_VERTICES() {
 		free($self);
@@ -740,6 +777,163 @@
 	~_KOLIBA_RGB() {
 		free($self);
 	}
+}
+
+/* Convert the _KOLIBA_PLUT structure into class koliba.plut(). */
+
+%extend _KOLIBA_PLUT {
+	_KOLIBA_PLUT(KOLIBA_PLUT *pLut=NULL) {
+		KOLIBA_PLUT *p = memcpy(malloc(sizeof(KOLIBA_PLUT)),(pLut) ? pLut : &KOLIBA_IdentityPlut,sizeof(KOLIBA_PLUT));
+		if ((p) && (p->divisor < 1.0)) p->divisor = 1.0;
+		return p;
+	}
+
+	_KOLIBA_PLUT(KOLIBA_SLUT *sLut) {
+		return (sLut==NULL) ? NULL : KOLIBA_ConvertSlutToPlut(malloc(sizeof(KOLIBA_PLUT)),sLut);
+	}
+
+	// Convert PLUT to a text string.
+	char *__str__() {
+		static char s[1024];
+		if ($self->divisor < 1.0) $self->divisor = 1.0;
+		sprintf(s,
+			"pLut   [[\n"
+			"black   [%g, %g, %g]\n"
+			"white   [%g, %g, %g]\n"
+			"red     [%g, %g, %g]\n"
+			"green   [%g, %g, %g]\n"
+			"blue    [%g, %g, %g]\n"
+			"cyan    [%g, %g, %g]\n"
+			"magenta [%g, %g, %g]\n"
+			"yellow  [%g, %g, %g]\n"
+			"       ] / %g] * {%g}",
+			$self->black.r, $self->black.g, $self->black.b,
+			$self->white.r, $self->white.g, $self->white.b,
+			$self->red.r, $self->red.g, $self->red.b,
+			$self->green.r, $self->green.g, $self->green.b,
+			$self->blue.r, $self->blue.g, $self->blue.b,
+			$self->cyan.r, $self->cyan.g, $self->cyan.b,
+			$self->magenta.r, $self->magenta.g, $self->magenta.b,
+			$self->yellow.r, $self->yellow.g, $self->yellow.b,
+			$self->divisor, $self->efficacy
+		);
+		return s;
+	}
+
+	void reset(void) {KOLIBA_ResetPlut($self);}
+
+/* Sadly, SWIG refuses to override its own idea of what values
+   can be assigned to plut->divisor. So we just have to allow
+   out-of-range values to screw us up. :( :( :(
+
+   Either that, or we have to remember to edit koliba_wrap every
+   single time we edit and reswig this file. :O
+
+	divisor_set(double div) {$self->divisor = (div < 1.0) ? 1.0 : div;}
+
+*/
+
+	~_KOLIBA_PLUT() {free($self);}
+}
+
+/* Convert the _KOLIBA_ROW structure into class koliba.row(). */
+
+%extend _KOLIBA_ROW {
+	_KOLIBA_ROW(struct _KOLIBA_ROW *row=NULL) {
+		struct _KOLIBA_ROW *r = malloc(sizeof(struct _KOLIBA_ROW));
+		if (row!=NULL) return memcpy(r, row, sizeof(struct _KOLIBA_ROW));
+		r->r = 1.0/3.0;
+		r->g = 1.0/3.0;
+		r->b = 1.0/3.0;
+		r->o = 0.0;
+		return r;
+	}
+
+	_KOLIBA_ROW(double r, double g, double b, double o=0.0) {
+		struct _KOLIBA_ROW *row = malloc(sizeof(struct _KOLIBA_ROW));
+		row->r = r;
+		row->g = g;
+		row->b = b;
+		row->o = o;
+		return row;
+	}
+
+	void normalize(bool wade=true) {KOLIBA_NormalizeMatrixRow($self,wade);}
+
+	char *__str__() {
+		static char s[128];
+		sprintf(s, "row[%g, %g, %g, %g]", $self->r, $self->g, $self->b, $self->o);
+		return s;
+	}
+
+	~_KOLIBA_ROW() {free($self);}
+}
+
+/* Convert the _KOLIBA_MATRIX structure into class koliba.matrix(). */
+
+%extend _KOLIBA_MATRIX {
+	_KOLIBA_MATRIX(KOLIBA_MATRIX *mat=NULL) {
+		return memcpy(
+			malloc(sizeof(KOLIBA_MATRIX)),
+			(mat) ? mat : &KOLIBA_IdentityMatrix,
+			sizeof(KOLIBA_MATRIX)
+		);
+	}
+
+	_KOLIBA_MATRIX(KOLIBA_FLUT *fLut) {
+		KOLIBA_MATRIX *m;
+		if (fLut==NULL) return NULL;
+		if (KOLIBA_ConvertFlutToMatrix(m, fLut)) return m;
+		free(m);
+		return NULL;
+	}
+
+	_KOLIBA_MATRIX(KOLIBA_SLUT *sLut) {
+		KOLIBA_MATRIX *m;
+		if (sLut==NULL) return NULL;
+		if (KOLIBA_ConvertSlutToMatrix(m, sLut)) return m;
+		free(m);
+		return NULL;
+	}
+
+	char *__str__() {
+		static char s[512];
+		sprintf(s,
+			"matrix [\n"
+			"red     [%g, %g, %g, %g]\n"
+			"green   [%g, %g, %g, %g]\n"
+			"blue    [%g, %g, %g, %g]\n"
+			"offset  [0, 0, 0, 1]\n"
+			"       ]",
+		$self->red.r,   $self->red.g,   $self->red.b,   $self->red.o,
+		$self->green.r, $self->green.g, $self->green.b, $self->green.o,
+		$self->blue.r,  $self->blue.g,  $self->blue.b,  $self->blue.o
+		);
+		return s;
+	}
+
+	void interpolate(KOLIBA_MATRIX *modifier, double rate=0.5) {
+		KOLIBA_InterpolateMatrices($self, $self, rate, modifier);
+	}
+
+	void efficacy(double efficacy) {KOLIBA_MatrixEfficacy($self,$self,efficacy);}
+	void reset(void) {KOLIBA_ResetMatrix($self);}
+	void resetRed(void) {KOLIBA_ResetMatrixRed($self);}
+	void resetGreen(void) {KOLIBA_ResetMatrixGreen($self);}
+	void resetBlue(void) {KOLIBA_ResetMatrixBlue($self);}
+
+	void span(KOLIBA_RGB *top, KOLIBA_RGB *bottom) {
+		KOLIBA_MatrixSpan($self,top,bottom);
+	}
+
+	void cluster(KOLIBA_MATRIX *modifier) {
+		KOLIBA_MultiplyMatrices($self,$self,modifier);
+	}
+
+	void lift(KOLIBA_VERTEX *lifts) {KOLIBA_MatrixLift($self,$self,lifts);}
+	void gain(KOLIBA_VERTEX *gains) {KOLIBA_MatrixGain($self,$self,gains);}
+
+	~_KOLIBA_MATRIX() {free($self);}
 }
 
 #endif
