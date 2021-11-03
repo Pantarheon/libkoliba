@@ -243,6 +243,11 @@
 %ignore KOLIBA_MultiplyMatrices;
 %ignore KOLIBA_MatrixLift;
 %ignore KOLIBA_MatrixGain;
+%ignore KOLIBA_ConvertChannelBlendToMatrix;
+%ignore KOLIBA_GrayComplementMatrix;
+%ignore KOLIBA_RedComplementMatrix;
+%ignore KOLIBA_GreenComplementMatrix;
+%ignore KOLIBA_BlueComplementMatrix;
 
 #define	KOLIBA_FLUT	flut
 #define	KOLIBA_SLUT	slut
@@ -883,6 +888,7 @@
 	_KOLIBA_MATRIX(KOLIBA_FLUT *fLut) {
 		KOLIBA_MATRIX *m;
 		if (fLut==NULL) return NULL;
+		m = malloc(sizeof(KOLIBA_MATRIX));
 		if (KOLIBA_ConvertFlutToMatrix(m, fLut)) return m;
 		free(m);
 		return NULL;
@@ -891,7 +897,17 @@
 	_KOLIBA_MATRIX(KOLIBA_SLUT *sLut) {
 		KOLIBA_MATRIX *m;
 		if (sLut==NULL) return NULL;
+		m = malloc(sizeof(KOLIBA_MATRIX));
 		if (KOLIBA_ConvertSlutToMatrix(m, sLut)) return m;
+		free(m);
+		return NULL;
+	}
+
+	_KOLIBA_MATRIX(KOLIBA_CHANNELBLEND *blend) {
+		KOLIBA_MATRIX *m;
+		if (blend==NULL) return NULL;
+		m = malloc(sizeof(KOLIBA_MATRIX));
+		if (KOLIBA_ConvertChannelBlendToMatrix(m,blend)) return m;
 		free(m);
 		return NULL;
 	}
@@ -932,6 +948,22 @@
 
 	void lift(KOLIBA_VERTEX *lifts) {KOLIBA_MatrixLift($self,$self,lifts);}
 	void gain(KOLIBA_VERTEX *gains) {KOLIBA_MatrixGain($self,$self,gains);}
+
+	void grayComplement(KOLIBA_RGB *rec=&KOLIBA_Rec2020, unsigned int channel=0) {
+		KOLIBA_GrayComplementMatrix($self,rec,channel%3);
+	}
+
+	void redComplement(KOLIBA_RGB *rec=&KOLIBA_Rec2020) {
+		KOLIBA_GrayComplementMatrix($self,rec,0);
+	}
+
+	void greenComplement(KOLIBA_RGB *rec=&KOLIBA_Rec2020) {
+		KOLIBA_GrayComplementMatrix($self,rec,1);
+	}
+
+	void blueComplement(KOLIBA_RGB *rec=&KOLIBA_Rec2020) {
+		KOLIBA_GrayComplementMatrix($self,rec,2);
+	}
 
 	~_KOLIBA_MATRIX() {free($self);}
 }
