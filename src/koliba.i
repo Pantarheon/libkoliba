@@ -248,6 +248,13 @@
 %ignore KOLIBA_RedComplementMatrix;
 %ignore KOLIBA_GreenComplementMatrix;
 %ignore KOLIBA_BlueComplementMatrix;
+%ignore KOLIBA_ChromaMatrix;
+%ignore KOLIBA_ChromaticMatrix;
+%ignore KOLIBA_DichromaticMatrix;
+%ignore KOLIBA_AnachromaticMatrix;
+%ignore KOLIBA_DiachromaticMatrix;
+%ignore KOLIBA_RgbToYcc;
+%ignore KOLIBA_YccToRgb;
 
 #define	KOLIBA_FLUT	flut
 #define	KOLIBA_SLUT	slut
@@ -352,7 +359,7 @@
 		return s;
 	}
 
-	void fix(void) {$self=KOLIBA_FixFlut($self);}
+	void fix(void) {KOLIBA_FixFlut($self);}
 	void efficacy(double efficacy) {$self=KOLIBA_FlutEfficacy($self,$self,efficacy);}
 
 	void interpolate(KOLIBA_FLUT *modifier, double rate) {
@@ -912,6 +919,51 @@
 		return NULL;
 	}
 
+	_KOLIBA_MATRIX(KOLIBA_CHROMA *chroma, KOLIBA_RGB *model=&KOLIBA_Rec2020) {
+		KOLIBA_MATRIX *m;
+		if (chroma=NULL) return NULL;
+		m = malloc(sizeof(KOLIBA_MATRIX));
+		if (KOLIBA_ChromaMatrix(m,chroma,model)) return m;
+		free(m);
+		return NULL;
+	}
+
+	_KOLIBA_MATRIX(KOLIBA_CHROMAT *chromat) {
+		KOLIBA_MATRIX *m;
+		if (chromat==NULL) return NULL;
+		m = malloc(sizeof(KOLIBA_MATRIX));
+		if (KOLIBA_ChromaticMatrix(m,chromat)) return m;
+		free(m);
+		return NULL;
+	}
+
+	_KOLIBA_MATRIX(KOLIBA_DICHROMA *dichroma, bool normalize=false, unsigned int channel=0) {
+		KOLIBA_MATRIX *m;
+		if (dichroma==NULL) return NULL;
+		m = malloc(sizeof(KOLIBA_MATRIX));
+		if (KOLIBA_DichromaticMatrix(m,dichroma,normalize,channel%3)) return m;
+		free(m);
+		return NULL;
+	}
+
+	_KOLIBA_MATRIX(KOLIBA_ANACHROMA *anachroma, bool normalize=false, unsigned int channel=0) {
+		KOLIBA_MATRIX *m;
+		if (anachroma==NULL) return NULL;
+		m = malloc(sizeof(KOLIBA_MATRIX));
+		if (KOLIBA_AnachromaticMatrix(m,anachroma,normalize,channel%3)) return m;
+		free(m);
+		return NULL;
+	}
+
+	_KOLIBA_MATRIX(KOLIBA_DIACHROMA *diachroma, bool normalize=false) {
+		KOLIBA_MATRIX *m;
+		if (diachroma==NULL) return NULL;
+		m = malloc(sizeof(KOLIBA_MATRIX));
+		if (KOLIBA_DiachromaticMatrix(m,diachroma,normalize)) return m;
+		free(m);
+		return NULL;
+	}
+
 	char *__str__() {
 		static char s[512];
 		sprintf(s,
@@ -937,6 +989,7 @@
 	void resetRed(void) {KOLIBA_ResetMatrixRed($self);}
 	void resetGreen(void) {KOLIBA_ResetMatrixGreen($self);}
 	void resetBlue(void) {KOLIBA_ResetMatrixBlue($self);}
+	void fix(void) {KOLIBA_FixMatrix($self);}
 
 	void span(KOLIBA_RGB *top, KOLIBA_RGB *bottom) {
 		KOLIBA_MatrixSpan($self,top,bottom);
@@ -963,6 +1016,12 @@
 
 	void blueComplement(KOLIBA_RGB *rec=&KOLIBA_Rec2020) {
 		KOLIBA_GrayComplementMatrix($self,rec,2);
+	}
+
+	void ycc(KOLIBA_RGB *rec=&KOLIBA_Rec2020, bool toycc=true) {
+		KOLIBA_MATRIX mat;
+		if ((toycc) ? KOLIBA_RgbToYcc(&mat,rec) : KOLIBA_YccToRgb(&mat,rec))
+			KOLIBA_FixMatrix(KOLIBA_MultiplyMatrices($self,$self,&mat));
 	}
 
 	~_KOLIBA_MATRIX() {free($self);}

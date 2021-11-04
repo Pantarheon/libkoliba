@@ -69,3 +69,15 @@ KLBDC KOLIBA_SLUT * KOLIBA_FixSlut(KOLIBA_SLUT *sLut) {
 KLBDC KOLIBA_FLUT * KOLIBA_FixFlut(KOLIBA_FLUT *fLut) {
 	return (KOLIBA_FLUT *)KOLIBA_FixSlut((KOLIBA_SLUT *)fLut);
 }
+
+// Also, fix a matrix the same way.
+KLBDC KOLIBA_MATRIX * KOLIBA_FixMatrix(KOLIBA_MATRIX *matrix) {
+	double *ptr;
+	unsigned int i;
+
+	if (matrix == NULL) return NULL;
+
+	for (i = sizeof(KOLIBA_MATRIX)/sizeof(double), ptr = (double *)matrix; i != 0 ; i--,ptr++)
+		if (fabs(*ptr) <= TINY) *ptr = 0.0;
+	return matrix;
+}
