@@ -2,7 +2,7 @@
 
 	mat3x3.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -49,6 +49,6 @@
 // Check if a 3x4 matrix real is a 3x3 matrix.
 // It is if and only if the .o member of each
 // equals 0.
-KLBDC unsigned int KOLIBA_MatrixIs3x3(const KOLIBA_MATRIX * const mat) {
+KLBDC bool KOLIBA_MatrixIs3x3(const KOLIBA_MATRIX * const mat) {
 	return ((mat != NULL) && (mat->red.o == 0.0) && (mat->green.o  == 0.0) && (mat->blue.o == 0.0));
 }

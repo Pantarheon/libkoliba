@@ -253,8 +253,14 @@
 %ignore KOLIBA_DichromaticMatrix;
 %ignore KOLIBA_AnachromaticMatrix;
 %ignore KOLIBA_DiachromaticMatrix;
+%ignore KOLIBA_FixMatrix;
 %ignore KOLIBA_RgbToYcc;
 %ignore KOLIBA_YccToRgb;
+%ignore KOLIBA_YccMatrix;
+%ignore KOLIBA_TetraMatrix;
+%ignore KOLIBA_TetraMat;
+%ignore KOLIBA_GrayscaleMatrix;
+%ignore KOLIBA_MatrixIs3x3;
 
 #define	KOLIBA_FLUT	flut
 #define	KOLIBA_SLUT	slut
@@ -892,6 +898,30 @@
 		);
 	}
 
+	_KOLIBA_MATRIX(KOLIBA_MATRIX *Y, KOLIBA_MATRIX *R, KOLIBA_MATRIX *G, KOLIBA_MATRIX *B) {
+		KOLIBA_MATRIX *m;
+		if ((Y==NULL)||(R==NULL)||(G==NULL)||(B==NULL)) return NULL;
+		m = malloc(sizeof(KOLIBA_MATRIX));
+		if (KOLIBA_TetraMatrix(m,Y,R,G,B)) return m;
+		free(m);
+		return NULL;
+	}
+
+	_KOLIBA_MATRIX(KOLIBA_CHROMAT *y, KOLIBA_CHROMA *r, KOLIBA_CHROMA *g, KOLIBA_CHROMA *b) {
+		KOLIBA_MATRIX *m;
+		KOLIBA_MATRIX Y, R, G, B;
+		if ((y==NULL)||(r==NULL)||(g==NULL)||(b==NULL)) return NULL;
+		m = malloc(sizeof(KOLIBA_MATRIX));
+		if (KOLIBA_TetraMatrix(m,
+			KOLIBA_ChromaticMatrix(&Y, y),
+			KOLIBA_ChromaMatrix(&R, r, &(y->model)),
+			KOLIBA_ChromaMatrix(&G, g, &(y->model)),
+			KOLIBA_ChromaMatrix(&B, b, &(y->model))
+		)) return m;
+		free(m);
+		return NULL;
+	}
+
 	_KOLIBA_MATRIX(KOLIBA_FLUT *fLut) {
 		KOLIBA_MATRIX *m;
 		if (fLut==NULL) return NULL;
@@ -964,6 +994,15 @@
 		return NULL;
 	}
 
+	_KOLIBA_MATRIX(KOLIBA_RGB *rec) {
+		KOLIBA_MATRIX *m;
+		if (rec==NULL) return NULL;
+		m = malloc(sizeof(KOLIBA_MATRIX));
+		if (KOLIBA_GrayscaleMatrix(m,rec)) return m;
+		free(m);
+		return NULL;
+	}
+
 	char *__str__() {
 		static char s[512];
 		sprintf(s,
@@ -1018,11 +1057,23 @@
 		KOLIBA_GrayComplementMatrix($self,rec,2);
 	}
 
+	void gray(KOLIBA_RGB *rec=&KOLIBA_Rec2020) {
+		KOLIBA_MATRIX m;
+		if (rec)
+			KOLIBA_FixMatrix(KOLIBA_MultiplyMatrices($self,$self,KOLIBA_GrayscaleMatrix(&m,rec)));
+	}
+
 	void ycc(KOLIBA_RGB *rec=&KOLIBA_Rec2020, bool toycc=true) {
 		KOLIBA_MATRIX mat;
 		if ((toycc) ? KOLIBA_RgbToYcc(&mat,rec) : KOLIBA_YccToRgb(&mat,rec))
 			KOLIBA_FixMatrix(KOLIBA_MultiplyMatrices($self,$self,&mat));
 	}
+
+	void ycc(KOLIBA_MATRIX *modifier, KOLIBA_RGB *rec=&KOLIBA_Rec2020) {
+		KOLIBA_YccMatrix($self,modifier,rec);
+	}
+
+	bool is3x3(void) {return KOLIBA_MatrixIs3x3($self);}
 
 	~_KOLIBA_MATRIX() {free($self);}
 }
