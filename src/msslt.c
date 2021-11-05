@@ -2,7 +2,7 @@
 
 	msslt.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -53,24 +53,48 @@
 // farba but ignoring secondary farba, which is not
 // an inverse of KOLIBA_ConvertMatrixToSlut, but perhaps
 // could be used as a special effect.
+//
+// Or, if the secondary flag is true, it extracts
+// a matrix based on secondary farba but ignoring
+// primary farba, which again is not an inverse
+// of KOLIBA_ConvertMatrixToSlut unless the sLut
+// really is a matrix.
 
-KLBDC KOLIBA_MATRIX * KOLIBA_ConvertSlutToMatrix(KOLIBA_MATRIX * mat, const KOLIBA_SLUT * const sLut) {
+KLBDC KOLIBA_MATRIX * KOLIBA_ConvertSlutToMatrix(KOLIBA_MATRIX * mat, const KOLIBA_SLUT * const sLut, bool secondary) {
 	if ((sLut == NULL) || (mat == NULL)) return NULL;
 
-	mat->blue.o  = sLut->black.b;
-	mat->blue.b  = sLut->blue.b - sLut->black.b;
-	mat->blue.g  = sLut->green.b - sLut->black.b;
-	mat->blue.r  = sLut->red.b - sLut->black.b;
+	if (secondary) {
+		mat->red.r   = sLut->white.r - sLut->cyan.r;
+		mat->red.g   = sLut->white.r - sLut->magenta.r;
+		mat->red.b   = sLut->white.r - sLut->yellow.r;
+		mat->red.o   = sLut->cyan.r  - mat->red.g - mat->red.b;
 
-	mat->green.o = sLut->black.g;
-	mat->green.b = sLut->blue.g - sLut->black.g;
-	mat->green.g = sLut->green.g - sLut->black.g;
-	mat->green.r = sLut->red.g - sLut->black.g;
+		mat->green.r = sLut->white.g - sLut->cyan.g;
+		mat->green.g = sLut->white.g - sLut->magenta.g;
+		mat->green.b = sLut->white.g - sLut->yellow.g;
+		mat->green.o = sLut->cyan.g  - mat->green.g - mat->green.b;
 
-	mat->red.o   = sLut->black.r;
-	mat->red.b   = sLut->blue.r - sLut->black.r;
-	mat->red.g   = sLut->green.r - sLut->black.r;
-	mat->red.r   = sLut->red.r - sLut->black.r;
+		mat->blue.r  = sLut->white.b - sLut->cyan.b;
+		mat->blue.g  = sLut->white.b - sLut->magenta.b;
+		mat->blue.b  = sLut->white.b - sLut->yellow.b;
+		mat->blue.o  = sLut->cyan.b  - mat->blue.g - mat->blue.b;
+	}
+	else {
+		mat->blue.o  = sLut->black.b;
+		mat->blue.b  = sLut->blue.b - sLut->black.b;
+		mat->blue.g  = sLut->green.b - sLut->black.b;
+		mat->blue.r  = sLut->red.b - sLut->black.b;
+
+		mat->green.o = sLut->black.g;
+		mat->green.b = sLut->blue.g - sLut->black.g;
+		mat->green.g = sLut->green.g - sLut->black.g;
+		mat->green.r = sLut->red.g - sLut->black.g;
+
+		mat->red.o   = sLut->black.r;
+		mat->red.b   = sLut->blue.r - sLut->black.r;
+		mat->red.g   = sLut->green.r - sLut->black.r;
+		mat->red.r   = sLut->red.r - sLut->black.r;
+	}
 
 	return mat;
 }

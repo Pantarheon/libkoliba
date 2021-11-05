@@ -261,6 +261,10 @@
 %ignore KOLIBA_TetraMat;
 %ignore KOLIBA_GrayscaleMatrix;
 %ignore KOLIBA_MatrixIs3x3;
+%ignore KOLIBA_MatrixTo3x3;
+%ignore KOLIBA_InvertMatrix;
+%ignore KOLIBA_MatrixToString;
+%ignore KOLIBA_StringToMatrix;
 
 #define	KOLIBA_FLUT	flut
 #define	KOLIBA_SLUT	slut
@@ -530,7 +534,7 @@
 		return KOLIBA_SlutToString(string, $self, SLTAMINCHARS);
 	}
 
-	// Convert a marshaling` string to sLut
+	// Convert a marshaling string to sLut
 	bool marshal(char *m) {
 		KOLIBA_SLUT s;
 		if (KOLIBA_MarshalSlutFromCompatibleString(&s, m, NULL) == NULL) return false;
@@ -931,11 +935,11 @@
 		return NULL;
 	}
 
-	_KOLIBA_MATRIX(KOLIBA_SLUT *sLut) {
+	_KOLIBA_MATRIX(KOLIBA_SLUT *sLut, bool secondary=false) {
 		KOLIBA_MATRIX *m;
 		if (sLut==NULL) return NULL;
 		m = malloc(sizeof(KOLIBA_MATRIX));
-		if (KOLIBA_ConvertSlutToMatrix(m, sLut)) return m;
+		if (KOLIBA_ConvertSlutToMatrix(m, sLut,secondary)) return m;
 		free(m);
 		return NULL;
 	}
@@ -1074,6 +1078,22 @@
 	}
 
 	bool is3x3(void) {return KOLIBA_MatrixIs3x3($self);}
+	void to3x3(void) {$self->red.o = 0.0; $self->green.o = 0.0; $self->blue.o = 0.0;}
+	void invert(void) {KOLIBA_InvertMatrix($self,$self);}
+
+	// Convert a matrix to a marshaling string.
+	char *marshal(void) {
+		static char string[MATAMINCHARS];
+		return KOLIBA_MatrixToString(string, $self, MATAMINCHARS);
+	}
+
+	// Convert a marshaling string to matrix
+	bool marshal(char *m) {
+		KOLIBA_MATRIX mat;
+		if (KOLIBA_StringToMatrix(&mat, m) == NULL) return false;
+		memcpy($self, &mat, sizeof(KOLIBA_MATRIX));
+		return true;
+	}
 
 	~_KOLIBA_MATRIX() {free($self);}
 }
