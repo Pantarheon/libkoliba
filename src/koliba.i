@@ -265,6 +265,12 @@
 %ignore KOLIBA_InvertMatrix;
 %ignore KOLIBA_MatrixToString;
 %ignore KOLIBA_StringToMatrix;
+%ignore KOLIBA_CheckMat;
+%ignore KOLIBA_WriteMatrixToNamedFile;
+%ignore KOLIBA_ReadMatrixFromNamedFile;
+%ignore KOLIBA_WriteM34tToNamedFile;
+%ignore KOLIBA_ReadM34tFromNamedFile;
+%ignore KOLIBA_ReadMatrixFromCompatibleNamedFile;
 
 #define	KOLIBA_FLUT	flut
 #define	KOLIBA_SLUT	slut
@@ -1007,6 +1013,15 @@
 		return NULL;
 	}
 
+	_KOLIBA_MATRIX(char *filename) {
+		KOLIBA_MATRIX *m;
+		if (filename==NULL) return NULL;
+		m = malloc(sizeof(KOLIBA_MATRIX));
+		if (KOLIBA_ReadMatrixFromCompatibleNamedFile(m,filename,NULL)) return m;
+		free(m);
+		return NULL;
+	}
+
 	char *__str__() {
 		static char s[512];
 		sprintf(s,
@@ -1094,6 +1109,12 @@
 		memcpy($self, &mat, sizeof(KOLIBA_MATRIX));
 		return true;
 	}
+
+	bool checksum(double sum) {return KOLIBA_CheckMat($self,sum);}
+	bool write(char *filename) {return (KOLIBA_WriteMatrixToNamedFile($self,filename)==0);}
+	bool read(char *filename) {return(KOLIBA_ReadMatrixFromNamedFile($self,filename)!=NULL);}
+	bool marshalWrite(char *filename) {return(KOLIBA_WriteM34tToNamedFile($self,filename)==0);}
+	bool marshalRead(char *filename) {return(KOLIBA_ReadM34tFromNamedFile($self,filename)!=NULL);}
 
 	~_KOLIBA_MATRIX() {free($self);}
 }
