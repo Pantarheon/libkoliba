@@ -43,7 +43,7 @@
 #include "koliba.h"
 
 #define	LIBKOLIBA_major	0
-#define	LIBKOLIBA_minor	4
+#define	LIBKOLIBA_minor	5
 
 // Return the version of the library,
 // (LIBKOLIBA_major << 16) | LIBKOLIBA_minor
