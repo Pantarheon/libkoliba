@@ -75,7 +75,7 @@ objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 	readslut.o rec601.o rec709.o rec2020.o \
 	recrec.o rgb2flut.o rgb2slut.o rgba8srgb.o rgbslut.o rgbycc.o \
 	ring.o sinterpol.o slt2pal.o slt2plut.o slt2vert.o \
-	sltcfs.o sltfactors.o sltismat.o sltms.o sltreset.o \
+	sltcfs.o sltfactors.o sltismat.o sltmcs.o sltms.o sltreset.o \
 	slut2cube.o sluthead.o slutis1d.o spherical.o srgba8bytes.o strutring.o \
 	tetramat.o tintflut.o unindxyz.o unindbxyz.o unindoxyz.o unindwxyz.o \
 	valcbtitle.o vert2slt.o vertis1d.o vertismat.o vertpixl.o \

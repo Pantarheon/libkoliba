@@ -202,6 +202,7 @@
 %ignore KOLIBA_ResetSlutYellow;
 %ignore KOLIBA_ResetSlutWhite;
 %ignore KOLIBA_ConvertMatrixToSlut;
+%ignore KOLIBA_ConvertMatricesToSlut;
 %ignore KOLIBA_SlutIsMatrix;
 %ignore KOLIBA_MultiplySluts;
 %ignore KOLIBA_ConvertChannelBlendToSlut;
@@ -470,6 +471,15 @@
 		return NULL;
 	}
 
+	_KOLIBA_SLUT(KOLIBA_MATRIX *primary, KOLIBA_MATRIX *secondary) {
+		KOLIBA_SLUT *sLut;
+		if ((primary==NULL)||(secondary==NULL)) return NULL;
+		sLut = malloc(sizeof(KOLIBA_SLUT));
+		if (KOLIBA_ConvertMatricesToSlut(sLut,primary,secondary)) return sLut;
+		free(sLut);
+		return NULL;
+	}
+
 	_KOLIBA_SLUT(KOLIBA_CHANNELBLEND *blend) {
 		KOLIBA_SLUT *f = malloc(sizeof(KOLIBA_SLUT));
 		return KOLIBA_ConvertChannelBlendToSlut(f,blend);
@@ -720,6 +730,13 @@
 
 	void cluster(const KOLIBA_SLUT * const modifier) {
 		$self=KOLIBA_MultiplySluts($self, $self, modifier);
+	}
+
+	void swap(void) {
+		KOLIBA_MATRIX p, s;
+		KOLIBA_ConvertSlutToMatrix(&p,$self,false);
+		KOLIBA_ConvertSlutToMatrix(&s,$self,true);
+		KOLIBA_ConvertMatricesToSlut($self,&s,&p);
 	}
 
 	void erythropy(void) {KOLIBA_ApplyErythropy($self,$self);}
