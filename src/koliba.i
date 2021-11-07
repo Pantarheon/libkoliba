@@ -277,6 +277,7 @@
 
 %ignore KOLIBA_ConvertSlutToGeminix;
 %ignore KOLIBA_MultiplyGeminices;
+%ignore KOLIBA_SwapGeminix;
 
 #define	KOLIBA_FLUT	flut
 #define	KOLIBA_SLUT	slut
@@ -758,10 +759,8 @@
 	}
 
 	void swap(void) {
-		KOLIBA_MATRIX p, s;
-		KOLIBA_ConvertSlutToMatrix(&p,$self,false);
-		KOLIBA_ConvertSlutToMatrix(&s,$self,true);
-		KOLIBA_ConvertMatricesToSlut($self,&s,&p);
+		KOLIBA_GEMINIX gem;
+		KOLIBA_ConvertGeminixToSlut($self,KOLIBA_SwapGeminix(KOLIBA_ConvertSlutToGeminix(&gem,$self)));
 	}
 
 	void erythropy(void) {KOLIBA_ApplyErythropy($self,$self);}
@@ -1208,6 +1207,8 @@
 		);
 		return s;
 	}
+
+	void swap(void) {KOLIBA_SwapGeminix($self);}
 
 	~_KOLIBA_GEMINIX() {free($self);}
 }
