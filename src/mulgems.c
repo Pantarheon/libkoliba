@@ -48,13 +48,12 @@
 #endif
 
 KLBDC KOLIBA_GEMINIX * KOLIBA_MultiplyGeminices(KOLIBA_GEMINIX * output, const KOLIBA_GEMINIX * const multiplicand, const KOLIBA_GEMINIX * const multiplier) {
-	KOLIBA_MATRIX A, B;
+	KOLIBA_GEMINIX gem;
 
 	if (output == NULL) return NULL;
 
-	if ((KOLIBA_MultiplyMatrices(&A, &multiplicand->p, &multiplier->p) == NULL) ||
-	(KOLIBA_MultiplyMatrices(&B, &multiplicand->s, &multiplier->s) == NULL))
+	if ((KOLIBA_MultiplyMatrices(&gem.p, &multiplicand->p, &multiplier->p) == NULL) ||
+	(KOLIBA_MultiplyMatrices(&gem.s, &multiplicand->s, &multiplier->s) == NULL))
 		return NULL;
-	memcpy(&output->s, &B, sizeof(KOLIBA_MATRIX));
-	return memcpy(&output->p, &A, sizeof(KOLIBA_MATRIX));
+	return memcpy(output, &gem, sizeof(KOLIBA_GEMINIX));
 }

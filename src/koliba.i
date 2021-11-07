@@ -1209,6 +1209,7 @@
 	}
 
 	void swap(void) {KOLIBA_SwapGeminix($self,$self);}
+	void cluster(KOLIBA_GEMINIX *geminix) {KOLIBA_MultiplyGeminices($self,$self,geminix);}
 
 	~_KOLIBA_GEMINIX() {free($self);}
 }
