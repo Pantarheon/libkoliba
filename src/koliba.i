@@ -113,6 +113,7 @@
 #define KOLIBA_RGB	vertex
 #define KOLIBA_ROW row
 #define KOLIBA_MATRIX matrix
+#define KOLIBA_GEMINIX geminix
 
 #include "koliba.h"
 %}
@@ -143,6 +144,7 @@
 /* Do not make low-level code directly accessible outside any class. */
 %ignore KOLIBA_ConvertSlutToFlut;
 %ignore KOLIBA_ConvertMatrixToFlut;
+%ignore KOLIBA_ConvertGeminixToSlut;
 %ignore KOLIBA_FixFlut;
 %ignore KOLIBA_FlutEfficacy;
 %ignore KOLIBA_InterpolateFluts;
@@ -273,6 +275,9 @@
 %ignore KOLIBA_ReadM34tFromNamedFile;
 %ignore KOLIBA_ReadMatrixFromCompatibleNamedFile;
 
+%ignore KOLIBA_ConvertSlutToGeminix;
+%ignore KOLIBA_MultiplyGeminices;
+
 #define	KOLIBA_FLUT	flut
 #define	KOLIBA_SLUT	slut
 #define	KOLIBA_PLUT	plut
@@ -281,6 +286,7 @@
 #define KOLIBA_RGB	vertex
 #define KOLIBA_ROW row
 #define KOLIBA_MATRIX matrix
+#define KOLIBA_GEMINIX geminix
 
 %include "koliba.h"
 #include <stdbool.h>
@@ -355,13 +361,13 @@
 		static char s[1024];
 		sprintf(s,
 			"fLut   [\n"
-			"black   [%g, %g, %g]\n"
-			"red     [%g, %g, %g]\n"
-			"green   [%g, %g, %g]\n"
-			"blue    [%g, %g, %g]\n"
-			"yellow  [%g, %g, %g]\n"
-			"magenta [%g, %g, %g]\n"
-			"cyan    [%g, %g, %g]\n"
+			"black   [%g, %g, %g],\n"
+			"red     [%g, %g, %g],\n"
+			"green   [%g, %g, %g],\n"
+			"blue    [%g, %g, %g],\n"
+			"yellow  [%g, %g, %g],\n"
+			"magenta [%g, %g, %g],\n"
+			"cyan    [%g, %g, %g],\n"
 			"white   [%g, %g, %g]\n"
 			"       ]",
 			$self->black.r, $self->black.g, $self->black.b,
@@ -480,6 +486,15 @@
 		return NULL;
 	}
 
+	_KOLIBA_SLUT(KOLIBA_GEMINIX *geminix) {
+		KOLIBA_SLUT *sLut;
+		if (geminix==NULL) return NULL;
+		sLut = malloc(sizeof(KOLIBA_SLUT));
+		if (KOLIBA_ConvertGeminixToSlut(sLut,geminix)) return sLut;
+		free(sLut);
+		return NULL;
+	}
+
 	_KOLIBA_SLUT(KOLIBA_CHANNELBLEND *blend) {
 		KOLIBA_SLUT *f = malloc(sizeof(KOLIBA_SLUT));
 		return KOLIBA_ConvertChannelBlendToSlut(f,blend);
@@ -563,13 +578,13 @@
 		static char s[1024];
 		sprintf(s,
 			"sLut   [\n"
-			"black   [%g, %g, %g]\n"
-			"blue    [%g, %g, %g]\n"
-			"green   [%g, %g, %g]\n"
-			"cyan    [%g, %g, %g]\n"
-			"red     [%g, %g, %g]\n"
-			"magenta [%g, %g, %g]\n"
-			"yellow  [%g, %g, %g]\n"
+			"black   [%g, %g, %g],\n"
+			"blue    [%g, %g, %g],\n"
+			"green   [%g, %g, %g],\n"
+			"cyan    [%g, %g, %g],\n"
+			"red     [%g, %g, %g],\n"
+			"magenta [%g, %g, %g],\n"
+			"yellow  [%g, %g, %g],\n"
 			"white   [%g, %g, %g]\n"
 			"       ]",
 			$self->black.r, $self->black.g, $self->black.b,
@@ -691,7 +706,7 @@
 		KOLIBA_SLUT *centers=&KOLIBA_ContrastSlut
 	) {KOLIBA_ApplyContrastToSlutVertices($self,centers,flags,contrast);}
 
-	void KOLIBA_ApplySaturationToSlutVertices(
+	void saturation(
 		double saturation,
 		unsigned char flags=KOLIBA_SLUTFARBA,
 		KOLIBA_RGB *gray=NULL
@@ -728,8 +743,18 @@
 	void resetWhite(void) {KOLIBA_ResetSlutWhite($self);}
 	bool ismatrix(void) {return KOLIBA_SlutIsMatrix($self);}
 
+	void cat(const KOLIBA_SLUT * const modifier) {
+		KOLIBA_MultiplySluts($self, $self, modifier);
+	}
+
 	void cluster(const KOLIBA_SLUT * const modifier) {
-		$self=KOLIBA_MultiplySluts($self, $self, modifier);
+		KOLIBA_GEMINIX a, b;
+		if (modifier) {
+			KOLIBA_ConvertSlutToGeminix(&a,$self);
+			KOLIBA_ConvertSlutToGeminix(&b,modifier);
+			KOLIBA_ConvertGeminixToSlut($self,KOLIBA_MultiplyGeminices(&a,&a,&b));
+			KOLIBA_FixSlut($self);
+		}
 	}
 
 	void swap(void) {
@@ -843,13 +868,13 @@
 		if ($self->divisor < 1.0) $self->divisor = 1.0;
 		sprintf(s,
 			"pLut   [[\n"
-			"black   [%g, %g, %g]\n"
-			"white   [%g, %g, %g]\n"
-			"red     [%g, %g, %g]\n"
-			"green   [%g, %g, %g]\n"
-			"blue    [%g, %g, %g]\n"
-			"cyan    [%g, %g, %g]\n"
-			"magenta [%g, %g, %g]\n"
+			"black   [%g, %g, %g],\n"
+			"white   [%g, %g, %g],\n"
+			"red     [%g, %g, %g],\n"
+			"green   [%g, %g, %g],\n"
+			"blue    [%g, %g, %g],\n"
+			"cyan    [%g, %g, %g],\n"
+			"magenta [%g, %g, %g],\n"
 			"yellow  [%g, %g, %g]\n"
 			"       ] / %g] * {%g}",
 			$self->black.r, $self->black.g, $self->black.b,
@@ -1043,9 +1068,9 @@
 		static char s[512];
 		sprintf(s,
 			"matrix [\n"
-			"red     [%g, %g, %g, %g]\n"
-			"green   [%g, %g, %g, %g]\n"
-			"blue    [%g, %g, %g, %g]\n"
+			"red     [%g, %g, %g, %g],\n"
+			"green   [%g, %g, %g, %g],\n"
+			"blue    [%g, %g, %g, %g],\n"
 			"offset  [0, 0, 0, 1]\n"
 			"       ]",
 		$self->red.r,   $self->red.g,   $self->red.b,   $self->red.o,
@@ -1134,6 +1159,57 @@
 	bool marshalRead(char *filename) {return(KOLIBA_ReadM34tFromNamedFile($self,filename)!=NULL);}
 
 	~_KOLIBA_MATRIX() {free($self);}
+}
+
+/* Convert the _KOLIBA_GEMINIX structure into class koliba.geminix(). */
+
+%extend _KOLIBA_GEMINIX {
+	_KOLIBA_GEMINIX(KOLIBA_GEMINIX *geminix=NULL) {
+		struct _KOLIBA_GEMINIX *g = malloc(sizeof(KOLIBA_GEMINIX));
+		if (geminix==NULL) {
+			memcpy(&g->s, &KOLIBA_IdentityMatrix, sizeof(KOLIBA_MATRIX));
+			return memcpy(&g->p, &KOLIBA_IdentityMatrix, sizeof(KOLIBA_MATRIX));
+		}
+		else return memcpy(&g, geminix, sizeof(KOLIBA_GEMINIX));
+	}
+
+	_KOLIBA_GEMINIX(KOLIBA_SLUT *sLut) {
+		struct _KOLIBA_GEMINIX *g;
+		if (sLut==NULL) return NULL;
+		g = malloc(sizeof(KOLIBA_GEMINIX));
+		if (KOLIBA_ConvertSlutToGeminix(g,sLut)) return g;
+		free(g);
+		return NULL;
+	}
+
+	char *__str__() {
+		static char s[1050];
+		sprintf(s,
+			"geminix [\n"
+			"p        [\n"
+			"red       [%g, %g, %g, %g],\n"
+			"green     [%g, %g, %g, %g],\n"
+			"blue      [%g, %g, %g, %g],\n"
+			"offset    [0, 0, 0, 1]\n"
+			"         ],\n"
+			"s        [\n"
+			"red       [%g, %g, %g, %g],\n"
+			"green     [%g, %g, %g, %g],\n"
+			"blue      [%g, %g, %g, %g],\n"
+			"offset    [0, 0, 0, 1]\n"
+			"         ]\n"
+			"        ]",
+		$self->p.red.r,   $self->p.red.g,   $self->p.red.b,   $self->p.red.o,
+		$self->p.green.r, $self->p.green.g, $self->p.green.b, $self->p.green.o,
+		$self->p.blue.r,  $self->p.blue.g,  $self->p.blue.b,  $self->p.blue.o,
+		$self->s.red.r,   $self->s.red.g,   $self->s.red.b,   $self->s.red.o,
+		$self->s.green.r, $self->s.green.g, $self->s.green.b, $self->s.green.o,
+		$self->s.blue.r,  $self->s.blue.g,  $self->s.blue.b,  $self->s.blue.o
+		);
+		return s;
+	}
+
+	~_KOLIBA_GEMINIX() {free($self);}
 }
 
 #endif
