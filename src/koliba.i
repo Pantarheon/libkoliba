@@ -760,7 +760,7 @@
 
 	void swap(void) {
 		KOLIBA_GEMINIX gem;
-		KOLIBA_ConvertGeminixToSlut($self,KOLIBA_SwapGeminix(KOLIBA_ConvertSlutToGeminix(&gem,$self)));
+		KOLIBA_ConvertGeminixToSlut($self,KOLIBA_SwapGeminix(&gem,KOLIBA_ConvertSlutToGeminix(&gem,$self)));
 	}
 
 	void erythropy(void) {KOLIBA_ApplyErythropy($self,$self);}
@@ -1208,7 +1208,7 @@
 		return s;
 	}
 
-	void swap(void) {KOLIBA_SwapGeminix($self);}
+	void swap(void) {KOLIBA_SwapGeminix($self,$self);}
 
 	~_KOLIBA_GEMINIX() {free($self);}
 }

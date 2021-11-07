@@ -46,12 +46,12 @@
 	#define	NULL	((void*)0)
 #endif
 
-KLBDC KOLIBA_GEMINIX * KOLIBA_SwapGeminix(KOLIBA_GEMINIX * gem) {
-	KOLIBA_MATRIX mat;
+KLBDC KOLIBA_GEMINIX * KOLIBA_SwapGeminix(KOLIBA_GEMINIX * output, const KOLIBA_GEMINIX * const input) {
+	KOLIBA_GEMINIX gem;
 
-	if ((gem != NULL) &&
-	(memcpy(&mat, &gem->s, sizeof(KOLIBA_MATRIX))!=NULL) &&
-	(memcpy(&gem->s, &gem->p, sizeof(KOLIBA_MATRIX))))
-	return memcpy(&gem->p, &mat, sizeof(KOLIBA_MATRIX));
+	if ((input != NULL) && (output != NULL) &&
+	(memcpy(&gem.p, &input->s, sizeof(KOLIBA_MATRIX))!=NULL) &&
+	(memcpy(&gem.s, &input->p, sizeof(KOLIBA_MATRIX))))
+	return memcpy(output, &gem, sizeof(KOLIBA_MATRIX));
 	else return NULL;
 }
