@@ -1,6 +1,6 @@
 /*
 
-	fixslut.c
+	matgem.c
 
 	Copyright 2019 G. Adam Stanislav
 	All rights reserved
@@ -41,48 +41,23 @@
 */
 
 #include "koliba.h"
-#include <math.h>
+#include <string.h>
 
 #if !defined(NULL)
 	#define	NULL	((void*)0)
 #endif
 
-#define	TINY	(1.0/4294967296.0)
+// Multiply a matrix by a geminix (if matmod is false),
+// or a geminix by a matrix (if matmod is true).
+//
+// In either case, the result is a geminix.
+KLBDC KOLIBA_GEMINIX * KOLIBA_MatrixGeminixProduct(KOLIBA_GEMINIX * output, const KOLIBA_GEMINIX * const gem, const KOLIBA_MATRIX * const mat, bool matmod) {
+	KOLIBA_GEMINIX g;
 
-// Change very small values to 0
-// because certain cube LUT plug-ins
-// get confused by very small numbers.
+	if ((output == NULL) || (gem == NULL) || (mat == NULL)) return NULL;
 
-KLBDC KOLIBA_SLUT * KOLIBA_FixSlut(KOLIBA_SLUT *sLut) {
-	double *ptr;
-	unsigned int i;
+	memcpy(&g.p, mat, sizeof(KOLIBA_MATRIX));
+	memcpy(&g.s, mat, sizeof(KOLIBA_MATRIX));
 
-	if (sLut == NULL) return NULL;
-
-	for (i = sizeof(KOLIBA_SLUT)/sizeof(double), ptr = (double *)sLut; i != 0 ; i--,ptr++)
-		if (fabs(*ptr) <= TINY) *ptr = 0.0;
-	return sLut;
-}
-
-// Since both KOLIBA_SLUT and KOLIBA_FLUT are really just arrays
-// of 24 doubles, it takes identical machine code to fix them.
-KLBDC KOLIBA_FLUT * KOLIBA_FixFlut(KOLIBA_FLUT *fLut) {
-	return (KOLIBA_FLUT *)KOLIBA_FixSlut((KOLIBA_SLUT *)fLut);
-}
-
-// Same holds true for KOLIBA_GEMINIX...
-KLBDC KOLIBA_GEMINIX * KOLIBA_FixGeminix(KOLIBA_GEMINIX *gem) {
-	return (KOLIBA_GEMINIX *)KOLIBA_FixSlut((KOLIBA_SLUT gem*));
-}
-
-// Also, fix a matrix the same way.
-KLBDC KOLIBA_MATRIX * KOLIBA_FixMatrix(KOLIBA_MATRIX *matrix) {
-	double *ptr;
-	unsigned int i;
-
-	if (matrix == NULL) return NULL;
-
-	for (i = sizeof(KOLIBA_MATRIX)/sizeof(double), ptr = (double *)matrix; i != 0 ; i--,ptr++)
-		if (fabs(*ptr) <= TINY) *ptr = 0.0;
-	return matrix;
+	return KOLIBA_FixGeminix(KOLIBA_MultiplyGeminices(output, (matmod) ? gem : &g, (matmod) ? &g : gem));
 }

@@ -1089,6 +1089,7 @@
 	void resetGreen(void) {KOLIBA_ResetMatrixGreen($self);}
 	void resetBlue(void) {KOLIBA_ResetMatrixBlue($self);}
 	void fix(void) {KOLIBA_FixMatrix($self);}
+	void copy(KOLIBA_MATRIX *mat) {memcpy($self,mat,sizeof(KOLIBA_MATRIX));}
 
 	void span(KOLIBA_RGB *top, KOLIBA_RGB *bottom) {
 		KOLIBA_MatrixSpan($self,top,bottom);
@@ -1209,7 +1210,12 @@
 	}
 
 	void swap(void) {KOLIBA_SwapGeminix($self,$self);}
+	void fix(void) {KOLIBA_FixGeminix($self);}
 	void cluster(KOLIBA_GEMINIX *geminix) {KOLIBA_MultiplyGeminices($self,$self,geminix);}
+
+	void cluster(KOLIBA_MATRIX *mat, bool matmod=false) {
+		KOLIBA_MatrixGeminixProduct($self,$self,mat,matmod);
+	}
 
 	~_KOLIBA_GEMINIX() {free($self);}
 }
