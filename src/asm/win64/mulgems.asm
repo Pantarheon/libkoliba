@@ -45,7 +45,7 @@ KOLIBA_MultiplyGeminices:
 	mov		rcx, rsi
 	call	KOLIBA_MultiplyMatrices
 	test	rax, rax
-	lea		rcx, [rdi+12*8]
+	lea		rcx, [rsi+12*8]
 	mov		rdx, rbx
 	mov		r8, r12
 	je		.done
