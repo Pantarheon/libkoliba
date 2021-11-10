@@ -277,7 +277,10 @@
 
 %ignore KOLIBA_ConvertSlutToGeminix;
 %ignore KOLIBA_MultiplyGeminices;
+%ignore KOLIBA_MultiplyGeminixBySlut;
+%ignore KOLIBA_MatrixGeminixProduct;
 %ignore KOLIBA_SwapGeminix;
+%ignore KOLIBA_FixGeminix;
 
 #define	KOLIBA_FLUT	flut
 #define	KOLIBA_SLUT	slut
@@ -749,12 +752,10 @@
 	}
 
 	void cluster(const KOLIBA_SLUT * const modifier) {
-		KOLIBA_GEMINIX a, b;
+		KOLIBA_GEMINIX gem;
 		if (modifier) {
-			KOLIBA_ConvertSlutToGeminix(&a,$self);
-			KOLIBA_ConvertSlutToGeminix(&b,modifier);
-			KOLIBA_ConvertGeminixToSlut($self,KOLIBA_MultiplyGeminices(&a,&a,&b));
-			KOLIBA_FixSlut($self);
+			KOLIBA_ConvertSlutToGeminix(&gem,$self);
+			KOLIBA_ConvertGeminixToSlut($self,KOLIBA_MultiplyGeminixBySlut(&gem,&gem,modifier));
 		}
 	}
 
@@ -1212,6 +1213,7 @@
 	void swap(void) {KOLIBA_SwapGeminix($self,$self);}
 	void fix(void) {KOLIBA_FixGeminix($self);}
 	void cluster(KOLIBA_GEMINIX *geminix) {KOLIBA_MultiplyGeminices($self,$self,geminix);}
+	void cluster(KOLIBA_SLUT *sLut) {KOLIBA_MultiplyGeminixBySlut($self,$self,sLut);}
 
 	void cluster(KOLIBA_MATRIX *mat, bool matmod=false) {
 		KOLIBA_MatrixGeminixProduct($self,$self,mat,matmod);
