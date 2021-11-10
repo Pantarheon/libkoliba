@@ -9,7 +9,7 @@ section .text
 
 default rel
 
-EXTERN	KOLIBA_ConvertSlutToGeminix
+EXTERN	KOLIBA_ConvertSlutToGeminix, KOLIBA_MultiplyGeminices
 
 GLOBAL	KOLIBA_MultiplyGeminixBySlut
 
@@ -18,15 +18,15 @@ KOLIBA_MultiplyGeminixBySlut:
 	; On Entry:
 	;
 	;	RCX = address of output GEMINIX
-	;	RDX = multiplicand GEMINIX (const)
-	;	R8  = multiplier SLUT (const)
+	;	RDX = address of multiplicand GEMINIX (const)
+	;	R8  = address of multiplier SLUT (const)
 	;
 	; On Exit:
 	;
-	;	RAX = GEMINIX on success, NULL on failure
+	;	RAX = address of output GEMINIX on success, NULL on failure
 	;
 	; Local:
-	;	[RSP+20h] = temporary GEMINIX
+	;	[RSP+20h] = address of temporary GEMINIX
 
 	push	rbp
 	mov		rbp, rsp
@@ -37,11 +37,11 @@ KOLIBA_MultiplyGeminixBySlut:
 	sub		eax, eax
 	test	rdx, rdx
 	mov		rdx, r8
-	je		.done
-	test	rdx, rdx
+	je		.done			; No multiplicand
+	test	rdx, rdx		; multiplier sLut
 	jrcxz	.done			; No output to write to
-	lea		rcx, [rsp+20h]
-	je		.done
+	lea		rcx, [rsp+20h]	; local geminix
+	je		.done			; No multiplier
 	call	KOLIBA_ConvertSlutToGeminix
 	test	rax, rax
 	mov		rcx, [rbp-8]
@@ -49,7 +49,7 @@ KOLIBA_MultiplyGeminixBySlut:
 	mov		rdx, [rbp-16]
 	mov		r8, rax
 
-	call	KOLIBA_ConvertSlutToGeminix
+	call	KOLIBA_MultiplyGeminices
 
 .done:
 
