@@ -752,11 +752,7 @@
 	}
 
 	void cluster(const KOLIBA_SLUT * const modifier) {
-		KOLIBA_GEMINIX gem;
-		if (modifier) {
-			KOLIBA_ConvertSlutToGeminix(&gem,$self);
-			KOLIBA_ConvertGeminixToSlut($self,KOLIBA_MultiplyGeminixBySlut(&gem,&gem,modifier));
-		}
+		KOLIBA_MultiplySlutBySlut($self,$self,modifier);
 	}
 
 	void swap(void) {
@@ -892,14 +888,23 @@
 
 	void reset(void) {KOLIBA_ResetPlut($self);}
 
-/* Sadly, SWIG refuses to override its own idea of what values
-   can be assigned to plut->divisor. So we just have to allow
-   out-of-range values to screw us up. :( :( :(
+/*	Sadly, SWIG refuses to override its own idea of what values
+	can be assigned to plut->divisor. So we just have to allow
+	out-of-range values to screw us up. :( :( :(
 
-   Either that, or we have to remember to edit koliba_wrap every
-   single time we edit and reswig this file. :O
+	Either that, or we have to remember to edit koliba_wrap every
+	single time we edit and reswig this file. :O
 
 	divisor_set(double div) {$self->divisor = (div < 1.0) ? 1.0 : div;}
+
+	Compiling koliba.i this way is my personal solution:
+
+	swig -py3 -python koliba.i
+	sed -i 's/((arg1)->divisor)/(((arg1)->divisor)<1.0)?1.0:((arg1)->divisor)/g' koliba_wrap.c
+
+	That is for python 3. For other languages (every ten-fifteen years someone
+	comes up with another "ultimate" language) just use whatever other switches
+	swig supports (assuming it still supports the latest fad).
 
 */
 
