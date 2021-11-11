@@ -64,7 +64,7 @@ objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 	mals2slut.o mat2cb.o mat3x3.o matgem.o \
 	matreset.o matrixgain.o matrixlift.o matto3x3.o mgemslt.o mglspan.o \
 	mkcube.o mkidcube.o mkpslut.o mmals2slut.o mofarslt.o \
-	mrslslut.o msflt.o msslt.o mulgems.o mulmats.o mulsluts.o \
+	mrslslut.o msflt.o msltslt.o msslt.o mulgems.o mulmats.o mulsluts.o \
 	nan.o natcon.o nfslut.o \
 	nmatrow.o nofarba.o nosvit.o offsetslut.o \
 	ones.o pal8rgba.o partslt.o pi.o plt2slt.o pltreset.o \
