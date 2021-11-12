@@ -1241,6 +1241,8 @@
 		return true;
 	}
 
+	bool marshalWrite(char *filename) {return(KOLIBA_WriteGmnxToNamedFile($self,filename)==0);}
+
 	~_KOLIBA_GEMINIX() {free($self);}
 }
 
