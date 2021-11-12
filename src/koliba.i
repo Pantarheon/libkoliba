@@ -281,6 +281,8 @@
 %ignore KOLIBA_MatrixGeminixProduct;
 %ignore KOLIBA_SwapGeminix;
 %ignore KOLIBA_FixGeminix;
+%ignore KOLIBA_GeminixToString;
+%ignore KOLIBA_StringToGeminix;
 
 #define	KOLIBA_FLUT	flut
 #define	KOLIBA_SLUT	slut
@@ -1174,9 +1176,10 @@
 		struct _KOLIBA_GEMINIX *g = malloc(sizeof(KOLIBA_GEMINIX));
 		if (geminix==NULL) {
 			memcpy(&g->s, &KOLIBA_IdentityMatrix, sizeof(KOLIBA_MATRIX));
-			return memcpy(&g->p, &KOLIBA_IdentityMatrix, sizeof(KOLIBA_MATRIX));
+			memcpy(&g->p, &KOLIBA_IdentityMatrix, sizeof(KOLIBA_MATRIX));
 		}
-		else return memcpy(&g, geminix, sizeof(KOLIBA_GEMINIX));
+		else memcpy(&g, geminix, sizeof(KOLIBA_GEMINIX));
+		return g;
 	}
 
 	_KOLIBA_GEMINIX(KOLIBA_SLUT *sLut) {
@@ -1199,9 +1202,9 @@
 			"offset    [0, 0, 0, 1]\n"
 			"         ],\n"
 			"s        [\n"
-			"red       [%g, %g, %g, %g],\n"
-			"green     [%g, %g, %g, %g],\n"
-			"blue      [%g, %g, %g, %g],\n"
+			"cyan      [%g, %g, %g, %g],\n"
+			"magenta   [%g, %g, %g, %g],\n"
+			"yellow    [%g, %g, %g, %g],\n"
 			"offset    [0, 0, 0, 1]\n"
 			"         ]\n"
 			"        ]",
@@ -1222,6 +1225,20 @@
 
 	void cluster(KOLIBA_MATRIX *mat, bool matmod=false) {
 		KOLIBA_MatrixGeminixProduct($self,$self,mat,matmod);
+	}
+
+	// Convert a twin matrix to a marshaling string.
+	char *marshal(void) {
+		static char string[GMXAMINCHARS];
+		return KOLIBA_GeminixToString(string, $self, GMXAMINCHARS);
+	}
+
+	// Convert a marshaling string to twin matrix
+	bool marshal(char *m) {
+		KOLIBA_GEMINIX gem;
+		if (KOLIBA_StringToGeminix(&gem, m) == NULL) return false;
+		memcpy($self, &gem, sizeof(KOLIBA_GEMINIX));
+		return true;
 	}
 
 	~_KOLIBA_GEMINIX() {free($self);}
