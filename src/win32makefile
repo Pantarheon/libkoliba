@@ -50,7 +50,8 @@ objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 	farbsity.o fflut.o findex.o \
 	flbinflut.o flinflut.o fltcube.o fltismat.o fltscube.o flutms.o \
 	flutslut.o flutter.o flwinflut.o flyxyz.o frange.o fund.o gainslut.o \
-	gamma.o gcomp.o gray2flut.o gray2slut.o gsmat.o homeslut.o \
+	gamma.o gcomp.o getdtafmt.o getstrfmt.o gmnxfmt.o \
+	gray2flut.o gray2slut.o gsmat.o homeslut.o \
 	idchr.o idmallet.o idmat.o \
 	idplt.o idplut.o idsfac.o idslut.o indbxyz.o indcxyz.o indoxyz.o indwxyz.o indxyz.o interflut.o \
 	intermat.o interpol.o interslt.o intslut.o \

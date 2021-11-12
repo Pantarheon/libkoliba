@@ -1,6 +1,6 @@
 /*
 
-	getstrfmt.c
+	gmnxfmt.c
 
 	Copyright 2021 G. Adam Stanislav
 	All rights reserved
@@ -40,29 +40,60 @@
 
 */
 
-#define	USECLIB
 #include "koliba.h"
-#include <string.h>
+#include <inttypes.h>
 
-// Get the data type of a Koliba data string.
-// The string mut be at least SLTCFILEHEADERBYTES
-// bytes in size.
 
-KLBDC KOLIBA_ftype KOLIBA_GetStringDataFormat(const unsigned char * const data) {
-	double d;
+KLBDC const char KOLIBA_PrintGmnxFormat[] = "gmnx\n"
+	"%.16" PRIX64 " "
+	"%.16" PRIX64 " "
+	"%.16" PRIX64 " "
+	"%.16" PRIX64 "\n"
+	"%.16" PRIX64 " "
+	"%.16" PRIX64 " "
+	"%.16" PRIX64 " "
+	"%.16" PRIX64 "\n"
+	"%.16" PRIX64 " "
+	"%.16" PRIX64 " "
+	"%.16" PRIX64 " "
+	"%.16" PRIX64 "\n\n"
+	"%.16" PRIX64 " "
+	"%.16" PRIX64 " "
+	"%.16" PRIX64 " "
+	"%.16" PRIX64 "\n"
+	"%.16" PRIX64 " "
+	"%.16" PRIX64 " "
+	"%.16" PRIX64 " "
+	"%.16" PRIX64 "\n"
+	"%.16" PRIX64 " "
+	"%.16" PRIX64 " "
+	"%.16" PRIX64 " "
+	"%.16" PRIX64 "\n";
 
-	if (data == NULL)
-		return KOLIBA_ftnoslut;
+KLBDC const char KOLIBA_ScanGmnxFormat[] = " gmnx\n"
+	"%" SCNx64 " "
+	"%" SCNx64 " "
+	"%" SCNx64 " "
+	"%" SCNx64 "\n"
+	"%" SCNx64 " "
+	"%" SCNx64 " "
+	"%" SCNx64 " "
+	"%" SCNx64 "\n"
+	"%" SCNx64 " "
+	"%" SCNx64 " "
+	"%" SCNx64 " "
+	"%" SCNx64 "\n\n"
+	"%" SCNx64 " "
+	"%" SCNx64 " "
+	"%" SCNx64 " "
+	"%" SCNx64 "\n"
+	"%" SCNx64 " "
+	"%" SCNx64 " "
+	"%" SCNx64 " "
+	"%" SCNx64 "\n"
+	"%" SCNx64 " "
+	"%" SCNx64 " "
+	"%" SCNx64 " "
+	"%" SCNx64 "\n";
 
-	if (sscanf(data, KOLIBA_ScanSlttHeaderFormat, &d) == 1)
-		return KOLIBA_ftsltt;
-	else if (sscanf(data, KOLIBA_ScanM34tHeaderFormat, &d) == 1)
-		return KOLIBA_ftm34t;
-	else if (sscanf(data, KOLIBA_ScanChrtHeaderFormat, &d) == 1)
-		return KOLIBA_ftchrt;
-	else if (sscanf(data, KOLIBA_ScanPlttHeaderFormat, &d) == 1)
-		return KOLIBA_ftkptt;
-	else if (sscanf(data, KOLIBA_ScanGmnxHeaderFormat, &d) == 1)
-		return KOLIBA_ftgmnx;
-	else return KOLIBA_ftunknown;
-}
+KLBDC const char KOLIBA_ScanGmnxHeaderFormat[] = " gmnx\n%" SCNx64 " ";
