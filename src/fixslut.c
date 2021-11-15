@@ -72,7 +72,7 @@ KLBDC KOLIBA_FLUT * KOLIBA_FixFlut(KOLIBA_FLUT *fLut) {
 
 // Same holds true for KOLIBA_GEMINIX...
 KLBDC KOLIBA_GEMINIX * KOLIBA_FixGeminix(KOLIBA_GEMINIX *gem) {
-	return (KOLIBA_GEMINIX *)KOLIBA_FixSlut((KOLIBA_SLUT gem*));
+	return (KOLIBA_GEMINIX *)KOLIBA_FixSlut((KOLIBA_SLUT *)gem);
 }
 
 // Also, fix a matrix the same way.

@@ -2,7 +2,7 @@
 
 	checksum.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -48,11 +48,11 @@
 
 
 // Check whether a checksum of n doubles is correct.
-KLBDC int KOLIBA_CheckSum(const double * const d, double chsum, unsigned int n) {
+KLBDC bool KOLIBA_CheckSum(const double * const d, double chsum, unsigned int n) {
 	unsigned int i;
 	double sum = 0.0;
 
-	if ((d == NULL) || (n == 0)) return 0;
+	if ((d == NULL) || (n == 0)) return false;
 
 	for (i = 0; i < n; i++)
 		sum += (double)(i+1)*(d[i]);
