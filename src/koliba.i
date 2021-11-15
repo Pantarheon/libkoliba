@@ -283,6 +283,8 @@
 %ignore KOLIBA_FixGeminix;
 %ignore KOLIBA_GeminixToString;
 %ignore KOLIBA_StringToGeminix;
+%ignore KOLIBA_WriteGmnxToOpenFile;
+%ignore KOLIBA_WriteGmnxToNamedFile;
 
 #define	KOLIBA_FLUT	flut
 #define	KOLIBA_SLUT	slut
@@ -1160,6 +1162,17 @@
 		return true;
 	}
 
+	char *feColorMatrix(void) {
+		static char string[320];
+		sprintf(string,
+		"<feColorMatrix type=\"matrix\" in=\"SourceGraphic\" values=\"%g %g %g %g 0  %g %g %g %g 0  %g %g %g %g 0  0 0 0 1 0\"/>\n",
+		$self->red.r,   $self->red.g,   $self->red.b,   $self->red.o,
+		$self->green.r, $self->green.g, $self->green.b, $self->green.o,
+		$self->blue.r,  $self->blue.g,  $self->blue.b,  $self->blue.o
+		);
+		return string;
+	}
+
 	bool checksum(double sum) {return KOLIBA_CheckMat($self,sum);}
 	bool write(char *filename) {return (KOLIBA_WriteMatrixToNamedFile($self,filename)==0);}
 	bool read(char *filename) {return(KOLIBA_ReadMatrixFromNamedFile($self,filename)!=NULL);}
@@ -1242,6 +1255,7 @@
 	}
 
 	bool marshalWrite(char *filename) {return(KOLIBA_WriteGmnxToNamedFile($self,filename)==0);}
+	bool marshalRead(char *filename) {return(KOLIBA_ReadGmnxFromNamedFile($self,filename)!=NULL);}
 
 	~_KOLIBA_GEMINIX() {free($self);}
 }

@@ -92,6 +92,7 @@ KOLIBA_FixSlut:
 
 	mov			r12, 24
 
+.align 3
 .Entry:
 
 	vldr.64		d1, .Little
@@ -129,6 +130,7 @@ KOLIBA_FixSlut:
 	.fpu 	vfp
 	.type	KOLIBA_FixMatrix, %function
 
+.align 3
 KOLIBA_FixMatrix:
 
 	@ Check for a NULL pointer.
