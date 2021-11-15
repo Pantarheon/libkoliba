@@ -79,6 +79,7 @@
 	.type	KOLIBA_FixFlut, %function
 	.type	KOLIBA_FixSlut, %function
 
+KOLIBA_FixGeminix:
 KOLIBA_FixFlut:
 KOLIBA_FixSlut:
 
