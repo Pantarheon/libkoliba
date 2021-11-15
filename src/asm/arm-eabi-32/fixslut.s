@@ -69,11 +69,13 @@
 	.arch	armv6
 	.text
 	.align	2
+	.global	KOLIBA_FixGeminix
 	.global	KOLIBA_FixFlut
 	.global	KOLIBA_FixSlut
 	.syntax unified
 	.arm
 	.fpu 	vfp
+	.type	KOLIBA_FixGeminix, %function
 	.type	KOLIBA_FixFlut, %function
 	.type	KOLIBA_FixSlut, %function
 
@@ -88,6 +90,9 @@ KOLIBA_FixSlut:
 	@ Do the job.
 
 	mov			r12, 24
+
+.Entry:
+
 	vldr.64		d1, .Little
 	mov			r2, 0
 	mov			r3, 0
@@ -112,4 +117,26 @@ KOLIBA_FixSlut:
 
 	.size		KOLIBA_FixSlut, .-KOLIBA_FixSlut
 	.size		KOLIBA_FixFlut, .-KOLIBA_FixFlut
+
+
+	.arch	armv6
+	.text
+	.align	2
+	.global	KOLIBA_FixMatrix
+	.syntax unified
+	.arm
+	.fpu 	vfp
+	.type	KOLIBA_FixMatrix, %function
+
+KOLIBA_FixMatrix:
+
+	@ Check for a NULL pointer.
+
+	cmp			r0, 0
+	bxeq		lr
+
+	@ Do the job.
+
+	mov			r12, 24
+	b			KOLIBA_FixSlut.Entry
 
