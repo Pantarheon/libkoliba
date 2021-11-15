@@ -137,6 +137,6 @@ KOLIBA_FixMatrix:
 
 	@ Do the job.
 
-	mov			r12, 24
+	mov			r12, 12
 	b			KOLIBA_FixSlut.Entry
 
