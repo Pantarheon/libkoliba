@@ -57,6 +57,10 @@ static KOLIBA_SLUT * invalid(KOLIBA_SLUT *sLut, KOLIBA_ftype *ft, KOLIBA_ftype e
 
 KLBDC KOLIBA_SLUT * KOLIBA_MarshalSlutFromCompatibleString(KOLIBA_SLUT *sLut, const unsigned char * const string, KOLIBA_ftype *ft) {
 	KOLIBA_ftype ftype;
+	KOLIBA_MATRIX m3x4;
+	KOLIBA_CHROMAT chrm;
+	KOLIBA_CHANNELBLEND cb;
+	KOLIBA_GEMINIX gem;
 
 	if (sLut == NULL) {
 		if (ft) *ft = KOLIBA_ftnoslut;
@@ -68,13 +72,37 @@ KLBDC KOLIBA_SLUT * KOLIBA_MarshalSlutFromCompatibleString(KOLIBA_SLUT *sLut, co
 		case KOLIBA_ftsltt:
 			if (KOLIBA_StringToSlut(sLut, string)) {
 				if (ft) *ft = ftype;
-				return sLut;
 			}
 			else return invalid(sLut, ft, KOLIBA_ftunknown);
+			break;
+		case KOLIBA_ftm34t:
+			if (KOLIBA_ConvertMatrixToSlut(sLut, KOLIBA_StringToMatrix(&m3x4, string))) {
+				if (ft) *ft = KOLIBA_ftm34t;
+			}
+			else return invalid(sLut, ft, KOLIBA_ftm34t);
+			break;
+		case KOLIBA_ftchrt:
+			if (KOLIBA_ConvertMatrixToSlut(sLut, KOLIBA_ChromaticMatrix(&m3x4, KOLIBA_StringToChromat(&chrm, string)))) {
+				if (ft) *ft = KOLIBA_ftchrt;
+			}
+			else return invalid(sLut, ft, KOLIBA_ftchrt);
+			break;
+		case KOLIBA_ftgmnx:
+			if (KOLIBA_ConvertGeminixToSlut(sLut, KOLIBA_StringToGeminix(&gem, string))) {
+				if (ft) *ft = KOLIBA_ftgmnx;
+			}
+			else return invalid(sLut, ft, KOLIBA_ftgmnx);
+			break;
+		case KOLIBA_ftcbln:
+			if (KOLIBA_ConvertMatrixToSlut(sLut, KOLIBA_ConvertChannelBlendToMatrix(&m3x4, KOLIBA_StringToChannelBlend(&cb, string)))) {
+				if (ft) *ft = KOLIBA_ftcbln;
+			}
+			else return invalid(sLut, ft, KOLIBA_ftchrt);
 			break;
 		default:
 			if (ft) *ft = KOLIBA_ftunknown;
 			return NULL;
 			break;
 	}
+	return sLut;
 }
