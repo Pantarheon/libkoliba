@@ -2,7 +2,7 @@
 
 	cbreset.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -56,11 +56,11 @@ KLBDC KOLIBA_CHANNELBLEND * KOLIBA_ResetChannelBlend(KOLIBA_CHANNELBLEND *blend)
 KLBDC KOLIBA_CHANNELBLEND * KOLIBA_ResetChannelBlendRed(KOLIBA_CHANNELBLEND *blend) {
 	if (blend != NULL) {
 		memcpy(&blend->mat.red, &KOLIBA_IdentityMatrix.red, sizeof(KOLIBA_ROW));
-		blend->nr = 0;
+		blend->nr = false;
 		if (blend->na) {
-			blend->ng = 1;
-			blend->nb = 1;
-			blend->na = 0;
+			blend->ng = true;
+			blend->nb = true;
+			blend->na = false;
 		}
 	}
 	return blend;
@@ -69,11 +69,11 @@ KLBDC KOLIBA_CHANNELBLEND * KOLIBA_ResetChannelBlendRed(KOLIBA_CHANNELBLEND *ble
 KLBDC KOLIBA_CHANNELBLEND * KOLIBA_ResetChannelBlendGreen(KOLIBA_CHANNELBLEND *blend) {
 	if (blend != NULL) {
 		memcpy(&blend->mat.green, &KOLIBA_IdentityMatrix.green, sizeof(KOLIBA_ROW));
-		blend->ng = 0;
+		blend->ng = false;
 		if (blend->na) {
-			blend->nr = 1;
-			blend->nb = 1;
-			blend->na = 0;
+			blend->nr = true;
+			blend->nb = true;
+			blend->na = false;
 		}
 	}
 	return blend;
@@ -82,11 +82,11 @@ KLBDC KOLIBA_CHANNELBLEND * KOLIBA_ResetChannelBlendGreen(KOLIBA_CHANNELBLEND *b
 KLBDC KOLIBA_CHANNELBLEND * KOLIBA_ResetChannelBlendBlue(KOLIBA_CHANNELBLEND *blend) {
 	if (blend != NULL) {
 		memcpy(&blend->mat.blue, &KOLIBA_IdentityMatrix.blue, sizeof(KOLIBA_ROW));
-		blend->nb = 0;
+		blend->nb = false;
 		if (blend->na) {
-			blend->nr = 1;
-			blend->ng = 1;
-			blend->na = 0;
+			blend->nr = true;
+			blend->ng = true;
+			blend->na = false;
 		}
 	}
 	return blend;

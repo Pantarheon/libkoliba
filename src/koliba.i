@@ -114,6 +114,7 @@
 #define KOLIBA_ROW row
 #define KOLIBA_MATRIX matrix
 #define KOLIBA_GEMINIX geminix
+#define KOLIBA_CHANNELBLEND blend
 
 #include "koliba.h"
 %}
@@ -286,6 +287,12 @@
 %ignore KOLIBA_WriteGmnxToOpenFile;
 %ignore KOLIBA_WriteGmnxToNamedFile;
 
+%ignore KOLIBA_ConvertMatrixToChannelBlend;
+%ignore KOLIBA_ResetChannelBlend;
+%ignore KOLIBA_ResetChannelBlendRed;
+%ignore KOLIBA_ResetChannelBlendGreen;
+%ignore KOLIBA_ResetChannelBlendBlue;
+
 #define	KOLIBA_FLUT	flut
 #define	KOLIBA_SLUT	slut
 #define	KOLIBA_PLUT	plut
@@ -295,6 +302,7 @@
 #define KOLIBA_ROW row
 #define KOLIBA_MATRIX matrix
 #define KOLIBA_GEMINIX geminix
+#define KOLIBA_CHANNELBLEND blend
 
 %include "koliba.h"
 #include <stdbool.h>
@@ -608,7 +616,7 @@
 	}
 
 	void fix(void) {KOLIBA_FixSlut($self);}
-	void efficacy(double efficacy) {KOLIBA_SlutEfficacy($self,$self,efficacy);}
+//	void efficacy(double efficacy) {KOLIBA_SlutEfficacy($self,$self,efficacy);}
 
 	void interpolate(KOLIBA_SLUT *modifier, double rate=0.5) {
 		KOLIBA_InterpolateSluts($self,$self,rate,modifier);
@@ -948,7 +956,7 @@
 	~_KOLIBA_ROW() {free($self);}
 }
 
-/* Convert the _KOLIBA_MATRIX structure into class koliba.matrix(). */
+        /* Convert the _KOLIBA_MATRIX structure into class koliba.matrix(). */
 
 %extend _KOLIBA_MATRIX {
 	_KOLIBA_MATRIX(KOLIBA_MATRIX *mat=NULL) {
@@ -1258,6 +1266,31 @@
 	bool marshalRead(char *filename) {return(KOLIBA_ReadGmnxFromNamedFile($self,filename)!=NULL);}
 
 	~_KOLIBA_GEMINIX() {free($self);}
+}
+
+/* Convert the _KOLIBA_CHANNELBLEND structure into class koliba.blend(). */
+
+%extend _KOLIBA_CHANNELBLEND {
+	_KOLIBA_CHANNELBLEND(KOLIBA_CHANNELBLEND *blend) {
+		return memcpy(
+			malloc(sizeof(KOLIBA_CHANNELBLEND)),
+			(blend) ? blend : &KOLIBA_IdentityChannelBlend,
+			sizeof(KOLIBA_CHANNELBLEND)
+		);
+	}
+
+	_KOLIBA_CHANNELBLEND(KOLIBA_MATRIX *mat) {
+		return (mat) ?
+			KOLIBA_ConvertMatrixToChannelBlend(malloc(sizeof(KOLIBA_MATRIX)), mat)
+			: NULL;
+	}
+
+	void reset() {KOLIBA_ResetChannelBlend($self);}
+	void resetRed() {KOLIBA_ResetChannelBlendRed($self);}
+	void resetGreen() {KOLIBA_ResetChannelBlendGreen($self);}
+	void resetBlue() {KOLIBA_ResetChannelBlendBlue($self);}
+
+	~_KOLIBA_CHANNELBLEND() {free($self);}
 }
 
 #endif

@@ -2,7 +2,7 @@
 
 	idmat.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -47,5 +47,5 @@ KLBDC const KOLIBA_CHANNELBLEND KOLIBA_IdentityChannelBlend = {
 	 {0.0, 1.0, 0.0, 0.0},
 	 {0.0, 0.0, 1.0, 0.0}},
 	1.0,
-	'\0','\0','\0','\0'
+	false, false, false, false
 };
