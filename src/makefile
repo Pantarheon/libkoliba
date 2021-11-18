@@ -43,7 +43,7 @@ PREFIX=/usr
 objects = 8bitbuff.o abgr8xyz.o anachroma.o apppx.o appxyz.o argb8xyz.o \
 	bgra32xyz.o bgra8xyz.o bindbxyz.o bindoxyz.o bindwxyz.o bindxyz.o \
 	byte255.o calcsum.o cb2mat.o \
-	cbreset.o cflthead.o checksum.o \
+	cbreset.o cbsfmt.o cbstr.o cflthead.o checksum.o \
 	chrmhead.o chrmreset.o chrmsfmt.o chroma.o \
 	chrreset.o chrtstr.o cmyx.o colmask.o contrasts.o \
 	dblsrgb.o deffiset.o diachroma.o dichroma.o dicrhead.o effiflut.o \

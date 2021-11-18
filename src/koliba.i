@@ -1271,12 +1271,23 @@
 /* Convert the _KOLIBA_CHANNELBLEND structure into class koliba.blend(). */
 
 %extend _KOLIBA_CHANNELBLEND {
-	_KOLIBA_CHANNELBLEND(KOLIBA_CHANNELBLEND *blend) {
-		return memcpy(
-			malloc(sizeof(KOLIBA_CHANNELBLEND)),
-			(blend) ? blend : &KOLIBA_IdentityChannelBlend,
-			sizeof(KOLIBA_CHANNELBLEND)
+	// For whhatever reason, trying to memcpy the entire structure
+	// returns garbage, at least with mingw.
+	_KOLIBA_CHANNELBLEND(KOLIBA_CHANNELBLEND *blend=&KOLIBA_IdentityChannelBlend) {
+		struct _KOLIBA_CHANNELBLEND *cb;
+		if (blend == NULL) return NULL;
+		cb = malloc(sizeof(KOLIBA_CHANNELBLEND));
+		memcpy(
+			&cb->mat,
+			&blend->mat,
+			sizeof(KOLIBA_MATRIX)
 		);
+		cb->efficacy = blend->efficacy;
+		cb->na       = blend->na;
+		cb->nr       = blend->nr;
+		cb->ng       = blend->ng;
+		cb->nb       = blend->ng;
+		return cb;
 	}
 
 	_KOLIBA_CHANNELBLEND(KOLIBA_MATRIX *mat) {
@@ -1289,6 +1300,20 @@
 	void resetRed() {KOLIBA_ResetChannelBlendRed($self);}
 	void resetGreen() {KOLIBA_ResetChannelBlendGreen($self);}
 	void resetBlue() {KOLIBA_ResetChannelBlendBlue($self);}
+
+	// Convert blend to a marshaling string.
+	char *marshal(void) {
+		static char string[CBLAMINCHARS];
+		return KOLIBA_ChannelBlendToString(string, $self, CBLAMINCHARS);
+	}
+
+	// Convert a marshaling string to blend
+	bool marshal(char *b) {
+		KOLIBA_CHANNELBLEND cb;
+		if (KOLIBA_StringToChannelBlend(&cb, b) == NULL) return false;
+		memcpy($self, &cb, sizeof(KOLIBA_CHANNELBLEND));
+		return true;
+	}
 
 	~_KOLIBA_CHANNELBLEND() {free($self);}
 }
