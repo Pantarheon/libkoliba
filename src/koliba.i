@@ -1301,6 +1301,29 @@
 	void resetGreen() {KOLIBA_ResetChannelBlendGreen($self);}
 	void resetBlue() {KOLIBA_ResetChannelBlendBlue($self);}
 
+	char *__str__() {
+		static char s[640];
+		sprintf(s,
+			"blend  [\n"
+			"red     [%g, %g, %g, %g],\n"
+			"green   [%g, %g, %g, %g],\n"
+			"blue    [%g, %g, %g, %g],\n"
+			"offset  [0, 0, 0, 1]\n"
+			"efficacy %g\n"
+			"a,r,g,b [%s, %s, %s, %s]\n"
+			"       ]",
+		$self->mat.red.r,   $self->mat.red.g,   $self->mat.red.b,   $self->mat.red.o,
+		$self->mat.green.r, $self->mat.green.g, $self->mat.green.b, $self->mat.green.o,
+		$self->mat.blue.r,  $self->mat.blue.g,  $self->mat.blue.b,  $self->mat.blue.o,
+		$self->efficacy,
+		($self->na) ? "true" : "false",
+		($self->nr) ? "true" : "false",
+		($self->ng) ? "true" : "false",
+		($self->nb) ? "true" : "false"
+		);
+		return s;
+	}
+
 	// Convert blend to a marshaling string.
 	char *marshal(void) {
 		static char string[CBLAMINCHARS];
@@ -1316,6 +1339,7 @@
 	}
 
 	bool marshalWrite(char *filename) {return(KOLIBA_WriteCblnToNamedFile($self,filename)==0);}
+	bool marshalRead(char *filename) {return(KOLIBA_ReadCblnFromNamedFile($self,filename)!=NULL);}
 
 	~_KOLIBA_CHANNELBLEND() {free($self);}
 }
