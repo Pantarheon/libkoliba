@@ -1271,7 +1271,7 @@
 /* Convert the _KOLIBA_CHANNELBLEND structure into class koliba.blend(). */
 
 %extend _KOLIBA_CHANNELBLEND {
-	// For whhatever reason, trying to memcpy the entire structure
+	// For whatever reason, trying to memcpy the entire structure
 	// returns garbage, at least with mingw.
 	_KOLIBA_CHANNELBLEND(KOLIBA_CHANNELBLEND *blend=&KOLIBA_IdentityChannelBlend) {
 		struct _KOLIBA_CHANNELBLEND *cb;
@@ -1292,7 +1292,7 @@
 
 	_KOLIBA_CHANNELBLEND(KOLIBA_MATRIX *mat) {
 		return (mat) ?
-			KOLIBA_ConvertMatrixToChannelBlend(malloc(sizeof(KOLIBA_MATRIX)), mat)
+			KOLIBA_ConvertMatrixToChannelBlend(malloc(sizeof(KOLIBA_CHANNELBLEND)), mat)
 			: NULL;
 	}
 
@@ -1314,6 +1314,8 @@
 		memcpy($self, &cb, sizeof(KOLIBA_CHANNELBLEND));
 		return true;
 	}
+
+	bool marshalWrite(char *filename) {return(KOLIBA_WriteCblnToNamedFile($self,filename)==0);}
 
 	~_KOLIBA_CHANNELBLEND() {free($self);}
 }
