@@ -72,8 +72,8 @@ KLBDC const char KOLIBA_ScanCblnFormat[] = " cBln\n"
 	"%" SCNx64 " "
 	"%" SCNx64 " "
 	"%" SCNx64 " "
-	"%.16" SCNx64 "\n"
-	"%.16" SCNx64 " "
-	"%.4x\n";
+	"%" SCNx64 "\n"
+	"%" SCNx64 " "
+	"%x\n";
 
 KLBDC const char KOLIBA_ScanCblnHeaderFormat[] = " cBln\n%" SCNx64 " ";
