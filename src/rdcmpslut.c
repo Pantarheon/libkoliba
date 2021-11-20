@@ -63,10 +63,12 @@ static KOLIBA_SLUT * invalid(KOLIBA_SLUT *sLut, KOLIBA_ftype *ft, KOLIBA_ftype e
 
 KLBDC KOLIBA_SLUT * KOLIBA_ReadSlutFromCompatibleOpenFile(KOLIBA_SLUT *sLut, FILE *f, KOLIBA_ftype *ft) {
 	KOLIBA_SLUT Lut;
-	KOLIBA_MATRIX m3x4;
+//	KOLIBA_MATRIX m3x4;
 	KOLIBA_CHROMAT chrm;
 	KOLIBA_DICHROMA dicr;
 	KOLIBA_CFLT cFlt;
+	KOLIBA_GEMINIX gem;
+	KOLIBA_CHANNELBLEND blend;
 	unsigned int normalize, channel;
 	unsigned char header[SLTCFILEHEADERBYTES+1];
 
@@ -94,29 +96,29 @@ KLBDC KOLIBA_SLUT * KOLIBA_ReadSlutFromCompatibleOpenFile(KOLIBA_SLUT *sLut, FIL
 			return KOLIBA_ReadSlttFromOpenFile(sLut, f);
 			break;
 		case KOLIBA_ftmatrix:
-			if (KOLIBA_ConvertMatrixToSlut(sLut, KOLIBA_ReadMatrixFromOpenFile(&m3x4, f)) == NULL)
+			if (KOLIBA_ConvertMatrixToSlut(sLut, KOLIBA_ReadMatrixFromOpenFile(&gem.p, f)) == NULL)
 				return invalid(sLut, ft, KOLIBA_ftmatrix);
 			else if (ft) *ft = KOLIBA_ftmatrix;
 			break;
 		case KOLIBA_ftm34t:
-			if (KOLIBA_ConvertMatrixToSlut(sLut, KOLIBA_ReadM34tFromOpenFile(&m3x4, f)) == NULL)
+			if (KOLIBA_ConvertMatrixToSlut(sLut, KOLIBA_ReadM34tFromOpenFile(&gem.p, f)) == NULL)
 				return invalid(sLut, ft, KOLIBA_ftm34t);
 			else if (ft) *ft = KOLIBA_ftm34t;
 			break;
 		case KOLIBA_ftchrm:
-			if (KOLIBA_ConvertMatrixToSlut(sLut, KOLIBA_ChromaticMatrix(&m3x4, KOLIBA_ReadChromaticMatrixFromOpenFile(&chrm, f))) == NULL)
+			if (KOLIBA_ConvertMatrixToSlut(sLut, KOLIBA_ChromaticMatrix(&gem.p, KOLIBA_ReadChromaticMatrixFromOpenFile(&chrm, f))) == NULL)
 				return invalid(sLut, ft, KOLIBA_ftchrm);
 			else if (ft) *ft = KOLIBA_ftchrm;
 			break;
 		case KOLIBA_ftchrt:
-			if (KOLIBA_ConvertMatrixToSlut(sLut, KOLIBA_ChromaticMatrix(&m3x4, KOLIBA_ReadChrtFromOpenFile(&chrm, f))) == NULL)
+			if (KOLIBA_ConvertMatrixToSlut(sLut, KOLIBA_ChromaticMatrix(&gem.p, KOLIBA_ReadChrtFromOpenFile(&chrm, f))) == NULL)
 				return invalid(sLut, ft, KOLIBA_ftchrt);
 			else if (ft) *ft = KOLIBA_ftchrt;
 			break;
 		case KOLIBA_ftdicr:
 			if ((KOLIBA_ReadDichromaticMatrixFromOpenFile(&dicr, f, &normalize, &channel) == NULL) ||
-			(KOLIBA_DichromaticMatrix(&m3x4, &dicr, normalize, channel) == NULL) ||
-			(KOLIBA_ConvertMatrixToSlut(sLut, &m3x4) == NULL) )
+			(KOLIBA_DichromaticMatrix(&gem.p, &dicr, normalize, channel) == NULL) ||
+			(KOLIBA_ConvertMatrixToSlut(sLut, &gem.p) == NULL) )
 				return invalid(sLut, ft, KOLIBA_ftdicr);
 			else if (ft) *ft = KOLIBA_ftdicr;
 			break;
@@ -124,6 +126,16 @@ KLBDC KOLIBA_SLUT * KOLIBA_ReadSlutFromCompatibleOpenFile(KOLIBA_SLUT *sLut, FIL
 			if (KOLIBA_ConvertColorFilterToSlut(sLut, KOLIBA_ReadColorFilterFromOpenFile(&cFlt, f)) == NULL)
 				return invalid(sLut, ft, KOLIBA_ftcflt);
 			else if (ft) *ft = KOLIBA_ftcflt;
+			break;
+		case KOLIBA_ftgmnx:
+			if (KOLIBA_ConvertGeminixToSlut(sLut, KOLIBA_ReadGmnxFromOpenFile(&gem, f)) == NULL)
+				return invalid(sLut, ft, KOLIBA_ftgmnx);
+			else if (ft) *ft = KOLIBA_ftgmnx;
+			break;
+		case KOLIBA_ftcbln:
+			if (KOLIBA_ConvertMatrixToSlut(sLut, KOLIBA_ConvertChannelBlendToMatrix(&gem.p, KOLIBA_ReadCblnFromOpenFile(&blend, f))) == NULL)
+				return invalid(sLut, ft, KOLIBA_ftcbln);
+			else if (ft) *ft = KOLIBA_ftcbln;
 			break;
 		default:
 			return invalid(sLut, ft, KOLIBA_ftunknown);
