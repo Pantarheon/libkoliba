@@ -1296,6 +1296,13 @@
 			: NULL;
 	}
 
+	_KOLIBA_CHANNELBLEND(char *filename) {
+		struct _KOLIBA_CHANNELBLEND *cb;
+		cb = malloc(sizeof(KOLIBA_CHANNELBLEND));
+		KOLIBA_ReadCblnFromNamedFile(cb,filename);
+		return cb;
+}
+
 	void reset() {KOLIBA_ResetChannelBlend($self);}
 	void resetRed() {KOLIBA_ResetChannelBlendRed($self);}
 	void resetGreen() {KOLIBA_ResetChannelBlendGreen($self);}
