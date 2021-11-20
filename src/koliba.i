@@ -912,7 +912,7 @@
 	Compiling koliba.i this way is my personal solution:
 
 	swig -py3 -python koliba.i
-	sed -i 's/((arg1)->divisor)/(((arg1)->divisor)<1.0)?1.0:((arg1)->divisor)/g' koliba_wrap.c
+	sed -i 's/(arg1)->divisor = arg2/(arg1)->divisor = (arg2<1.0) ? 1.0 : arg2/g' koliba_wrap.c
 
 	That is for python 3. For other languages (every ten-fifteen years someone
 	comes up with another "ultimate" language) just use whatever other switches
