@@ -2,7 +2,7 @@
 
 	sltms.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -49,30 +49,30 @@
 KLBDC KOLIBA_SLUT * KOLIBA_ConvertMatrixToSlut(KOLIBA_SLUT * sLut, const KOLIBA_MATRIX * const mat) {
 	if ((sLut == NULL) || (mat == NULL)) return NULL;
 
-	sLut->black.r = mat->red.o;
-	sLut->black.g = mat->green.o;
-	sLut->black.b = mat->blue.o;
-	sLut->blue.r = mat->red.b+mat->red.o;
-	sLut->blue.g = mat->green.b+mat->green.o;
-	sLut->blue.b = mat->blue.b+mat->blue.o;
-	sLut->green.r = mat->red.g+mat->red.o;
-	sLut->green.g = mat->green.g+mat->green.o;
-	sLut->green.b = mat->blue.g+mat->blue.o;
-	sLut->cyan.r = mat->red.b+mat->red.g+mat->red.o;
-	sLut->cyan.g = mat->green.b+mat->green.g+mat->green.o;
-	sLut->cyan.b = mat->blue.b+mat->blue.g+mat->blue.o;
-	sLut->red.r = mat->red.r+mat->red.o;
-	sLut->red.g = mat->green.r+mat->green.o;
-	sLut->red.b = mat->blue.r+mat->blue.o;
-	sLut->magenta.r = mat->red.r+mat->red.b+mat->red.o;
-	sLut->magenta.g = mat->green.r+mat->green.b+mat->green.o;
-	sLut->magenta.b = mat->blue.r+mat->blue.b+mat->blue.o;
-	sLut->yellow.r = mat->red.r+mat->red.g+mat->red.o;
-	sLut->yellow.g = mat->green.r+mat->green.g+mat->green.o;
-	sLut->yellow.b = mat->blue.r+mat->blue.g+mat->blue.o;
-	sLut->white.r = mat->red.b+mat->red.g+mat->red.r+mat->red.o;
-	sLut->white.g = mat->green.b+mat->green.g+mat->green.r+mat->green.o;
-	sLut->white.b = mat->blue.b+mat->blue.g+mat->blue.r+mat->blue.o;
+	sLut->Black.r   = mat->Red.o;
+	sLut->Black.g   = mat->Green.o;
+	sLut->Black.b   = mat->Blue.o;
+	sLut->Blue.r    = mat->Red.b   + mat->Red.o;
+	sLut->Blue.g    = mat->Green.b + mat->Green.o;
+	sLut->Blue.b    = mat->Blue.b  + mat->Blue.o;
+	sLut->Green.r   = mat->Red.g   + mat->Red.o;
+	sLut->Green.g   = mat->Green.g + mat->Green.o;
+	sLut->Green.b   = mat->Blue.g  + mat->Blue.o;
+	sLut->Cyan.r    = mat->Red.b   + mat->Red.g   + mat->Red.o;
+	sLut->Cyan.g    = mat->Green.b + mat->Green.g + mat->Green.o;
+	sLut->Cyan.b    = mat->Blue.b  + mat->Blue.g  + mat->Blue.o;
+	sLut->Red.r     = mat->Red.r   + mat->Red.o;
+	sLut->Red.g     = mat->Green.r + mat->Green.o;
+	sLut->Red.b     = mat->Blue.r  + mat->Blue.o;
+	sLut->Magenta.r = mat->Red.r   + mat->Red.b   + mat->Red.o;
+	sLut->Magenta.g = mat->Green.r + mat->Green.b + mat->Green.o;
+	sLut->Magenta.b = mat->Blue.r  + mat->Blue.b  + mat->Blue.o;
+	sLut->Yellow.r  = mat->Red.r   + mat->Red.g   + mat->Red.o;
+	sLut->Yellow.g  = mat->Green.r + mat->Green.g + mat->Green.o;
+	sLut->Yellow.b  = mat->Blue.r  + mat->Blue.g  + mat->Blue.o;
+	sLut->White.r   = mat->Red.b   + mat->Red.g   + mat->Red.r   + mat->Red.o;
+	sLut->White.g   = mat->Green.b + mat->Green.g + mat->Green.r + mat->Green.o;
+	sLut->White.b   = mat->Blue.b  + mat->Blue.g  + mat->Blue.r  + mat->Blue.o;
 
 	return sLut;
 }
