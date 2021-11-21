@@ -2,7 +2,7 @@
 
 	plut2slt.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -57,14 +57,14 @@ KLBDC KOLIBA_SLUT * KOLIBA_ConvertPlutToSlut(KOLIBA_SLUT *slut, const KOLIBA_PLU
 
 	if ((plut == NULL) || (slut == NULL) || (plut->divisor < 1.0)) return NULL;
 
-	memcpy(&lut.black, &plut->black, sizeof(KOLIBA_VERTEX));
-	memcpy(&lut.blue, &plut->blue, sizeof(KOLIBA_VERTEX));
-	memcpy(&lut.green, &plut->green, sizeof(KOLIBA_VERTEX));
-	memcpy(&lut.cyan, &plut->cyan, sizeof(KOLIBA_VERTEX));
-	memcpy(&lut.red, &plut->red, sizeof(KOLIBA_VERTEX));
-	memcpy(&lut.magenta, &plut->magenta, sizeof(KOLIBA_VERTEX));
-	memcpy(&lut.yellow, &plut->yellow, sizeof(KOLIBA_VERTEX));
-	memcpy(&lut.white, &plut->white, sizeof(KOLIBA_VERTEX));
+	memcpy(&lut.Black,   &plut->Black, sizeof(KOLIBA_VERTEX));
+	memcpy(&lut.Blue,    &plut->Blue, sizeof(KOLIBA_VERTEX));
+	memcpy(&lut.Green,   &plut->Green, sizeof(KOLIBA_VERTEX));
+	memcpy(&lut.Cyan,    &plut->Cyan, sizeof(KOLIBA_VERTEX));
+	memcpy(&lut.Red,     &plut->Red, sizeof(KOLIBA_VERTEX));
+	memcpy(&lut.Magenta, &plut->Magenta, sizeof(KOLIBA_VERTEX));
+	memcpy(&lut.Yellow,  &plut->Yellow, sizeof(KOLIBA_VERTEX));
+	memcpy(&lut.White,   &plut->White, sizeof(KOLIBA_VERTEX));
 	d = plut->divisor;
 	if (d != 1.0) {	// No need to check for 0 because we have returned NULL
 					// if d < 1.0 already.
