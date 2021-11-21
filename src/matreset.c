@@ -2,7 +2,7 @@
 
 	matreset.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -55,19 +55,19 @@ KLBDC KOLIBA_MATRIX * KOLIBA_ResetMatrix(KOLIBA_MATRIX *matrix) {
 
 KLBDC KOLIBA_MATRIX * KOLIBA_ResetMatrixRed(KOLIBA_MATRIX *matrix) {
 	if (matrix != NULL)
-		memcpy(&matrix->red, &KOLIBA_IdentityMatrix.red, sizeof(KOLIBA_ROW));
+		memcpy(&matrix->Red, &KOLIBA_IdentityMatrix.Red, sizeof(KOLIBA_ROW));
 	return matrix;
 }
 
 KLBDC KOLIBA_MATRIX * KOLIBA_ResetMatrixGreen(KOLIBA_MATRIX *matrix) {
 	if (matrix != NULL)
-		memcpy(&matrix->green, &KOLIBA_IdentityMatrix.green, sizeof(KOLIBA_ROW));
+		memcpy(&matrix->Green, &KOLIBA_IdentityMatrix.Green, sizeof(KOLIBA_ROW));
 	return matrix;
 }
 
 KLBDC KOLIBA_MATRIX * KOLIBA_ResetMatrixBlue(KOLIBA_MATRIX *matrix) {
 	if (matrix != NULL)
-		memcpy(&matrix->blue, &KOLIBA_IdentityMatrix.blue, sizeof(KOLIBA_ROW));
+		memcpy(&matrix->Blue, &KOLIBA_IdentityMatrix.Blue, sizeof(KOLIBA_ROW));
 	return matrix;
 }
 
