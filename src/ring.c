@@ -57,52 +57,52 @@ KLBDC KOLIBA_PALETTE * KOLIBA_ApplyPaletteRing(KOLIBA_PALETTE *output, const KOL
 
 	switch (plut) {
 		case KOLIBA_PlutBlack:
-			r        = input->black.rp;
-			g        = input->black.gp;
-			b        = input->black.bp;
-			efficacy = input->black.efficacy;
+			r        = input->Black.rp;
+			g        = input->Black.gp;
+			b        = input->Black.bp;
+			efficacy = input->Black.efficacy;
 			break;
 		case KOLIBA_PlutWhite:
-			r        = input->white.rp;
-			g        = input->white.gp;
-			b        = input->white.bp;
-			efficacy = input->white.efficacy;
+			r        = input->White.rp;
+			g        = input->White.gp;
+			b        = input->White.bp;
+			efficacy = input->White.efficacy;
 			break;
 		case KOLIBA_PlutRed:
-			r        = input->red.rp;
-			g        = input->red.gp;
-			b        = input->red.bp;
-			efficacy = input->red.efficacy;
+			r        = input->Red.rp;
+			g        = input->Red.gp;
+			b        = input->Red.bp;
+			efficacy = input->Red.efficacy;
 			break;
 		case KOLIBA_PlutGreen:
-			b        = input->green.rp;
-			r        = input->green.gp;
-			g        = input->green.bp;
-			efficacy = input->green.efficacy;
+			b        = input->Green.rp;
+			r        = input->Green.gp;
+			g        = input->Green.bp;
+			efficacy = input->Green.efficacy;
 			break;
 		case KOLIBA_PlutBlue:
-			g        = input->blue.rp;
-			b        = input->blue.gp;
-			r        = input->blue.bp;
-			efficacy = input->blue.efficacy;
+			g        = input->Blue.rp;
+			b        = input->Blue.gp;
+			r        = input->Blue.bp;
+			efficacy = input->Blue.efficacy;
 			break;
 		case KOLIBA_PlutCyan:
-			r        = 1.0 - input->cyan.rp;
-			g        = 1.0 - input->cyan.gp;
-			b        = 1.0 - input->cyan.bp;
-			efficacy = input->cyan.efficacy;
+			r        = 1.0 - input->Cyan.rp;
+			g        = 1.0 - input->Cyan.gp;
+			b        = 1.0 - input->Cyan.bp;
+			efficacy = input->Cyan.efficacy;
 			break;
 		case KOLIBA_PlutMagenta:
-			b        = 1.0 - input->magenta.rp;
-			r        = 1.0 - input->magenta.gp;
-			g        = 1.0 - input->magenta.bp;
-			efficacy = input->magenta.efficacy;
+			b        = 1.0 - input->Magenta.rp;
+			r        = 1.0 - input->Magenta.gp;
+			g        = 1.0 - input->Magenta.bp;
+			efficacy = input->Magenta.efficacy;
 			break;
 		case KOLIBA_PlutYellow:
-			g        = 1.0 - input->yellow.rp;
-			b        = 1.0 - input->yellow.gp;
-			r        = 1.0 - input->yellow.bp;
-			efficacy = input->yellow.efficacy;
+			g        = 1.0 - input->Yellow.rp;
+			b        = 1.0 - input->Yellow.gp;
+			r        = 1.0 - input->Yellow.bp;
+			efficacy = input->Yellow.efficacy;
 			break;
 		default:
 			return NULL;
@@ -115,35 +115,35 @@ KLBDC KOLIBA_PALETTE * KOLIBA_ApplyPaletteRing(KOLIBA_PALETTE *output, const KOL
 
 	if (output != input) memcpy(output, input, sizeof(KOLIBA_PALETTE));
 
-	output->red.rp            = r;
-	output->red.gp            = g;
-	output->red.bp            = b;
-	output->red.efficacy     = efficacy;
+	output->Red.rp            = r;
+	output->Red.gp            = g;
+	output->Red.bp            = b;
+	output->Red.efficacy     = efficacy;
 
-	output->green.rp          = b;
-	output->green.gp          = r;
-	output->green.bp          = g;
-	output->green.efficacy   = efficacy;
+	output->Green.rp          = b;
+	output->Green.gp          = r;
+	output->Green.bp          = g;
+	output->Green.efficacy   = efficacy;
 
-	output->blue.rp           = g;
-	output->blue.gp           = b;
-	output->blue.bp           = r;
-	output->blue.efficacy    = efficacy;
+	output->Blue.rp           = g;
+	output->Blue.gp           = b;
+	output->Blue.bp           = r;
+	output->Blue.efficacy    = efficacy;
 
-	output->cyan.rp           = c;
-	output->cyan.gp           = m;
-	output->cyan.bp           = y;
-	output->cyan.efficacy    = efficacy;
+	output->Cyan.rp           = c;
+	output->Cyan.gp           = m;
+	output->Cyan.bp           = y;
+	output->Cyan.efficacy    = efficacy;
 
-	output->magenta.rp        = y;
-	output->magenta.gp        = c;
-	output->magenta.bp        = m;
-	output->magenta.efficacy = efficacy;
+	output->Magenta.rp        = y;
+	output->Magenta.gp        = c;
+	output->Magenta.bp        = m;
+	output->Magenta.efficacy = efficacy;
 
-	output->yellow.rp         = m;
-	output->yellow.gp         = y;
-	output->yellow.bp         = c;
-	output->yellow.efficacy  = efficacy;
+	output->Yellow.rp         = m;
+	output->Yellow.gp         = y;
+	output->Yellow.bp         = c;
+	output->Yellow.efficacy  = efficacy;
 
 	output->erythropy        = 0;
 
