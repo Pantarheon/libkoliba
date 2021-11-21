@@ -2,7 +2,7 @@
 
 	gray2flut.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -69,37 +69,37 @@ KLBDC KOLIBA_FLUT * KOLIBA_ConvertGrayToFlut(KOLIBA_FLUT * fLut, const KOLIBA_RG
 			rec.b = 1.0 - (rec.r + rec.g);
 		}
 
-		fLut->black.r   = 0.0;
-		fLut->black.g   = 0.0;
-		fLut->black.b   = 0.0;
+		fLut->Black.r   = 0.0;
+		fLut->Black.g   = 0.0;
+		fLut->Black.b   = 0.0;
 
-		fLut->red.r     = rec.r;
-		fLut->red.g     = rec.r;
-		fLut->red.b     = rec.r;
+		fLut->Red.r     = rec.r;
+		fLut->Red.g     = rec.r;
+		fLut->Red.b     = rec.r;
 
-		fLut->green.r   = rec.g;
-		fLut->green.g   = rec.g;
-		fLut->green.b   = rec.g;
+		fLut->Green.r   = rec.g;
+		fLut->Green.g   = rec.g;
+		fLut->Green.b   = rec.g;
 
-		fLut->blue.r    = rec.b;
-		fLut->blue.g    = rec.b;
-		fLut->blue.b    = rec.b;
+		fLut->Blue.r    = rec.b;
+		fLut->Blue.g    = rec.b;
+		fLut->Blue.b    = rec.b;
 
-		fLut->yellow.r  = 0.0;
-		fLut->yellow.g  = 0.0;
-		fLut->yellow.b  = 0.0;
+		fLut->Yellow.r  = 0.0;
+		fLut->Yellow.g  = 0.0;
+		fLut->Yellow.b  = 0.0;
 
-		fLut->magenta.r = 0.0;
-		fLut->magenta.g = 0.0;
-		fLut->magenta.b = 0.0;
+		fLut->Magenta.r = 0.0;
+		fLut->Magenta.g = 0.0;
+		fLut->Magenta.b = 0.0;
 
-		fLut->cyan.r    = 0.0;
-		fLut->cyan.g    = 0.0;
-		fLut->cyan.b    = 0.0;
+		fLut->Cyan.r    = 0.0;
+		fLut->Cyan.g    = 0.0;
+		fLut->Cyan.b    = 0.0;
 
-		fLut->white.r   = 0.0;
-		fLut->white.g   = 0.0;
-		fLut->white.b   = 0.0;
+		fLut->White.r   = 0.0;
+		fLut->White.g   = 0.0;
+		fLut->White.b   = 0.0;
 	}
 
 	return fLut;
