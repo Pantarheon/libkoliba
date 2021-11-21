@@ -50,17 +50,17 @@ KLBDC bool KOLIBA_SlutIsMatrix(const KOLIBA_SLUT * const s) {
 	if (s == NULL) return false;
 
 	return (
-		(s->white.r   == s->red.r + s->green.r + s->blue.r - 2.0 * s->black.r) &&
-		(s->white.g   == s->red.g + s->green.g + s->blue.g - 2.0 * s->black.g) &&
-		(s->white.b   == s->red.b + s->green.b + s->blue.b - 2.0 * s->black.b) &&
-		(s->cyan.r    == s->blue.r + s->green.r - s->black.r) &&
-		(s->cyan.g    == s->blue.g + s->green.g - s->black.g) &&
-		(s->cyan.b    == s->blue.b + s->green.b - s->black.b) &&
-		(s->magenta.r == s->red.r + s->blue.r - s->black.r) &&
-		(s->magenta.g == s->red.g + s->blue.g - s->black.g) &&
-		(s->magenta.b == s->red.b + s->blue.b - s->black.b) &&
-		(s->yellow.r  == s->red.r + s->green.r - s->black.r) &&
-		(s->yellow.g  == s->red.g + s->green.g - s->black.g) &&
-		(s->yellow.b  == s->red.b + s->green.b - s->black.b)
+		(s->White.r   == s->Red.r  + s->Green.r + s->Blue.r - 2.0 * s->Black.r) &&
+		(s->White.g   == s->Red.g  + s->Green.g + s->Blue.g - 2.0 * s->Black.g) &&
+		(s->White.b   == s->Red.b  + s->Green.b + s->Blue.b - 2.0 * s->Black.b) &&
+		(s->Cyan.r    == s->Blue.r + s->Green.r - s->Black.r) &&
+		(s->Cyan.g    == s->Blue.g + s->Green.g - s->Black.g) &&
+		(s->Cyan.b    == s->Blue.b + s->Green.b - s->Black.b) &&
+		(s->Magenta.r == s->Red.r  + s->Blue.r  - s->Black.r) &&
+		(s->Magenta.g == s->Red.g  + s->Blue.g  - s->Black.g) &&
+		(s->Magenta.b == s->Red.b  + s->Blue.b  - s->Black.b) &&
+		(s->Yellow.r  == s->Red.r  + s->Green.r - s->Black.r) &&
+		(s->Yellow.g  == s->Red.g  + s->Green.g - s->Black.g) &&
+		(s->Yellow.b  == s->Red.b  + s->Green.b - s->Black.b)
 	);
 }
