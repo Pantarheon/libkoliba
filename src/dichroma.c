@@ -64,16 +64,16 @@ KLBDC KOLIBA_MATRIX * KOLIBA_DichromaticMatrix(KOLIBA_MATRIX * mat, const KOLIBA
 
 	switch (channel) {
 	case 0:
-		memcpy(&m.red, &m2.red, sizeof(KOLIBA_ROW));
-		KOLIBA_NormalizeMatrixRow(&m.red, normalize);
+		memcpy(&m.Red, &m2.Red, sizeof(KOLIBA_ROW));
+		KOLIBA_NormalizeMatrixRow(&m.Red, normalize);
 		break;
 	case 1:
-		memcpy(&m.green, &m2.green, sizeof(KOLIBA_ROW));
-		KOLIBA_NormalizeMatrixRow(&m.green, normalize);
+		memcpy(&m.Green, &m2.Green, sizeof(KOLIBA_ROW));
+		KOLIBA_NormalizeMatrixRow(&m.Green, normalize);
 		break;
 	case 2:
-		memcpy(&m.blue, &m2.blue, sizeof(KOLIBA_ROW));
-		KOLIBA_NormalizeMatrixRow(&m.blue, normalize);
+		memcpy(&m.Blue, &m2.Blue, sizeof(KOLIBA_ROW));
+		KOLIBA_NormalizeMatrixRow(&m.Blue, normalize);
 		break;
 	}
 
