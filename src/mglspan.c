@@ -70,14 +70,14 @@ KLBDC KOLIBA_MATRIX * KOLIBA_MatrixSpan(KOLIBA_MATRIX *mat, KOLIBA_RGB *top, KOL
 	else memcpy(&b, bottom, sizeof(KOLIBA_RGB));
 
 	memset(mat, 0, sizeof(KOLIBA_MATRIX));
-	mat->red.r   = a.r - b.r;
-	mat->red.o   = b.r;
+	mat->Red.r   = a.r - b.r;
+	mat->Red.o   = b.r;
 
-	mat->green.g = a.g - b.g;
-	mat->green.o = b.g;
+	mat->Green.g = a.g - b.g;
+	mat->Green.o = b.g;
 
-	mat->blue.b  = a.b - b.b;
-	mat->blue.o  = b.b;
+	mat->Blue.b  = a.b - b.b;
+	mat->Blue.o  = b.b;
 
 	return mat;
 }
