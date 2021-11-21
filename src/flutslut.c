@@ -54,37 +54,37 @@ KLBDC KOLIBA_SLUT * KOLIBA_ConvertFlutToSlut(KOLIBA_SLUT *sLut, const KOLIBA_FLU
 
 	if ((f == NULL) || (sLut == NULL)) return NULL;
 
-	sl.black.r		= f->black.r;
-	sl.black.g		= f->black.g;
-	sl.black.b		= f->black.b;
+	sl.Black.r		= f->Black.r;
+	sl.Black.g		= f->Black.g;
+	sl.Black.b		= f->Black.b;
 
-	sl.blue.r		= f->black.r + f->blue.r;
-	sl.blue.g		= f->black.g + f->blue.g;
-	sl.blue.b		= f->black.b + f->blue.b;
+	sl.Blue.r		= f->Black.r  + f->Blue.r;
+	sl.Blue.g		= f->Black.g  + f->Blue.g;
+	sl.Blue.b		= f->Black.b  + f->Blue.b;
 
-	sl.green.r		= f->black.r + f->green.r;
-	sl.green.g		= f->black.g + f->green.g;
-	sl.green.b		= f->black.b + f->green.b;
+	sl.Green.r		= f->Black.r  + f->Green.r;
+	sl.Green.g		= f->Black.g  + f->Green.g;
+	sl.Green.b		= f->Black.b  + f->Green.b;
 
-	sl.cyan.r		= sl.green.r + f->blue.r + f->cyan.r;
-	sl.cyan.g		= sl.green.g + f->blue.g + f->cyan.g;
-	sl.cyan.b		= sl.green.b + f->blue.b + f->cyan.b;
+	sl.Cyan.r		= sl.Green.r  + f->Blue.r  + f->Cyan.r;
+	sl.Cyan.g		= sl.Green.g  + f->Blue.g  + f->Cyan.g;
+	sl.Cyan.b		= sl.Green.b  + f->Blue.b  + f->Cyan.b;
 
-	sl.red.r		= f->black.r + f->red.r;
-	sl.red.g		= f->black.g + f->red.g;
-	sl.red.b		= f->black.b + f->red.b;
+	sl.Red.r		= f->Black.r  + f->Red.r;
+	sl.Red.g		= f->Black.g  + f->Red.g;
+	sl.Red.b		= f->Black.b  + f->Red.b;
 
-	sl.magenta.r	= sl.red.r + f->blue.r + f->magenta.r;
-	sl.magenta.g	= sl.red.g + f->blue.g + f->magenta.g;
-	sl.magenta.b	= sl.red.b + f->blue.b + f->magenta.b;
+	sl.Magenta.r	= sl.Red.r    + f->Blue.r  + f->Magenta.r;
+	sl.Magenta.g	= sl.Red.g    + f->Blue.g  + f->Magenta.g;
+	sl.Magenta.b	= sl.Red.b    + f->Blue.b  + f->Magenta.b;
 
-	sl.yellow.r		= sl.red.r + f->green.r + f->yellow.r;
-	sl.yellow.g		= sl.red.g + f->green.g + f->yellow.g;
-	sl.yellow.b		= sl.red.b + f->green.b + f->yellow.b;
+	sl.Yellow.r		= sl.Red.r    + f->Green.r + f->Yellow.r;
+	sl.Yellow.g		= sl.Red.g    + f->Green.g + f->Yellow.g;
+	sl.Yellow.b		= sl.Red.b    + f->Green.b + f->Yellow.b;
 
-	sl.white.r		= sl.yellow.r + f->blue.r + f->cyan.r + f->magenta.r + f->white.r;
-	sl.white.g		= sl.yellow.g + f->blue.g + f->cyan.g + f->magenta.g + f->white.g;
-	sl.white.b		= sl.yellow.b + f->blue.b + f->cyan.b + f->magenta.b + f->white.b;
+	sl.White.r		= sl.Yellow.r + f->Blue.r  + f->Cyan.r + f->Magenta.r + f->White.r;
+	sl.White.g		= sl.Yellow.g + f->Blue.g  + f->Cyan.g + f->Magenta.g + f->White.g;
+	sl.White.b		= sl.Yellow.b + f->Blue.b  + f->Cyan.b + f->Magenta.b + f->White.b;
 
 	return (KOLIBA_SLUT *)memcpy(sLut, KOLIBA_FixSlut((KOLIBA_SLUT *)&sl), sizeof(KOLIBA_SLUT));
 }
