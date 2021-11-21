@@ -2,7 +2,7 @@
 
 	yccrgb.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -58,7 +58,7 @@ KLBDC KOLIBA_MATRIX * KOLIBA_YccToRgb(KOLIBA_MATRIX * output, const KOLIBA_RGB *
 	double d;
 
 	if ((output == NULL) || (KOLIBA_RgbToYcc(&m, rec) == NULL) ||
-	((d = m.green.g*m.blue.b-m.green.b*m.blue.g) == 0)) return NULL;
+	((d = m.Green.g*m.Blue.b-m.Green.b*m.Blue.g) == 0)) return NULL;
 
 	// These are the only two values we have to
 	// calculate using the matrix inverse algorithm.
@@ -68,26 +68,26 @@ KLBDC KOLIBA_MATRIX * KOLIBA_YccToRgb(KOLIBA_MATRIX * output, const KOLIBA_RGB *
 	// a general matrix inverse calculation,
 	// and since we have just made sure it is non-0,
 	// we are safe dividing the two values by it.
-	output->green.g = (m.red.r*m.blue.b-m.red.b*m.blue.r)/d;
-	output->green.b = (m.red.b*m.green.r-m.red.r*m.green.b)/d;
+	output->Green.g = (m.Red.r*m.Blue.b-m.Red.b*m.Blue.r)/d;
+	output->Green.b = (m.Red.b*m.Green.r-m.Red.r*m.Green.b)/d;
 
-	// These are actually (1.0-m.red.r)*2.0 and
-	// (1.0-m.red.b)*2.0 respectively, but this
-	// should reduce round-off errors (yes, they
+	// These are actually (1.0-m.Red.r)*2.0 and
+	// (1.0-m.Red.b)*2.0 respectively, but this
+	// should Reduce round-off errors (yes, they
 	// exist in doubles, too).
-	output->red.b   = (m.red.g+m.red.b) * 2.0;
-	output->blue.g  = (m.red.g+m.red.r) * 2.0;
+	output->Red.b   = (m.Red.g+m.Red.b) * 2.0;
+	output->Blue.g  = (m.Red.g+m.Red.r) * 2.0;
 
 	// The remaining eight always have these results,
 	// so we just assign them as constants.
-	output->red.g   = 0.0;
-	output->red.o   = 0.0;
-	output->green.o = 0.0;
-	output->blue.b  = 0.0;
-	output->blue.o  = 0.0;
-	output->red.r   = 1.0;
-	output->green.r = 1.0;
-	output->blue.r  = 1.0;
+	output->Red.g   = 0.0;
+	output->Red.o   = 0.0;
+	output->Green.o = 0.0;
+	output->Blue.b  = 0.0;
+	output->Blue.o  = 0.0;
+	output->Red.r   = 1.0;
+	output->Green.r = 1.0;
+	output->Blue.r  = 1.0;
 
 	return output;
 }
