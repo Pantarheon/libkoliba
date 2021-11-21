@@ -2,7 +2,7 @@
 
 	appxyz.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -70,64 +70,64 @@ KLBDC KOLIBA_XYZ * KOLIBA_ApplyXyz(KOLIBA_XYZ * xyzout, const KOLIBA_XYZ * const
 		if (flags & 0xE07000)
 		xy	= x*y;
 
-		temp.x = fLut->black.r;
-		temp.y = fLut->black.g;
-		temp.z = fLut->black.b;
+		temp.x = fLut->Black.r;
+		temp.y = fLut->Black.g;
+		temp.z = fLut->Black.b;
 
 		if (flags & 0x000008)
-			temp.x += fLut->red.r * x;
+			temp.x += fLut->Red.r * x;
 		if (flags & 0x000010)
-			temp.y += fLut->red.g * x;
+			temp.y += fLut->Red.g * x;
 		if (flags & 0x000020)
-			temp.z += fLut->red.b * x;
+			temp.z += fLut->Red.b * x;
 
 		if (flags & 0x000040)
-			temp.x += fLut->green.r * y;
+			temp.x += fLut->Green.r * y;
 		if (flags & 0x000080)
-			temp.y += fLut->green.g * y;
+			temp.y += fLut->Green.g * y;
 		if (flags & 0x000100)
-			temp.z += fLut->green.b * y;
+			temp.z += fLut->Green.b * y;
 
 		if (flags & 0x000200)
-			temp.x += fLut->blue.r * z;
+			temp.x += fLut->Blue.r * z;
 		if (flags & 0x000400)
-			temp.y += fLut->blue.g * z;
+			temp.y += fLut->Blue.g * z;
 		if (flags & 0x000800)
-			temp.z += fLut->blue.b * z;
+			temp.z += fLut->Blue.b * z;
 
 		if (flags & 0x001000)
-			temp.x += fLut->yellow.r * xy;
+			temp.x += fLut->Yellow.r * xy;
 		if (flags & 0x002000)
-			temp.y += fLut->yellow.g * xy;
+			temp.y += fLut->Yellow.g * xy;
 		if (flags & 0x004000)
-			temp.z += fLut->yellow.b * xy;
+			temp.z += fLut->Yellow.b * xy;
 
 		if (flags & 0x038000)
 			xz	= x*z;
 		if (flags & 0x008000)
-			temp.x += fLut->magenta.r * xz;
+			temp.x += fLut->Magenta.r * xz;
 		if (flags & 0x010000)
-			temp.y += fLut->magenta.g * xz;
+			temp.y += fLut->Magenta.g * xz;
 		if (flags & 0x020000)
-			temp.z += fLut->magenta.b * xz;
+			temp.z += fLut->Magenta.b * xz;
 
 		if (flags & 0x1C0000)
 			yz = y*z;
 		if (flags & 0x040000)
-			temp.x += fLut->cyan.r * yz;
+			temp.x += fLut->Cyan.r * yz;
 		if (flags & 0x080000)
-			temp.y += fLut->cyan.g * yz;
+			temp.y += fLut->Cyan.g * yz;
 		if (flags & 0x100000)
-			temp.z += fLut->cyan.b * yz;
+			temp.z += fLut->Cyan.b * yz;
 
 		if (flags & 0xE00000)
 			xyz	= xy*z;
 		if (flags & 0x200000)
-			temp.x += fLut->white.r * xyz;
+			temp.x += fLut->White.r * xyz;
 		if (flags & 0x400000)
-			temp.y += fLut->white.g * xyz;
+			temp.y += fLut->White.g * xyz;
 		if (flags & 0x800000)
-			temp.z += fLut->white.b * xyz;
+			temp.z += fLut->White.b * xyz;
 
 		xyzout->x	= temp.x;
 		xyzout->y	= temp.y;
