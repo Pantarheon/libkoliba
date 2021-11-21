@@ -52,14 +52,14 @@ KLBDC KOLIBA_VERTICES *KOLIBA_SlutToVertices(KOLIBA_VERTICES *v, KOLIBA_SLUT * c
 	if (v) {
 		KOLIBA_SLUT *sLut = (s) ? (KOLIBA_SLUT *)s : (KOLIBA_SLUT *)&KOLIBA_IdentitySlut;
 
-		v->black   = &sLut->black;
-		v->blue    = &sLut->blue;
-		v->green   = &sLut->green;
-		v->cyan    = &sLut->cyan;
-		v->red     = &sLut->red;
-		v->magenta = &sLut->magenta;
-		v->yellow  = &sLut->yellow;
-		v->white   = &sLut->white;
+		v->black   = &sLut->Black;
+		v->blue    = &sLut->Blue;
+		v->green   = &sLut->Green;
+		v->cyan    = &sLut->Cyan;
+		v->red     = &sLut->Red;
+		v->magenta = &sLut->Magenta;
+		v->yellow  = &sLut->Yellow;
+		v->white   = &sLut->White;
 	}
 
 	return v;
