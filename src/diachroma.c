@@ -57,15 +57,15 @@ KLBDC KOLIBA_MATRIX * KOLIBA_DiachromaticMatrix(KOLIBA_MATRIX * mat, const KOLIB
 
 	KOLIBA_ChromaMatrix(&m, &(dacr->chr[0]), &(dacr->model));
 	KOLIBA_ChromaMatrix(&m1, &(dacr->chr[1]), &(dacr->model));
-	memcpy(&m.green, &m1.green, sizeof(KOLIBA_ROW));
+	memcpy(&m.Green, &m1.Green, sizeof(KOLIBA_ROW));
 
 	KOLIBA_ChromaMatrix(&m1, &(dacr->chr[2]), &(dacr->model));
-	memcpy(&m.blue, &m1.blue, sizeof(KOLIBA_ROW));
+	memcpy(&m.Blue, &m1.Blue, sizeof(KOLIBA_ROW));
 
 	if (normalize) {
-		KOLIBA_NormalizeMatrixRow(&m.red, normalize & NORMALIZE_RED);
-		KOLIBA_NormalizeMatrixRow(&m.green, normalize & NORMALIZE_GREEN);
-		KOLIBA_NormalizeMatrixRow(&m.blue, normalize & NORMALIZE_BLUE);
+		KOLIBA_NormalizeMatrixRow(&m.Red, normalize & NORMALIZE_RED);
+		KOLIBA_NormalizeMatrixRow(&m.Green, normalize & NORMALIZE_GREEN);
+		KOLIBA_NormalizeMatrixRow(&m.Blue, normalize & NORMALIZE_BLUE);
 	}
 
 	if (dacr->rotation != 0.0) {
