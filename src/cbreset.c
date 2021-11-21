@@ -55,7 +55,7 @@ KLBDC KOLIBA_CHANNELBLEND * KOLIBA_ResetChannelBlend(KOLIBA_CHANNELBLEND *blend)
 
 KLBDC KOLIBA_CHANNELBLEND * KOLIBA_ResetChannelBlendRed(KOLIBA_CHANNELBLEND *blend) {
 	if (blend != NULL) {
-		memcpy(&blend->mat.red, &KOLIBA_IdentityMatrix.red, sizeof(KOLIBA_ROW));
+		memcpy(&blend->mat.Red, &KOLIBA_IdentityMatrix.Red, sizeof(KOLIBA_ROW));
 		blend->nr = false;
 		if (blend->na) {
 			blend->ng = true;
@@ -68,7 +68,7 @@ KLBDC KOLIBA_CHANNELBLEND * KOLIBA_ResetChannelBlendRed(KOLIBA_CHANNELBLEND *ble
 
 KLBDC KOLIBA_CHANNELBLEND * KOLIBA_ResetChannelBlendGreen(KOLIBA_CHANNELBLEND *blend) {
 	if (blend != NULL) {
-		memcpy(&blend->mat.green, &KOLIBA_IdentityMatrix.green, sizeof(KOLIBA_ROW));
+		memcpy(&blend->mat.Green, &KOLIBA_IdentityMatrix.Green, sizeof(KOLIBA_ROW));
 		blend->ng = false;
 		if (blend->na) {
 			blend->nr = true;
@@ -81,7 +81,7 @@ KLBDC KOLIBA_CHANNELBLEND * KOLIBA_ResetChannelBlendGreen(KOLIBA_CHANNELBLEND *b
 
 KLBDC KOLIBA_CHANNELBLEND * KOLIBA_ResetChannelBlendBlue(KOLIBA_CHANNELBLEND *blend) {
 	if (blend != NULL) {
-		memcpy(&blend->mat.blue, &KOLIBA_IdentityMatrix.blue, sizeof(KOLIBA_ROW));
+		memcpy(&blend->mat.Blue, &KOLIBA_IdentityMatrix.Blue, sizeof(KOLIBA_ROW));
 		blend->nb = false;
 		if (blend->na) {
 			blend->nr = true;
