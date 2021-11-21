@@ -49,30 +49,30 @@
 KLBDC KOLIBA_SLUT * KOLIBA_ConvertMatricesToSlut(KOLIBA_SLUT * sLut, const KOLIBA_MATRIX * const primary,  const KOLIBA_MATRIX * const secondary) {
 	if ((sLut == NULL) || (primary == NULL) || (secondary == NULL)) return NULL;
 
-	sLut->black.r = primary->red.o;
-	sLut->black.g = primary->green.o;
-	sLut->black.b = primary->blue.o;
-	sLut->blue.r = primary->red.b+primary->red.o;
-	sLut->blue.g = primary->green.b+primary->green.o;
-	sLut->blue.b = primary->blue.b+primary->blue.o;
-	sLut->green.r = primary->red.g+primary->red.o;
-	sLut->green.g = primary->green.g+primary->green.o;
-	sLut->green.b = primary->blue.g+primary->blue.o;
-	sLut->cyan.r = secondary->red.b+secondary->red.g+secondary->red.o;
-	sLut->cyan.g = secondary->green.b+secondary->green.g+secondary->green.o;
-	sLut->cyan.b = secondary->blue.b+secondary->blue.g+secondary->blue.o;
-	sLut->red.r = primary->red.r+primary->red.o;
-	sLut->red.g = primary->green.r+primary->green.o;
-	sLut->red.b = primary->blue.r+primary->blue.o;
-	sLut->magenta.r = secondary->red.r+secondary->red.b+secondary->red.o;
-	sLut->magenta.g = secondary->green.r+secondary->green.b+secondary->green.o;
-	sLut->magenta.b = secondary->blue.r+secondary->blue.b+secondary->blue.o;
-	sLut->yellow.r = secondary->red.r+secondary->red.g+secondary->red.o;
-	sLut->yellow.g = secondary->green.r+secondary->green.g+secondary->green.o;
-	sLut->yellow.b = secondary->blue.r+secondary->blue.g+secondary->blue.o;
-	sLut->white.r = secondary->red.b+secondary->red.g+secondary->red.r+secondary->red.o;
-	sLut->white.g = secondary->green.b+secondary->green.g+secondary->green.r+secondary->green.o;
-	sLut->white.b = secondary->blue.b+secondary->blue.g+secondary->blue.r+secondary->blue.o;
+	sLut->Black.r   =   primary->Red.o;
+	sLut->Black.g   =   primary->Green.o;
+	sLut->Black.b   =   primary->Blue.o;
+	sLut->Blue.r    =   primary->Red.b  +  primary->Red.o;
+	sLut->Blue.g    =   primary->Green.b+  primary->Green.o;
+	sLut->Blue.b    =   primary->Blue.b +  primary->Blue.o;
+	sLut->Green.r   =   primary->Red.g  +  primary->Red.o;
+	sLut->Green.g   =   primary->Green.g+  primary->Green.o;
+	sLut->Green.b   =   primary->Blue.g +  primary->Blue.o;
+	sLut->Cyan.r    = secondary->Red.b  +secondary->Red.g  +secondary->Red.o;
+	sLut->Cyan.g    = secondary->Green.b+secondary->Green.g+secondary->Green.o;
+	sLut->Cyan.b    = secondary->Blue.b +secondary->Blue.g +secondary->Blue.o;
+	sLut->Red.r     =   primary->Red.r  +  primary->Red.o;
+	sLut->Red.g     =   primary->Green.r+  primary->Green.o;
+	sLut->Red.b     =   primary->Blue.r +  primary->Blue.o;
+	sLut->Magenta.r = secondary->Red.r  +secondary->Red.b  +secondary->Red.o;
+	sLut->Magenta.g = secondary->Green.r+secondary->Green.b+secondary->Green.o;
+	sLut->Magenta.b = secondary->Blue.r +secondary->Blue.b +secondary->Blue.o;
+	sLut->Yellow.r  = secondary->Red.r  +secondary->Red.g  +secondary->Red.o;
+	sLut->Yellow.g  = secondary->Green.r+secondary->Green.g+secondary->Green.o;
+	sLut->Yellow.b  = secondary->Blue.r +secondary->Blue.g +secondary->Blue.o;
+	sLut->White.r   = secondary->Red.b  +secondary->Red.g  +secondary->Red.r  +secondary->Red.o;
+	sLut->White.g   = secondary->Green.b+secondary->Green.g+secondary->Green.r+secondary->Green.o;
+	sLut->White.b   = secondary->Blue.b +secondary->Blue.g +secondary->Blue.r +secondary->Blue.o;
 
 	return sLut;
 }
