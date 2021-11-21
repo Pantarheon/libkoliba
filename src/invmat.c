@@ -2,7 +2,7 @@
 
 	invmat.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2019 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -51,34 +51,34 @@
 KLBDC KOLIBA_MATRIX * KOLIBA_InvertMatrix(KOLIBA_MATRIX * output, const KOLIBA_MATRIX * const mat) {
 	KOLIBA_MATRIX m;
 	double det, a, b, c;
-	unsigned int z = ((mat->red.o == 0.0) && (mat->green.o == 0.0) && (mat->blue.o == 0.0));
+	bool z = ((mat->Red.o == 0.0) && (mat->Green.o == 0.0) && (mat->Blue.o == 0.0));
 	// If z is true, our implied 4x4 matrix, is really just a 3x3 matrix.
 
-#define	ma	(mat->red.r)
-#define	mb	(mat->red.g)
-#define	mc	(mat->red.b)
-#define	md	(mat->green.r)
-#define	me	(mat->green.g)
-#define	mf	(mat->green.b)
-#define	mg	(mat->blue.r)
-#define	mh	(mat->blue.g)
-#define	mi	(mat->blue.b)
-#define	mj	(mat->red.o)
-#define	mk	(mat->green.o)
-#define	ml	(mat->blue.o)
+#define	ma	(mat->Red.r)
+#define	mb	(mat->Red.g)
+#define	mc	(mat->Red.b)
+#define	md	(mat->Green.r)
+#define	me	(mat->Green.g)
+#define	mf	(mat->Green.b)
+#define	mg	(mat->Blue.r)
+#define	mh	(mat->Blue.g)
+#define	mi	(mat->Blue.b)
+#define	mj	(mat->Red.o)
+#define	mk	(mat->Green.o)
+#define	ml	(mat->Blue.o)
 
-#define	A	m.red.r
-#define	B	m.green.r
-#define	C	m.blue.r
-#define	D	m.red.g
-#define	E	m.green.g
-#define	F	m.blue.g
-#define	G	m.red.b
-#define	H	m.green.b
-#define	I	m.blue.b
-#define	J	m.red.o
-#define	K	m.green.o
-#define L	m.blue.o
+#define	A	m.Red.r
+#define	B	m.Green.r
+#define	C	m.Blue.r
+#define	D	m.Red.g
+#define	E	m.Green.g
+#define	F	m.Blue.g
+#define	G	m.Red.b
+#define	H	m.Green.b
+#define	I	m.Blue.b
+#define	J	m.Red.o
+#define	K	m.Green.o
+#define L	m.Blue.o
 
 
 	if ((output == NULL) || (mat == NULL)) return NULL;
@@ -128,7 +128,7 @@ KLBDC KOLIBA_MATRIX * KOLIBA_InvertMatrix(KOLIBA_MATRIX * output, const KOLIBA_M
 	H = (mc*md - ma*mf) * det;
 	I = (ma*me - mb*md) * det;
 
-	if (z != 0) {
+	if (z) {
 		J = 0.0;
 		K = 0.0;
 		L = 0.0;
