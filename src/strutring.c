@@ -94,51 +94,51 @@ KLBDC KOLIBA_SLUT * KOLIBA_ApplyStrutRing(KOLIBA_SLUT *sLut, const KOLIBA_VERTEX
 	m = 1.0 - g;
 	y = 1.0 - b;
 
-	memcpy(&sLut->black, &KOLIBA_IdentitySlut.black, sizeof(KOLIBA_VERTEX));
-	memcpy(&sLut->white, &KOLIBA_IdentitySlut.white, sizeof(KOLIBA_VERTEX));
+	memcpy(&sLut->Black, &KOLIBA_IdentitySlut.Black, sizeof(KOLIBA_VERTEX));
+	memcpy(&sLut->White, &KOLIBA_IdentitySlut.White, sizeof(KOLIBA_VERTEX));
 
-	sLut->red.r            = r;
-	sLut->red.g            = g;
-	sLut->red.b            = b;
+	sLut->Red.r            = r;
+	sLut->Red.g            = g;
+	sLut->Red.b            = b;
 
-	sLut->green.r          = b;
-	sLut->green.g          = r;
-	sLut->green.b          = g;
+	sLut->Green.r          = b;
+	sLut->Green.g          = r;
+	sLut->Green.b          = g;
 
-	sLut->blue.r           = g;
-	sLut->blue.g           = b;
-	sLut->blue.b           = r;
+	sLut->Blue.r           = g;
+	sLut->Blue.g           = b;
+	sLut->Blue.b           = r;
 
-	sLut->cyan.r           = c;
-	sLut->cyan.g           = m;
-	sLut->cyan.b           = y;
+	sLut->Cyan.r           = c;
+	sLut->Cyan.g           = m;
+	sLut->Cyan.b           = y;
 
-	sLut->magenta.r        = y;
-	sLut->magenta.g        = c;
-	sLut->magenta.b        = m;
+	sLut->Magenta.r        = y;
+	sLut->Magenta.g        = c;
+	sLut->Magenta.b        = m;
 
-	sLut->yellow.r         = m;
-	sLut->yellow.g         = y;
-	sLut->yellow.b         = c;
+	sLut->Yellow.r         = m;
+	sLut->Yellow.g         = y;
+	sLut->Yellow.b         = c;
 
 	if (strut != 1.0) switch (plut) {
 		case KOLIBA_PlutRed:
-			KOLIBA_Interpolate((double *)&sLut->red, (double *)ring, strut, (double *)&KOLIBA_IdentitySlut.red, sizeof(KOLIBA_VERTEX)/sizeof(double));
+			KOLIBA_Interpolate((double *)&sLut->Red, (double *)ring, strut, (double *)&KOLIBA_IdentitySlut.Red, sizeof(KOLIBA_VERTEX)/sizeof(double));
 			break;
 		case KOLIBA_PlutGreen:
-			KOLIBA_Interpolate((double *)&sLut->green, (double *)ring, strut, (double *)&KOLIBA_IdentitySlut.green, sizeof(KOLIBA_VERTEX)/sizeof(double));
+			KOLIBA_Interpolate((double *)&sLut->Green, (double *)ring, strut, (double *)&KOLIBA_IdentitySlut.Green, sizeof(KOLIBA_VERTEX)/sizeof(double));
 			break;
 		case KOLIBA_PlutBlue:
-			KOLIBA_Interpolate((double *)&sLut->blue, (double *)ring, strut, (double *)&KOLIBA_IdentitySlut.blue, sizeof(KOLIBA_VERTEX)/sizeof(double));
+			KOLIBA_Interpolate((double *)&sLut->Blue, (double *)ring, strut, (double *)&KOLIBA_IdentitySlut.Blue, sizeof(KOLIBA_VERTEX)/sizeof(double));
 			break;
 		case KOLIBA_PlutCyan:
-			KOLIBA_Interpolate((double *)&sLut->cyan, (double *)ring, strut, (double *)&KOLIBA_IdentitySlut.cyan, sizeof(KOLIBA_VERTEX)/sizeof(double));
+			KOLIBA_Interpolate((double *)&sLut->Cyan, (double *)ring, strut, (double *)&KOLIBA_IdentitySlut.Cyan, sizeof(KOLIBA_VERTEX)/sizeof(double));
 			break;
 		case KOLIBA_PlutMagenta:
-			KOLIBA_Interpolate((double *)&sLut->magenta, (double *)ring, strut, (double *)&KOLIBA_IdentitySlut.magenta, sizeof(KOLIBA_VERTEX)/sizeof(double));
+			KOLIBA_Interpolate((double *)&sLut->Magenta, (double *)ring, strut, (double *)&KOLIBA_IdentitySlut.Magenta, sizeof(KOLIBA_VERTEX)/sizeof(double));
 			break;
 		case KOLIBA_PlutYellow:
-			KOLIBA_Interpolate((double *)&sLut->yellow, (double *)ring, strut, (double *)&KOLIBA_IdentitySlut.yellow, sizeof(KOLIBA_VERTEX)/sizeof(double));
+			KOLIBA_Interpolate((double *)&sLut->Yellow, (double *)ring, strut, (double *)&KOLIBA_IdentitySlut.Yellow, sizeof(KOLIBA_VERTEX)/sizeof(double));
 			break;
 	}
 
