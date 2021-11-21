@@ -67,21 +67,21 @@ KLBDC KOLIBA_MATRIX * KOLIBA_AnachromaticMatrix(KOLIBA_MATRIX * mat, const KOLIB
 	KOLIBA_ChromaticMatrix(&m, &chrm);
 
 	if (channel != 0) {
-		memcpy(&m.red, &m1.red, sizeof(KOLIBA_ROW));
-		KOLIBA_NormalizeMatrixRow(&m.red, normalize);
+		memcpy(&m.Red, &m1.Red, sizeof(KOLIBA_ROW));
+		KOLIBA_NormalizeMatrixRow(&m.Red, normalize);
 	}
 	else {
-		memcpy(&m.green, &m1.green, sizeof(KOLIBA_ROW));
-		KOLIBA_NormalizeMatrixRow(&m.green, normalize);
+		memcpy(&m.Green, &m1.Green, sizeof(KOLIBA_ROW));
+		KOLIBA_NormalizeMatrixRow(&m.Green, normalize);
 	}
 
 	if (channel > 1) {
-		memcpy(&m.green, &m2.green, sizeof(KOLIBA_ROW));
-		KOLIBA_NormalizeMatrixRow(&m.green, normalize);
+		memcpy(&m.Green, &m2.Green, sizeof(KOLIBA_ROW));
+		KOLIBA_NormalizeMatrixRow(&m.Green, normalize);
 	}
 	else {
-		memcpy(&m.blue, &m2.blue, sizeof(KOLIBA_ROW));
-		KOLIBA_NormalizeMatrixRow(&m.blue, normalize);
+		memcpy(&m.Blue, &m2.Blue, sizeof(KOLIBA_ROW));
+		KOLIBA_NormalizeMatrixRow(&m.Blue, normalize);
 	}
 
 	if (ancr->rotation != 0.0) {
