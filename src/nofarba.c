@@ -2,7 +2,7 @@
 
 	nofarba.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -53,28 +53,28 @@ KLBDC KOLIBA_SLUT * KOLIBA_DiscardSlutFarba(KOLIBA_SLUT * output, const KOLIBA_S
 	if ((input == NULL) || (output == NULL)) return NULL;
 
 	if (output != input) {
-		memmove(&output->black, &input->black, sizeof(KOLIBA_VERTEX));
-		memmove(&output->white, &input->white, sizeof(KOLIBA_VERTEX));
+		memmove(&output->Black, &input->Black, sizeof(KOLIBA_VERTEX));
+		memmove(&output->White, &input->White, sizeof(KOLIBA_VERTEX));
 	}
 
-	output->red.r     = input->white.r;
-	output->red.g     = input->black.g;
-	output->red.b     = input->black.b;
-	output->green.r   = input->black.r;
-	output->green.g   = input->white.g;
-	output->green.b   = input->black.b;
-	output->blue.r    = input->black.r;
-	output->blue.g    = input->black.g;
-	output->blue.b    = input->white.b;
-	output->cyan.r    = input->black.r;
-	output->cyan.g    = input->white.g;
-	output->cyan.b    = input->white.b;
-	output->magenta.r = input->white.r;
-	output->magenta.g = input->black.g;
-	output->magenta.b = input->white.b;
-	output->yellow.r  = input->white.r;
-	output->yellow.g  = input->white.g;
-	output->yellow.b  = input->black.b;
+	output->Red.r     = input->White.r;
+	output->Red.g     = input->Black.g;
+	output->Red.b     = input->Black.b;
+	output->Green.r   = input->Black.r;
+	output->Green.g   = input->White.g;
+	output->Green.b   = input->Black.b;
+	output->Blue.r    = input->Black.r;
+	output->Blue.g    = input->Black.g;
+	output->Blue.b    = input->White.b;
+	output->Cyan.r    = input->Black.r;
+	output->Cyan.g    = input->White.g;
+	output->Cyan.b    = input->White.b;
+	output->Magenta.r = input->White.r;
+	output->Magenta.g = input->Black.g;
+	output->Magenta.b = input->White.b;
+	output->Yellow.r  = input->White.r;
+	output->Yellow.g  = input->White.g;
+	output->Yellow.b  = input->Black.b;
 
 	return output;
 }
