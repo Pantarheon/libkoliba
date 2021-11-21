@@ -2,7 +2,7 @@
 
 	rgb2flut.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -65,11 +65,11 @@ KLBDC KOLIBA_FLUT * KOLIBA_ConvertRgbToFlut(KOLIBA_FLUT * fLut, const KOLIBA_RGB
 			color.b = rgb->b;
 		}
 
-		fLut->black.r = color.r;
-		fLut->black.g = color.g;
-		fLut->black.b = color.b;
+		fLut->Black.r = color.r;
+		fLut->Black.g = color.g;
+		fLut->Black.b = color.b;
 
-		memcpy(&fLut->red, KOLIBA_Zeroes, sizeof(KOLIBA_FLUT) - sizeof(KOLIBA_VERTEX));
+		memcpy(&fLut->Red, KOLIBA_Zeroes, sizeof(KOLIBA_FLUT) - sizeof(KOLIBA_VERTEX));
 	}
 
 	return fLut;
