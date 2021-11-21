@@ -2,7 +2,7 @@
 
 	erythropia.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -54,44 +54,44 @@ KLBDC KOLIBA_SLUT * KOLIBA_ApplyErythropy(KOLIBA_SLUT * output, const KOLIBA_SLU
 
 	if ((input == NULL) || (output == NULL)) return NULL;
 
-	r = input->red.r;
-	g = input->red.g;
-	b = input->red.b;
+	r = input->Red.r;
+	g = input->Red.g;
+	b = input->Red.b;
 
 	if (output != input) {
 		KOLIBA_VERTEX v;
 
-		memmove(&v, &input->black, sizeof(KOLIBA_VERTEX));
-		memmove(&output->white, &input->white, sizeof(KOLIBA_VERTEX));
-		memmove(&output->black, &v, sizeof(KOLIBA_VERTEX));
-		output->red.r = r;
-		output->red.g = g;
-		output->red.b = b;
+		memmove(&v, &input->Black, sizeof(KOLIBA_VERTEX));
+		memmove(&output->White, &input->White, sizeof(KOLIBA_VERTEX));
+		memmove(&output->Black, &v, sizeof(KOLIBA_VERTEX));
+		output->Red.r = r;
+		output->Red.g = g;
+		output->Red.b = b;
 	}
 
 	c = 1.0 - r;
 	m = 1.0 - g;
 	y = 1.0 - b;
 
-	output->green.r   = b;
-	output->green.g   = r;
-	output->green.b   = g;
+	output->Green.r   = b;
+	output->Green.g   = r;
+	output->Green.b   = g;
 
-	output->blue.r    = g;
-	output->blue.g    = b;
-	output->blue.b    = r;
+	output->Blue.r    = g;
+	output->Blue.g    = b;
+	output->Blue.b    = r;
 
-	output->cyan.r    = c;
-	output->cyan.g    = m;
-	output->cyan.b    = y;
+	output->Cyan.r    = c;
+	output->Cyan.g    = m;
+	output->Cyan.b    = y;
 	
-	output->magenta.r = y;
-	output->magenta.g = c;
-	output->magenta.b = m;
+	output->Magenta.r = y;
+	output->Magenta.g = c;
+	output->Magenta.b = m;
 
-	output->yellow.r  = m;
-	output->yellow.g  = y;
-	output->yellow.b  = c;
+	output->Yellow.r  = m;
+	output->Yellow.g  = y;
+	output->Yellow.b  = c;
 
 	return output;
 }
