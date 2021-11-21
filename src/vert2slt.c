@@ -55,14 +55,14 @@ KLBDC KOLIBA_SLUT *KOLIBA_VerticesToSlut(KOLIBA_SLUT *sLut, KOLIBA_VERTICES * co
 		if (v == NULL)
 			memcpy(sLut, &KOLIBA_IdentitySlut, sizeof(KOLIBA_SLUT));
 		else {
-			memcpy(&sLut->black,   (v->black   != NULL) ? v->black   : &KOLIBA_IdentitySlut.black, sizeof(KOLIBA_VERTEX));
-			memcpy(&sLut->blue,    (v->blue    != NULL) ? v->blue    : &KOLIBA_IdentitySlut.blue, sizeof(KOLIBA_VERTEX));
-			memcpy(&sLut->green,   (v->green   != NULL) ? v->green   : &KOLIBA_IdentitySlut.green, sizeof(KOLIBA_VERTEX));
-			memcpy(&sLut->cyan,    (v->cyan    != NULL) ? v->cyan    : &KOLIBA_IdentitySlut.cyan, sizeof(KOLIBA_VERTEX));
-			memcpy(&sLut->red,     (v->red     != NULL) ? v->red     : &KOLIBA_IdentitySlut.red, sizeof(KOLIBA_VERTEX));
-			memcpy(&sLut->magenta, (v->magenta != NULL) ? v->magenta : &KOLIBA_IdentitySlut.magenta, sizeof(KOLIBA_VERTEX));
-			memcpy(&sLut->yellow,  (v->yellow  != NULL) ? v->yellow  : &KOLIBA_IdentitySlut.yellow, sizeof(KOLIBA_VERTEX));
-			memcpy(&sLut->white,   (v->white   != NULL) ? v->white   : &KOLIBA_IdentitySlut.white, sizeof(KOLIBA_VERTEX));
+			memcpy(&sLut->Black,   (v->black   != NULL) ? v->black   : &KOLIBA_IdentitySlut.Black, sizeof(KOLIBA_VERTEX));
+			memcpy(&sLut->Blue,    (v->blue    != NULL) ? v->blue    : &KOLIBA_IdentitySlut.Blue, sizeof(KOLIBA_VERTEX));
+			memcpy(&sLut->Green,   (v->green   != NULL) ? v->green   : &KOLIBA_IdentitySlut.Green, sizeof(KOLIBA_VERTEX));
+			memcpy(&sLut->Cyan,    (v->cyan    != NULL) ? v->cyan    : &KOLIBA_IdentitySlut.Cyan, sizeof(KOLIBA_VERTEX));
+			memcpy(&sLut->Red,     (v->red     != NULL) ? v->red     : &KOLIBA_IdentitySlut.Red, sizeof(KOLIBA_VERTEX));
+			memcpy(&sLut->Magenta, (v->magenta != NULL) ? v->magenta : &KOLIBA_IdentitySlut.Magenta, sizeof(KOLIBA_VERTEX));
+			memcpy(&sLut->Yellow,  (v->yellow  != NULL) ? v->yellow  : &KOLIBA_IdentitySlut.Yellow, sizeof(KOLIBA_VERTEX));
+			memcpy(&sLut->White,   (v->white   != NULL) ? v->white   : &KOLIBA_IdentitySlut.White, sizeof(KOLIBA_VERTEX));
 		}
 	}
 
