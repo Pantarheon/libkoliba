@@ -2,7 +2,7 @@
 
 	tetramat.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -53,9 +53,9 @@ KLBDC KOLIBA_MATRIX * KOLIBA_TetraMatrix(KOLIBA_MATRIX * output, const KOLIBA_MA
 	KOLIBA_MATRIX m;
 
 	if ((R == NULL) || (G == NULL) || (B == NULL)) return NULL;
-	memcpy(&m.red,   &(R->red),   sizeof(KOLIBA_ROW));
-	memcpy(&m.green, &(G->green), sizeof(KOLIBA_ROW));
-	memcpy(&m.blue,  &(B->blue),  sizeof(KOLIBA_ROW));
+	memcpy(&m.Red,   &(R->Red),   sizeof(KOLIBA_ROW));
+	memcpy(&m.Green, &(G->Green), sizeof(KOLIBA_ROW));
+	memcpy(&m.Blue,  &(B->Blue),  sizeof(KOLIBA_ROW));
 
 	return KOLIBA_MultiplyMatrices(output, Y, &m);
 }
