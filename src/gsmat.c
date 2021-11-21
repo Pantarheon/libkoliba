@@ -2,7 +2,7 @@
 
 	gsmat.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -57,20 +57,18 @@ KLBDC KOLIBA_MATRIX * KOLIBA_GrayscaleMatrix(KOLIBA_MATRIX * output, const KOLIB
 	b = rec->b / sum;
 	g = 1.0 - r - b;
 
-	output->red.r = r;
-	output->red.g = g;
-	output->red.b = b;
-	output->red.o = 0.0;
-
-	output->green.r = r;
-	output->green.g = g;
-	output->green.b = b;
-	output->green.o = 0.0;
-
-	output->blue.r = r;
-	output->blue.g = g;
-	output->blue.b = b;
-	output->blue.o = 0.0;
+	output->Red.r = r;
+	output->Red.g = g;
+	output->Red.b = b;
+	output->Red.o = 0.0;
+	output->Green.r = r;
+	output->Green.g = g;
+	output->Green.b = b;
+	output->Green.o = 0.0;
+	output->Blue.r = r;
+	output->Blue.g = g;
+	output->Blue.b = b;
+	output->Blue.o = 0.0;
 
 	return output;
 }
