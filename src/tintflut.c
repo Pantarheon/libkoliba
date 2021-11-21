@@ -2,7 +2,7 @@
 
 	tintflut.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -69,21 +69,21 @@ KLBDC KOLIBA_FLUT * KOLIBA_TintToFlut(KOLIBA_FLUT * f, const KOLIBA_VERTEX * con
 	else KOLIBA_SlutEfficacy((KOLIBA_SLUT *)&fLut, KOLIBA_ConvertRecToSlut((KOLIBA_SLUT *)&fLut, rec), 1.0 - saturation);
 
 	if (tint != NULL) {
-		fLut.black.r = -(tint->r * tinge);
-		fLut.black.g = -(tint->g * tinge);
-		fLut.black.b = -(tint->b * tinge);
+		fLut.Black.r = -(tint->r * tinge);
+		fLut.Black.g = -(tint->g * tinge);
+		fLut.Black.b = -(tint->b * tinge);
 
 		white = (flut) ? 0.0 : 1.0;
 
 		if (!invert) {
-			fLut.white.r = white + (1.0 - tint->r) * light;
-			fLut.white.g = white + (1.0 - tint->g) * light;
-			fLut.white.b = white + (1.0 - tint->b) * light;
+			fLut.White.r = white + (1.0 - tint->r) * light;
+			fLut.White.g = white + (1.0 - tint->g) * light;
+			fLut.White.b = white + (1.0 - tint->b) * light;
 		}
 		else {
-			fLut.white.r = white + tint->r * light;
-			fLut.white.g = white + tint->g * light;
-			fLut.white.b = white + tint->b * light;
+			fLut.White.r = white + tint->r * light;
+			fLut.White.g = white + tint->g * light;
+			fLut.White.b = white + tint->b * light;
 		}
 	}
 
