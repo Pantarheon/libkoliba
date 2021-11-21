@@ -2,7 +2,7 @@
 
 	cb2mat.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -59,8 +59,8 @@ KLBDC KOLIBA_MATRIX * KOLIBA_ConvertChannelBlendToMatrix(KOLIBA_MATRIX * matrix,
 	if ((blend == NULL) || (matrix == NULL)) return NULL;
 
 	memcpy(&mat, &blend->mat, sizeof(KOLIBA_MATRIX));
-	KOLIBA_NormalizeMatrixRow(&mat.red,   (bool)(blend->nr || blend->na));
-	KOLIBA_NormalizeMatrixRow(&mat.green, (bool)(blend->ng || blend->na));
-	KOLIBA_NormalizeMatrixRow(&mat.blue,  (bool)(blend->nb || blend->na));
+	KOLIBA_NormalizeMatrixRow(&mat.Red,   (bool)(blend->nr || blend->na));
+	KOLIBA_NormalizeMatrixRow(&mat.Green, (bool)(blend->ng || blend->na));
+	KOLIBA_NormalizeMatrixRow(&mat.Blue,  (bool)(blend->nb || blend->na));
 	return (KOLIBA_MATRIX *)KOLIBA_InterpolateMatrices(matrix, &mat, blend->efficacy, &KOLIBA_IdentityMatrix);
 }
