@@ -53,18 +53,18 @@ KLBDC KOLIBA_FLUT * KOLIBA_ConvertMatrixToFlut(KOLIBA_FLUT * fLut, const KOLIBA_
 	if ((fLut == NULL) || (mat == NULL)) return NULL;
 
 	memcpy	(fLut, &KOLIBA_Zeroes, sizeof(KOLIBA_FLUT));
-	fLut->Black.r = mat->red.o;
-	fLut->Black.g = mat->green.o;
-	fLut->Black.b = mat->blue.o;
-	fLut->Red.r   = mat->red.r;
-	fLut->Red.g   = mat->green.r;
-	fLut->Red.b   = mat->blue.r;
-	fLut->Green.r = mat->red.g;
-	fLut->Green.g = mat->green.g;
-	fLut->Green.b = mat->blue.g;
-	fLut->Blue.r  = mat->red.b;
-	fLut->Blue.g  = mat->green.b;
-	fLut->Blue.b  = mat->blue.b;
+	fLut->Black.r = mat->Red.o;
+	fLut->Black.g = mat->Green.o;
+	fLut->Black.b = mat->Blue.o;
+	fLut->Red.r   = mat->Red.r;
+	fLut->Red.g   = mat->Green.r;
+	fLut->Red.b   = mat->Blue.r;
+	fLut->Green.r = mat->Red.g;
+	fLut->Green.g = mat->Green.g;
+	fLut->Green.b = mat->Blue.g;
+	fLut->Blue.r  = mat->Red.b;
+	fLut->Blue.g  = mat->Green.b;
+	fLut->Blue.b  = mat->Blue.b;
 
 	return fLut;
 }
