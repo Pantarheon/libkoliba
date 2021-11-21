@@ -2,7 +2,7 @@
 
 	slut2cube.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -55,14 +55,14 @@ KLBDC KOLIBA_CUBE_VERTICES * KOLIBA_CubeVerticesFromSlut(KOLIBA_CUBE_VERTICES * 
 
 	s = (KOLIBA_SLUT *)sLut;
 
-	v->black   = &(s->black);
-	v->blue    = &(s->blue);
-	v->green   = &(s->green);
-	v->cyan    = &(s->cyan);
-	v->red     = &(s->red);
-	v->magenta = &(s->magenta);
-	v->yellow  = &(s->yellow);
-	v->white   = &(s->white);
+	v->black   = &(s->Black);
+	v->blue    = &(s->Blue);
+	v->green   = &(s->Green);
+	v->cyan    = &(s->Cyan);
+	v->red     = &(s->Red);
+	v->magenta = &(s->Magenta);
+	v->yellow  = &(s->Yellow);
+	v->white   = &(s->White);
 
 	return v;
 }
