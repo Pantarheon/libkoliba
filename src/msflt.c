@@ -2,7 +2,7 @@
 
 	msflt.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -57,20 +57,20 @@
 KLBDC KOLIBA_MATRIX * KOLIBA_ConvertFlutToMatrix(KOLIBA_MATRIX * mat, const KOLIBA_FLUT * const fLut) {
 	if ((fLut == NULL) || (mat == NULL)) return NULL;
 
-	mat->red.r   = fLut->red.r;
-	mat->red.g   = fLut->green.r;
-	mat->red.b   = fLut->blue.r;
-	mat->red.o   = fLut->black.r;
+	mat->Red.r   = fLut->Red.r;
+	mat->Red.g   = fLut->Green.r;
+	mat->Red.b   = fLut->Blue.r;
+	mat->Red.o   = fLut->Black.r;
 
-	mat->green.r = fLut->red.g;
-	mat->green.g = fLut->green.g;
-	mat->green.b = fLut->blue.g;
-	mat->green.o = fLut->black.g;
+	mat->Green.r = fLut->Red.g;
+	mat->Green.g = fLut->Green.g;
+	mat->Green.b = fLut->Blue.g;
+	mat->Green.o = fLut->Black.g;
 
-	mat->blue.r  = fLut->red.b;
-	mat->blue.g  = fLut->green.b;
-	mat->blue.b  = fLut->blue.b;
-	mat->blue.o  = fLut->black.b;
+	mat->Blue.r  = fLut->Red.b;
+	mat->Blue.g  = fLut->Green.b;
+	mat->Blue.b  = fLut->Blue.b;
+	mat->Blue.o  = fLut->Black.b;
 
 	return mat;
 }

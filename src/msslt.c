@@ -64,36 +64,36 @@ KLBDC KOLIBA_MATRIX * KOLIBA_ConvertSlutToMatrix(KOLIBA_MATRIX * mat, const KOLI
 	if ((sLut == NULL) || (mat == NULL)) return NULL;
 
 	if (secondary) {
-		mat->red.r   = sLut->white.r - sLut->cyan.r;
-		mat->red.g   = sLut->white.r - sLut->magenta.r;
-		mat->red.b   = sLut->white.r - sLut->yellow.r;
-		mat->red.o   = sLut->cyan.r  - mat->red.g - mat->red.b;
+		mat->Red.r   = sLut->White.r - sLut->Cyan.r;
+		mat->Red.g   = sLut->White.r - sLut->Magenta.r;
+		mat->Red.b   = sLut->White.r - sLut->Yellow.r;
+		mat->Red.o   = sLut->Cyan.r  - mat->Red.g - mat->Red.b;
 
-		mat->green.r = sLut->white.g - sLut->cyan.g;
-		mat->green.g = sLut->white.g - sLut->magenta.g;
-		mat->green.b = sLut->white.g - sLut->yellow.g;
-		mat->green.o = sLut->cyan.g  - mat->green.g - mat->green.b;
+		mat->Green.r = sLut->White.g - sLut->Cyan.g;
+		mat->Green.g = sLut->White.g - sLut->Magenta.g;
+		mat->Green.b = sLut->White.g - sLut->Yellow.g;
+		mat->Green.o = sLut->Cyan.g  - mat->Green.g - mat->Green.b;
 
-		mat->blue.r  = sLut->white.b - sLut->cyan.b;
-		mat->blue.g  = sLut->white.b - sLut->magenta.b;
-		mat->blue.b  = sLut->white.b - sLut->yellow.b;
-		mat->blue.o  = sLut->cyan.b  - mat->blue.g - mat->blue.b;
+		mat->Blue.r  = sLut->White.b - sLut->Cyan.b;
+		mat->Blue.g  = sLut->White.b - sLut->Magenta.b;
+		mat->Blue.b  = sLut->White.b - sLut->Yellow.b;
+		mat->Blue.o  = sLut->Cyan.b  - mat->Blue.g - mat->Blue.b;
 	}
 	else {
-		mat->blue.o  = sLut->black.b;
-		mat->blue.b  = sLut->blue.b - sLut->black.b;
-		mat->blue.g  = sLut->green.b - sLut->black.b;
-		mat->blue.r  = sLut->red.b - sLut->black.b;
+		mat->Blue.o  = sLut->Black.b;
+		mat->Blue.b  = sLut->Blue.b - sLut->Black.b;
+		mat->Blue.g  = sLut->Green.b - sLut->Black.b;
+		mat->Blue.r  = sLut->Red.b - sLut->Black.b;
 
-		mat->green.o = sLut->black.g;
-		mat->green.b = sLut->blue.g - sLut->black.g;
-		mat->green.g = sLut->green.g - sLut->black.g;
-		mat->green.r = sLut->red.g - sLut->black.g;
+		mat->Green.o = sLut->Black.g;
+		mat->Green.b = sLut->Blue.g - sLut->Black.g;
+		mat->Green.g = sLut->Green.g - sLut->Black.g;
+		mat->Green.r = sLut->Red.g - sLut->Black.g;
 
-		mat->red.o   = sLut->black.r;
-		mat->red.b   = sLut->blue.r - sLut->black.r;
-		mat->red.g   = sLut->green.r - sLut->black.r;
-		mat->red.r   = sLut->red.r - sLut->black.r;
+		mat->Red.o   = sLut->Black.r;
+		mat->Red.b   = sLut->Blue.r - sLut->Black.r;
+		mat->Red.g   = sLut->Green.r - sLut->Black.r;
+		mat->Red.r   = sLut->Red.r - sLut->Black.r;
 	}
 
 	return mat;
