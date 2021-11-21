@@ -2,7 +2,7 @@
 
 	nosvit.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -52,10 +52,10 @@
 KLBDC KOLIBA_SLUT * KOLIBA_DiscardSlutSvit(KOLIBA_SLUT * output, const KOLIBA_SLUT * const input) {
 	if ((input == NULL) || (output == NULL)) return NULL;
 
-	if (input != output) memmove(&output->blue, &input->blue, 6 * sizeof(KOLIBA_VERTEX));
+	if (input != output) memmove(&output->Blue, &input->Blue, 6 * sizeof(KOLIBA_VERTEX));
 
-	memcpy(&output->black, &KOLIBA_IdentitySlut.black, sizeof(KOLIBA_VERTEX));
-	memcpy(&output->white, &KOLIBA_IdentitySlut.white, sizeof(KOLIBA_VERTEX));
+	memcpy(&output->Black, &KOLIBA_IdentitySlut.Black, sizeof(KOLIBA_VERTEX));
+	memcpy(&output->White, &KOLIBA_IdentitySlut.White, sizeof(KOLIBA_VERTEX));
 
 	return	output;
 }
