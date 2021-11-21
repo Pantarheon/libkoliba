@@ -50,5 +50,5 @@
 // It is if and only if the .o member of each
 // equals 0.
 KLBDC bool KOLIBA_MatrixIs3x3(const KOLIBA_MATRIX * const mat) {
-	return ((mat != NULL) && (mat->red.o == 0.0) && (mat->green.o  == 0.0) && (mat->blue.o == 0.0));
+	return ((mat != NULL) && (mat->Red.o == 0.0) && (mat->Green.o  == 0.0) && (mat->Blue.o == 0.0));
 }
