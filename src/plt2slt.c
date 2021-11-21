@@ -2,7 +2,7 @@
 
 	plt2slt.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -56,17 +56,17 @@ KLBDC KOLIBA_SLUT * KOLIBA_ConvertPaletteToSlut(KOLIBA_SLUT * sLut, const KOLIBA
 
 	effi = plt->efficacy;
 
-	KOLIBA_Interpolate((double *)&sLut->black, (double *)&plt->black, plt->black.efficacy * effi, (double *)&KOLIBA_IdentitySlut.black, 3);
-	KOLIBA_Interpolate((double *)&sLut->white, (double *)&plt->white, plt->white.efficacy * effi, (double *)&KOLIBA_IdentitySlut.white, 3);
-	KOLIBA_Interpolate((double *)&sLut->red, (double *)&plt->red, plt->red.efficacy * effi, (double *)&KOLIBA_IdentitySlut.red, 3);
+	KOLIBA_Interpolate((double *)&sLut->Black, (double *)&plt->Black, plt->Black.efficacy * effi, (double *)&KOLIBA_IdentitySlut.Black, 3);
+	KOLIBA_Interpolate((double *)&sLut->White, (double *)&plt->White, plt->White.efficacy * effi, (double *)&KOLIBA_IdentitySlut.White, 3);
+	KOLIBA_Interpolate((double *)&sLut->Red, (double *)&plt->Red, plt->Red.efficacy * effi, (double *)&KOLIBA_IdentitySlut.Red, 3);
 
 	if (plt->erythropy != 0) return KOLIBA_ApplyErythropy(sLut, sLut);
 
-	KOLIBA_Interpolate((double *)&sLut->green, (double *)&plt->green, plt->green.efficacy * effi, (double *)&KOLIBA_IdentitySlut.green, 3);
-	KOLIBA_Interpolate((double *)&sLut->blue, (double *)&plt->blue, plt->blue.efficacy * effi, (double *)&KOLIBA_IdentitySlut.blue, 3);
-	KOLIBA_Interpolate((double *)&sLut->cyan, (double *)&plt->cyan, plt->cyan.efficacy * effi, (double *)&KOLIBA_IdentitySlut.cyan, 3);
-	KOLIBA_Interpolate((double *)&sLut->magenta, (double *)&plt->magenta, plt->magenta.efficacy * effi, (double *)&KOLIBA_IdentitySlut.magenta, 3);
-	KOLIBA_Interpolate((double *)&sLut->yellow, (double *)&plt->yellow, plt->yellow.efficacy * effi, (double *)&KOLIBA_IdentitySlut.yellow, 3);
+	KOLIBA_Interpolate((double *)&sLut->Green, (double *)&plt->Green, plt->Green.efficacy * effi, (double *)&KOLIBA_IdentitySlut.Green, 3);
+	KOLIBA_Interpolate((double *)&sLut->Blue, (double *)&plt->Blue, plt->Blue.efficacy * effi, (double *)&KOLIBA_IdentitySlut.Blue, 3);
+	KOLIBA_Interpolate((double *)&sLut->Cyan, (double *)&plt->Cyan, plt->Cyan.efficacy * effi, (double *)&KOLIBA_IdentitySlut.Cyan, 3);
+	KOLIBA_Interpolate((double *)&sLut->Magenta, (double *)&plt->Magenta, plt->Magenta.efficacy * effi, (double *)&KOLIBA_IdentitySlut.Magenta, 3);
+	KOLIBA_Interpolate((double *)&sLut->Yellow, (double *)&plt->Yellow, plt->Yellow.efficacy * effi, (double *)&KOLIBA_IdentitySlut.Yellow, 3);
 
 	return sLut;
 }
