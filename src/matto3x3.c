@@ -52,8 +52,8 @@ KLBDC KOLIBA_MATRIX * KOLIBA_MatrixTo3x3(KOLIBA_MATRIX * output, const KOLIBA_MA
 	if ((mat == NULL) || (output == NULL)) return NULL;
 
 	memcpy(output, mat, sizeof(KOLIBA_MATRIX) - sizeof(double));
-	output->red.o    = 0.0;
-	output->green.o  = 0.0;
-	output->blue.o   = 0.0;
+	output->Red.o    = 0.0;
+	output->Green.o  = 0.0;
+	output->Blue.o   = 0.0;
 	return output;
 }
