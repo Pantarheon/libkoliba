@@ -2,7 +2,7 @@
 
 	flutter.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -61,103 +61,103 @@ KLBDC KOLIBA_FLUT * KOLIBA_Flutter(KOLIBA_FLUT *output, const KOLIBA_FLUT * cons
 
 	if ((output == NULL) || (modifier == NULL) || (modificand == NULL)) return NULL;
 
-#define	A	(modifier->black.r)
-#define	B	(modifier->black.g)
-#define	C	(modifier->black.b)
+#define	A	(modifier->Black.r)
+#define	B	(modifier->Black.g)
+#define	C	(modifier->Black.b)
 
-	D = modifier->red.r;
-	E = modifier->red.g;
-	F = modifier->red.b;
+	D = modifier->Red.r;
+	E = modifier->Red.g;
+	F = modifier->Red.b;
 
-	G = modifier->green.r;
-	H = modifier->green.g;
-	I = modifier->green.b;
+	G = modifier->Green.r;
+	H = modifier->Green.g;
+	I = modifier->Green.b;
 
-	J = modifier->blue.r;
-	K = modifier->blue.g;
-	L = modifier->blue.b;
+	J = modifier->Blue.r;
+	K = modifier->Blue.g;
+	L = modifier->Blue.b;
 
-#define	M	(modifier->yellow.r)
-#define	N	(modifier->yellow.g)
-#define	O	(modifier->yellow.b)
+#define	M	(modifier->Yellow.r)
+#define	N	(modifier->Yellow.g)
+#define	O	(modifier->Yellow.b)
 
-#define	P	(modifier->magenta.r)
-#define	Q	(modifier->magenta.g)
-#define	R	(modifier->magenta.b)
+#define	P	(modifier->Magenta.r)
+#define	Q	(modifier->Magenta.g)
+#define	R	(modifier->Magenta.b)
 
-#define	S	(modifier->cyan.r)
-#define	T	(modifier->cyan.g)
-#define	U	(modifier->cyan.b)
+#define	S	(modifier->Cyan.r)
+#define	T	(modifier->Cyan.g)
+#define	U	(modifier->Cyan.b)
 
-#define	V	(modifier->white.r)
-#define	W	(modifier->white.g)
-#define	X	(modifier->white.b)
+#define	V	(modifier->White.r)
+#define	W	(modifier->White.g)
+#define	X	(modifier->White.b)
 
 #define	Z	(*KOLIBA_Zeroes)
 
-#define	ma	(modificand->black.r)
-#define	mb	(modificand->black.g)
-#define	mc	(modificand->black.b)
+#define	ma	(modificand->Black.r)
+#define	mb	(modificand->Black.g)
+#define	mc	(modificand->Black.b)
 
-#define	md	(modificand->red.r)
-#define	me	(modificand->red.g)
-#define	mf	(modificand->red.b)
+#define	md	(modificand->Red.r)
+#define	me	(modificand->Red.g)
+#define	mf	(modificand->Red.b)
 
-#define	mg	(modificand->green.r)
-#define	mh	(modificand->green.g)
-#define	mi	(modificand->green.b)
+#define	mg	(modificand->Green.r)
+#define	mh	(modificand->Green.g)
+#define	mi	(modificand->Green.b)
 
-#define	mj	(modificand->blue.r)
-#define	mk	(modificand->blue.g)
-#define	ml	(modificand->blue.b)
+#define	mj	(modificand->Blue.r)
+#define	mk	(modificand->Blue.g)
+#define	ml	(modificand->Blue.b)
 
-#define	mm	(modificand->yellow.r)
-#define	mn	(modificand->yellow.g)
-#define	mo	(modificand->yellow.b)
+#define	mm	(modificand->Yellow.r)
+#define	mn	(modificand->Yellow.g)
+#define	mo	(modificand->Yellow.b)
 
-#define	mp	(modificand->magenta.r)
-#define	mq	(modificand->magenta.g)
-#define	mr	(modificand->magenta.b)
+#define	mp	(modificand->Magenta.r)
+#define	mq	(modificand->Magenta.g)
+#define	mr	(modificand->Magenta.b)
 
-#define	ms	(modificand->cyan.r)
-#define	mt	(modificand->cyan.g)
-#define	mu	(modificand->cyan.b)
+#define	ms	(modificand->Cyan.r)
+#define	mt	(modificand->Cyan.g)
+#define	mu	(modificand->Cyan.b)
 
-#define	mv	(modificand->white.r)
-#define	mw	(modificand->white.g)
-#define	mx	(modificand->white.b)
+#define	mv	(modificand->White.r)
+#define	mw	(modificand->White.g)
+#define	mx	(modificand->White.b)
 
-	fLut.black.r	= A + D*ma + G*mb + J*mc;
-	fLut.black.g	= B + E*ma + H*mb + K*mc;
-	fLut.black.b	= C + F*ma + I*mb + L*mc;
+	fLut.Black.r	= A + D*ma + G*mb + J*mc;
+	fLut.Black.g	= B + E*ma + H*mb + K*mc;
+	fLut.Black.b	= C + F*ma + I*mb + L*mc;
 
-	fLut.red.r		=     D*md + G*me + J*mf;
-	fLut.red.g		=     E*md + H*me + K*mf;
-	fLut.red.b		=     F*md + I*me + L*mf;
+	fLut.Red.r		=     D*md + G*me + J*mf;
+	fLut.Red.g		=     E*md + H*me + K*mf;
+	fLut.Red.b		=     F*md + I*me + L*mf;
 
-	fLut.green.r	=     D*mg + G*mh + J*mi;
-	fLut.green.g	=     E*mg + H*mh + K*mi;
-	fLut.green.b	=     F*mg + I*mh + L*mi;
+	fLut.Green.r	=     D*mg + G*mh + J*mi;
+	fLut.Green.g	=     E*mg + H*mh + K*mi;
+	fLut.Green.b	=     F*mg + I*mh + L*mi;
 
-	fLut.blue.r		=     D*mj + G*mk + J*ml;
-	fLut.blue.g		=     E*mj + H*mk + K*ml;
-	fLut.blue.b		=     F*mj + I*mk + L*ml;
+	fLut.Blue.r		=     D*mj + G*mk + J*ml;
+	fLut.Blue.g		=     E*mj + H*mk + K*ml;
+	fLut.Blue.b		=     F*mj + I*mk + L*ml;
 
-	fLut.yellow.r	= M + D*mm + G*mn + J*mo;
-	fLut.yellow.g	= N + E*mm + H*mn + K*mo;
-	fLut.yellow.b	= O + F*mm + I*mn + L*mo;
+	fLut.Yellow.r	= M + D*mm + G*mn + J*mo;
+	fLut.Yellow.g	= N + E*mm + H*mn + K*mo;
+	fLut.Yellow.b	= O + F*mm + I*mn + L*mo;
 
-	fLut.magenta.r	= P + D*mp + G*mq + J*mr;
-	fLut.magenta.g	= Q + E*mp + H*mq + K*mr;
-	fLut.magenta.b	= R + F*mp + I*mq + L*mr;
+	fLut.Magenta.r	= P + D*mp + G*mq + J*mr;
+	fLut.Magenta.g	= Q + E*mp + H*mq + K*mr;
+	fLut.Magenta.b	= R + F*mp + I*mq + L*mr;
 
-	fLut.cyan.r		= S + D*ms + G*mt + J*mu;
-	fLut.cyan.g		= T + E*ms + H*mt + K*mu;
-	fLut.cyan.b		= U + F*ms + I*mt + L*mu;
+	fLut.Cyan.r		= S + D*ms + G*mt + J*mu;
+	fLut.Cyan.g		= T + E*ms + H*mt + K*mu;
+	fLut.Cyan.b		= U + F*ms + I*mt + L*mu;
 
-	fLut.white.r	= V + D*mv + G*mw + J*mx;
-	fLut.white.g	= W + E*mv + H*mw + K*mx;
-	fLut.white.b	= X + F*mv + I*mw + L*mx;
+	fLut.White.r	= V + D*mv + G*mw + J*mx;
+	fLut.White.g	= W + E*mv + H*mw + K*mx;
+	fLut.White.b	= X + F*mv + I*mw + L*mx;
 
 	return (KOLIBA_FLUT *)memcpy(output, &fLut, sizeof(KOLIBA_FLUT));
 }
