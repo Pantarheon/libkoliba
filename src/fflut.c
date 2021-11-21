@@ -2,7 +2,7 @@
 
 	fflut.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -70,7 +70,7 @@ KLBDC KOLIBA_FLAGS KOLIBA_FlutFlags(const KOLIBA_FLUT * const fLut) {
 
 	if (fLut == NULL) return KOLIBA_AllFlutFlags;
 
-	for (i = 0, method = 7, ptr = (double *)&(fLut->red); i < 3*7; i++, ptr++) {
+	for (i = 0, method = 7, ptr = (double *)&(fLut->Red); i < 3*7; i++, ptr++) {
 		if (*ptr != 0.0) method |= (8 << i);
 	}
 
