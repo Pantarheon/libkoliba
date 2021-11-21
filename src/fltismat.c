@@ -52,7 +52,7 @@ KLBDC bool KOLIBA_FlutIsMatrix(const KOLIBA_FLUT * const f) {
 
 	if (f == NULL) return false;
 
-	for (i = 0, ptr = (double *)&(f->yellow); i < 12; i++, ptr++) if (*ptr != 0.0) return false;
+	for (i = 0, ptr = (double *)&(f->Yellow); i < 12; i++, ptr++) if (*ptr != 0.0) return false;
 
 	return true;
 }
