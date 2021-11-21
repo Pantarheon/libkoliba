@@ -2,7 +2,7 @@
 
 	sltcfs.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -63,30 +63,30 @@ KLBDC KOLIBA_SLUT * KOLIBA_ConvertColorFilterToSlut(KOLIBA_SLUT * sLut, const KO
 	G = g + d;
 	B = b + d;
 
-	sLut->black.r   = 0.0;
-	sLut->black.g   = 0.0;
-	sLut->black.b   = 0.0;
-	sLut->blue.r    = r;
-	sLut->blue.g    = g;
-	sLut->blue.b    = B;
-	sLut->green.r   = r;
-	sLut->green.g   = G;
-	sLut->green.b   = b;
-	sLut->cyan.r    = r;
-	sLut->cyan.g    = G;
-	sLut->cyan.b    = B;
-	sLut->red.r     = R;
-	sLut->red.g     = g;
-	sLut->red.b     = b;
-	sLut->magenta.r = R;
-	sLut->magenta.g = g;
-	sLut->magenta.b = B;
-	sLut->yellow.r  = R;
-	sLut->yellow.g  = G;
-	sLut->yellow.b  = b;
-	sLut->white.r   = 1.0;
-	sLut->white.g   = 1.0;
-	sLut->white.b   = 1.0;
+	sLut->Black.r   = 0.0;
+	sLut->Black.g   = 0.0;
+	sLut->Black.b   = 0.0;
+	sLut->Blue.r    = r;
+	sLut->Blue.g    = g;
+	sLut->Blue.b    = B;
+	sLut->Green.r   = r;
+	sLut->Green.g   = G;
+	sLut->Green.b   = b;
+	sLut->Cyan.r    = r;
+	sLut->Cyan.g    = G;
+	sLut->Cyan.b    = B;
+	sLut->Red.r     = R;
+	sLut->Red.g     = g;
+	sLut->Red.b     = b;
+	sLut->Magenta.r = R;
+	sLut->Magenta.g = g;
+	sLut->Magenta.b = B;
+	sLut->Yellow.r  = R;
+	sLut->Yellow.g  = G;
+	sLut->Yellow.b  = b;
+	sLut->White.r   = 1.0;
+	sLut->White.g   = 1.0;
+	sLut->White.b   = 1.0;
 
 	return sLut;
 }
