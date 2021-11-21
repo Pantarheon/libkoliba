@@ -60,29 +60,29 @@ KLBDC KOLIBA_SLUT * KOLIBA_SetFarbosity(KOLIBA_SLUT *sLut, double center, double
 		v = 1.0 - l;
 		m = 1.0 - h;
 
-		sLut->blue.r    = l;
-		sLut->blue.g    = l;
-		sLut->blue.b    = h;
+		sLut->Blue.r    = l;
+		sLut->Blue.g    = l;
+		sLut->Blue.b    = h;
 
-		sLut->green.r   = l;
-		sLut->green.g   = h;
-		sLut->green.b   = l;
+		sLut->Green.r   = l;
+		sLut->Green.g   = h;
+		sLut->Green.b   = l;
 
-		sLut->cyan.r    = m;
-		sLut->cyan.g    = v;
-		sLut->cyan.b    = v;
+		sLut->Cyan.r    = m;
+		sLut->Cyan.g    = v;
+		sLut->Cyan.b    = v;
 
-		sLut->red.r     = h;
-		sLut->red.g     = l;
-		sLut->red.b     = l;
+		sLut->Red.r     = h;
+		sLut->Red.g     = l;
+		sLut->Red.b     = l;
 
-		sLut->magenta.r = v;
-		sLut->magenta.g = m;
-		sLut->magenta.b = v;
+		sLut->Magenta.r = v;
+		sLut->Magenta.g = m;
+		sLut->Magenta.b = v;
 
-		sLut->yellow.r  = v;
-		sLut->yellow.g  = v;
-		sLut->yellow.b  = m;
+		sLut->Yellow.r  = v;
+		sLut->Yellow.g  = v;
+		sLut->Yellow.b  = m;
 	}
 
 	return sLut;
