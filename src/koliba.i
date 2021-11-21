@@ -108,13 +108,15 @@
 #define	KOLIBA_FLUT	flut
 #define	KOLIBA_SLUT	slut
 #define	KOLIBA_PLUT	plut
-#define KOLIBA_EFFILUT elut
-#define KOLIBA_VERTICES vertices
-#define KOLIBA_RGB	vertex
-#define KOLIBA_ROW row
-#define KOLIBA_MATRIX matrix
-#define KOLIBA_GEMINIX geminix
-#define KOLIBA_CHANNELBLEND blend
+#define	KOLIBA_EFFILUT	elut
+#define	KOLIBA_VERTICES	vertices
+#define	KOLIBA_RGB	vertex
+#define	KOLIBA_ROW	row
+#define	KOLIBA_MATRIX	matrix
+#define	KOLIBA_GEMINIX	geminix
+#define	KOLIBA_CHANNELBLEND	blend
+#define	KOLIBA_PIGMENT	pigment
+#define	KOLIBA_PALETTE	palette
 
 #include "koliba.h"
 %}
@@ -296,13 +298,15 @@
 #define	KOLIBA_FLUT	flut
 #define	KOLIBA_SLUT	slut
 #define	KOLIBA_PLUT	plut
-#define KOLIBA_EFFILUT elut
-#define KOLIBA_VERTICES vertices
-#define KOLIBA_RGB	vertex
-#define KOLIBA_ROW row
-#define KOLIBA_MATRIX matrix
-#define KOLIBA_GEMINIX geminix
-#define KOLIBA_CHANNELBLEND blend
+#define	KOLIBA_EFFILUT	elut
+#define	KOLIBA_VERTICES	vertices
+#define	KOLIBA_RGB	vertex
+#define	KOLIBA_ROW	row
+#define	KOLIBA_MATRIX	matrix
+#define	KOLIBA_GEMINIX	geminix
+#define	KOLIBA_CHANNELBLEND	blend
+#define	KOLIBA_PIGMENT	pigment
+#define	KOLIBA_PALETTE	palette
 
 %include "koliba.h"
 #include <stdbool.h>
@@ -386,14 +390,14 @@
 			"cyan    [%g, %g, %g],\n"
 			"white   [%g, %g, %g]\n"
 			"       ]",
-			$self->black.r, $self->black.g, $self->black.b,
-			$self->red.r, $self->red.g, $self->red.b,
-			$self->green.r, $self->green.g, $self->green.b,
-			$self->blue.r, $self->blue.g, $self->blue.b,
-			$self->yellow.r, $self->yellow.g, $self->yellow.b,
-			$self->magenta.r, $self->magenta.g, $self->magenta.b,
-			$self->cyan.r, $self->cyan.g, $self->cyan.b,
-			$self->white.r, $self->white.g, $self->white.b
+			$self->Black.r,   $self->Black.g,   $self->Black.b,
+			$self->Red.r,     $self->Red.g,     $self->Red.b,
+			$self->Green.r,   $self->Green.g,   $self->Green.b,
+			$self->Blue.r,    $self->Blue.g,    $self->Blue.b,
+			$self->Yellow.r,  $self->Yellow.g,  $self->Yellow.b,
+			$self->Magenta.r, $self->Magenta.g, $self->Magenta.b,
+			$self->Cyan.r,    $self->Cyan.g,    $self->Cyan.b,
+			$self->White.r,   $self->White.g,   $self->White.b
 		);
 		return s;
 	}
@@ -430,7 +434,7 @@
 	}
 
 	void purery(const KOLIBA_VERTEX * const red=NULL) {
-		$self=KOLIBA_ApplyPureErythropy($self, (red) ? red : (KOLIBA_VERTEX *)&($self->red));
+		$self=KOLIBA_ApplyPureErythropy($self, (red) ? red : (KOLIBA_VERTEX *)&($self->Red));
 	}
 
 	~_KOLIBA_FLUT() {
@@ -603,14 +607,14 @@
 			"yellow  [%g, %g, %g],\n"
 			"white   [%g, %g, %g]\n"
 			"       ]",
-			$self->black.r, $self->black.g, $self->black.b,
-			$self->blue.r, $self->blue.g, $self->blue.b,
-			$self->green.r, $self->green.g, $self->green.b,
-			$self->cyan.r, $self->cyan.g, $self->cyan.b,
-			$self->red.r, $self->red.g, $self->red.b,
-			$self->magenta.r, $self->magenta.g, $self->magenta.b,
-			$self->yellow.r, $self->yellow.g, $self->yellow.b,
-			$self->white.r, $self->white.g, $self->white.b
+			$self->Black.r,   $self->Black.g,   $self->Black.b,
+			$self->Blue.r,    $self->Blue.g,    $self->Blue.b,
+			$self->Green.r,   $self->Green.g,   $self->Green.b,
+			$self->Cyan.r,    $self->Cyan.g,    $self->Cyan.b,
+			$self->Red.r,     $self->Red.g,     $self->Red.b,
+			$self->Magenta.r, $self->Magenta.g, $self->Magenta.b,
+			$self->Yellow.r,  $self->Yellow.g,  $self->Yellow.b,
+			$self->White.r,   $self->White.g,   $self->White.b
 		);
 		return s;
 	}
@@ -885,14 +889,14 @@
 			"magenta [%g, %g, %g],\n"
 			"yellow  [%g, %g, %g]\n"
 			"       ] / %g] * {%g}",
-			$self->black.r, $self->black.g, $self->black.b,
-			$self->white.r, $self->white.g, $self->white.b,
-			$self->red.r, $self->red.g, $self->red.b,
-			$self->green.r, $self->green.g, $self->green.b,
-			$self->blue.r, $self->blue.g, $self->blue.b,
-			$self->cyan.r, $self->cyan.g, $self->cyan.b,
-			$self->magenta.r, $self->magenta.g, $self->magenta.b,
-			$self->yellow.r, $self->yellow.g, $self->yellow.b,
+			$self->Black.r,   $self->Black.g,   $self->Black.b,
+			$self->White.r,   $self->White.g,   $self->White.b,
+			$self->Red.r,     $self->Red.g,     $self->Red.b,
+			$self->Green.r,   $self->Green.g,   $self->Green.b,
+			$self->Blue.r,    $self->Blue.g,    $self->Blue.b,
+			$self->Cyan.r,    $self->Cyan.g,    $self->Cyan.b,
+			$self->Magenta.r, $self->Magenta.g, $self->Magenta.b,
+			$self->Yellow.r,  $self->Yellow.g,  $self->Yellow.b,
 			$self->divisor, $self->efficacy
 		);
 		return s;
@@ -1090,9 +1094,9 @@
 			"blue    [%g, %g, %g, %g],\n"
 			"offset  [0, 0, 0, 1]\n"
 			"       ]",
-		$self->red.r,   $self->red.g,   $self->red.b,   $self->red.o,
-		$self->green.r, $self->green.g, $self->green.b, $self->green.o,
-		$self->blue.r,  $self->blue.g,  $self->blue.b,  $self->blue.o
+		$self->Red.r,   $self->Red.g,   $self->Red.b,   $self->Red.o,
+		$self->Green.r, $self->Green.g, $self->Green.b, $self->Green.o,
+		$self->Blue.r,  $self->Blue.g,  $self->Blue.b,  $self->Blue.o
 		);
 		return s;
 	}
@@ -1153,7 +1157,7 @@
 	}
 
 	bool is3x3(void) {return KOLIBA_MatrixIs3x3($self);}
-	void to3x3(void) {$self->red.o = 0.0; $self->green.o = 0.0; $self->blue.o = 0.0;}
+	void to3x3(void) {$self->Red.o = 0.0; $self->Green.o = 0.0; $self->Blue.o = 0.0;}
 	void invert(void) {KOLIBA_InvertMatrix($self,$self);}
 
 	// Convert a matrix to a marshaling string.
@@ -1174,9 +1178,9 @@
 		static char string[320];
 		sprintf(string,
 		"<feColorMatrix type=\"matrix\" in=\"SourceGraphic\" values=\"%g %g %g %g 0  %g %g %g %g 0  %g %g %g %g 0  0 0 0 1 0\"/>\n",
-		$self->red.r,   $self->red.g,   $self->red.b,   $self->red.o,
-		$self->green.r, $self->green.g, $self->green.b, $self->green.o,
-		$self->blue.r,  $self->blue.g,  $self->blue.b,  $self->blue.o
+		$self->Red.r,   $self->Red.g,   $self->Red.b,   $self->Red.o,
+		$self->Green.r, $self->Green.g, $self->Green.b, $self->Green.o,
+		$self->Blue.r,  $self->Blue.g,  $self->Blue.b,  $self->Blue.o
 		);
 		return string;
 	}
@@ -1229,12 +1233,12 @@
 			"offset    [0, 0, 0, 1]\n"
 			"         ]\n"
 			"        ]",
-		$self->p.red.r,   $self->p.red.g,   $self->p.red.b,   $self->p.red.o,
-		$self->p.green.r, $self->p.green.g, $self->p.green.b, $self->p.green.o,
-		$self->p.blue.r,  $self->p.blue.g,  $self->p.blue.b,  $self->p.blue.o,
-		$self->s.red.r,   $self->s.red.g,   $self->s.red.b,   $self->s.red.o,
-		$self->s.green.r, $self->s.green.g, $self->s.green.b, $self->s.green.o,
-		$self->s.blue.r,  $self->s.blue.g,  $self->s.blue.b,  $self->s.blue.o
+		$self->p.Red.r,   $self->p.Red.g,   $self->p.Red.b,   $self->p.Red.o,
+		$self->p.Green.r, $self->p.Green.g, $self->p.Green.b, $self->p.Green.o,
+		$self->p.Blue.r,  $self->p.Blue.g,  $self->p.Blue.b,  $self->p.Blue.o,
+		$self->s.Red.r,   $self->s.Red.g,   $self->s.Red.b,   $self->s.Red.o,
+		$self->s.Green.r, $self->s.Green.g, $self->s.Green.b, $self->s.Green.o,
+		$self->s.Blue.r,  $self->s.Blue.g,  $self->s.Blue.b,  $self->s.Blue.o
 		);
 		return s;
 	}
@@ -1319,9 +1323,9 @@
 			"efficacy %g\n"
 			"a,r,g,b [%s, %s, %s, %s]\n"
 			"       ]",
-		$self->mat.red.r,   $self->mat.red.g,   $self->mat.red.b,   $self->mat.red.o,
-		$self->mat.green.r, $self->mat.green.g, $self->mat.green.b, $self->mat.green.o,
-		$self->mat.blue.r,  $self->mat.blue.g,  $self->mat.blue.b,  $self->mat.blue.o,
+		$self->mat.Red.r,   $self->mat.Red.g,   $self->mat.Red.b,   $self->mat.Red.o,
+		$self->mat.Green.r, $self->mat.Green.g, $self->mat.Green.b, $self->mat.Green.o,
+		$self->mat.Blue.r,  $self->mat.Blue.g,  $self->mat.Blue.b,  $self->mat.Blue.o,
 		$self->efficacy,
 		($self->na) ? "true" : "false",
 		($self->nr) ? "true" : "false",
@@ -1349,6 +1353,67 @@
 	bool marshalRead(char *filename) {return(KOLIBA_ReadCblnFromNamedFile($self,filename)!=NULL);}
 
 	~_KOLIBA_CHANNELBLEND() {free($self);}
+}
+
+/* Convert the _KOLIBA_PIGMENT structure into class koliba.pigment(). */
+
+%extend _KOLIBA_PIGMENT {
+	_KOLIBA_PIGMENT(struct _KOLIBA_PIGMENT *p) {
+		KOLIBA_PIGMENT *kPig;
+		// This structure requires its rp, gp, bp fields
+		// to stay within the [0..1] range. This for
+		// compatibility with many computer standards,
+		// such as the OFX (Open Effects) stadard used in
+		// video editing.
+		//
+		// We will, therefore, enforce this as much as SWIG allows.
+		// That includes running the following after compiling SWIG
+		// to koliba_wrap.c:
+		//
+		//	sed -i 's/(arg1)->rp = arg2/(arg1)->rp = (arg2<0.0)?0.0:(arg2>1.0)?1.0:arg2/g' koliba_wrap.c
+		//	sed -i 's/(arg1)->gp = arg2/(arg1)->gp = (arg2<0.0)?0.0:(arg2>1.0)?1.0:arg2/g' koliba_wrap.c
+		//	sed -i 's/(arg1)->bp = arg2/(arg1)->bp = (arg2<0.0)?0.0:(arg2>1.0)?1.0:arg2/g' koliba_wrap.c
+		//
+		// Of course, we combine all those into a single call to sed.
+		//
+		if (p==NULL) return NULL;
+		kPig = malloc(sizeof(KOLIBA_PIGMENT));
+		kPig->rp=(p->rp<0.0)?0.0:(p->rp>1.0)?1.0:p->rp;
+		kPig->gp=(p->gp<0.0)?0.0:(p->gp>1.0)?1.0:p->gp;
+		kPig->bp=(p->bp<0.0)?0.0:(p->bp>1.0)?1.0:p->bp;
+		kPig->efficacy=p->efficacy;
+		return kPig;
+	}
+
+	_KOLIBA_PIGMENT(double rp=0.0, double gp=0.0, double bp=0.0, double efficacy=1.0) {
+		KOLIBA_PIGMENT *kPig = malloc(sizeof(KOLIBA_PIGMENT));
+		kPig->rp=(rp<0.0)?0.0:(rp>1.0)?1.0:rp;
+		kPig->gp=(gp<0.0)?0.0:(gp>1.0)?1.0:gp;
+		kPig->bp=(bp<0.0)?0.0:(bp>1.0)?1.0:bp;
+		kPig->efficacy=efficacy;
+		return kPig;
+	}
+
+	char *__str__() {
+		static char s[64];
+		sprintf(s,
+			"pigment [%g, %g, %g, %g]",
+			$self->rp,
+			$self->gp,
+			$self->bp,
+			$self->efficacy
+		);
+		return s;
+	}
+
+	void __setitem__(KOLIBA_PIGMENT *p) {
+		$self->rp=(p->rp<0.0)?0.0:(p->rp>1.0)?1.0:p->rp;
+		$self->gp=(p->gp<0.0)?0.0:(p->gp>1.0)?1.0:p->gp;
+		$self->bp=(p->bp<0.0)?0.0:(p->bp>1.0)?1.0:p->bp;
+		$self->efficacy=p->efficacy;
+	}
+
+	~_KOLIBA_PIGMENT() {free($self);}
 }
 
 #endif
