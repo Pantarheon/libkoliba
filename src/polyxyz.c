@@ -2,7 +2,7 @@
 
 	polyxyz.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2019 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -81,32 +81,32 @@ KLBDC KOLIBA_XYZ * KOLIBA_PolyXyz(KOLIBA_XYZ * xyzout, const KOLIBA_XYZ * const 
 			y		= temp.y;
 			z		= temp.z;
 
-			temp.x = (flags & KOLIBA_KR) ? sLut->black.r : 0.0;
-			temp.y = (flags & KOLIBA_KG) ? sLut->black.g : 0.0;
-			temp.z = (flags & KOLIBA_KB) ? sLut->black.b : 0.0;
+			temp.x = (flags & KOLIBA_KR) ? sLut->Black.r : 0.0;
+			temp.y = (flags & KOLIBA_KG) ? sLut->Black.g : 0.0;
+			temp.z = (flags & KOLIBA_KB) ? sLut->Black.b : 0.0;
 
 			if ((flags &(~KOLIBA_RgbFlutFlags)) == 0) continue;
 
 			if (flags & KOLIBA_RR)
-				temp.x += sLut->red.r * x;
+				temp.x += sLut->Red.r * x;
 			if (flags & KOLIBA_RG)
-				temp.y += sLut->red.g * x;
+				temp.y += sLut->Red.g * x;
 			if (flags & KOLIBA_RB)
-				temp.z += sLut->red.b * x;
+				temp.z += sLut->Red.b * x;
 
 			if (flags & KOLIBA_GR)
-				temp.x += sLut->green.r * y;
+				temp.x += sLut->Green.r * y;
 			if (flags & KOLIBA_GG)
-				temp.y += sLut->green.g * y;
+				temp.y += sLut->Green.g * y;
 			if (flags & KOLIBA_GB)
-				temp.z += sLut->green.b * y;
+				temp.z += sLut->Green.b * y;
 
 			if (flags & KOLIBA_BR)
-				temp.x += sLut->blue.r * z;
+				temp.x += sLut->Blue.r * z;
 			if (flags & KOLIBA_BG)
-				temp.y += sLut->blue.g * z;
+				temp.y += sLut->Blue.g * z;
 			if (flags & KOLIBA_BB)
-				temp.z += sLut->blue.b * z;
+				temp.z += sLut->Blue.b * z;
 
 			if ((flags & (~KOLIBA_MatrixFlutFlags)) == 0) continue;
 
@@ -114,38 +114,38 @@ KLBDC KOLIBA_XYZ * KOLIBA_PolyXyz(KOLIBA_XYZ * xyzout, const KOLIBA_XYZ * const 
 			xy	= x*y;
 
 			if (flags & KOLIBA_YR)
-				temp.x += sLut->yellow.r * xy;
+				temp.x += sLut->Yellow.r * xy;
 			if (flags & KOLIBA_YG)
-				temp.y += sLut->yellow.g * xy;
+				temp.y += sLut->Yellow.g * xy;
 			if (flags & KOLIBA_YB)
-				temp.z += sLut->yellow.b * xy;
+				temp.z += sLut->Yellow.b * xy;
 
 			if (flags & (KOLIBA_MR|KOLIBA_MG|KOLIBA_MB))
 				xz	= x*z;
 			if (flags & KOLIBA_MR)
-				temp.x += sLut->magenta.r * xz;
+				temp.x += sLut->Magenta.r * xz;
 			if (flags & KOLIBA_MG)
-				temp.y += sLut->magenta.g * xz;
+				temp.y += sLut->Magenta.g * xz;
 			if (flags & KOLIBA_MB)
-				temp.z += sLut->magenta.b * xz;
+				temp.z += sLut->Magenta.b * xz;
 
 			if (flags & (KOLIBA_CR|KOLIBA_CG|KOLIBA_CB))
 				yz = y*z;
 			if (flags & KOLIBA_CR)
-				temp.x += sLut->cyan.r * yz;
+				temp.x += sLut->Cyan.r * yz;
 			if (flags & KOLIBA_CG)
-				temp.y += sLut->cyan.g * yz;
+				temp.y += sLut->Cyan.g * yz;
 			if (flags & KOLIBA_CB)
-				temp.z += sLut->cyan.b * yz;
+				temp.z += sLut->Cyan.b * yz;
 
 			if (flags & (KOLIBA_WR|KOLIBA_WG|KOLIBA_WB))
 				xyz	= xy*z;
 			if (flags & KOLIBA_WR)
-				temp.x += sLut->white.r * xyz;
+				temp.x += sLut->White.r * xyz;
 			if (flags & KOLIBA_WG)
-				temp.y += sLut->white.g * xyz;
+				temp.y += sLut->White.g * xyz;
 			if (flags & KOLIBA_WB)
-				temp.z += sLut->white.b * xyz;
+				temp.z += sLut->White.b * xyz;
 		}
 
 		xyzout->x	= temp.x;
