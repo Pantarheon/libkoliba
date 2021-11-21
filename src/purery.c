@@ -2,7 +2,7 @@
 
 	purery.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -58,43 +58,43 @@ KLBDC KOLIBA_FLUT * KOLIBA_ApplyPureErythropy(KOLIBA_FLUT * output, const KOLIBA
 	g = red->g;
 	b = red->b;
 
-	output->black.r = 0.0;
-	output->black.g = 0.0;
-	output->black.b = 0.0;
+	output->Black.r = 0.0;
+	output->Black.g = 0.0;
+	output->Black.b = 0.0;
 
-	output->red.r = r;
-	output->red.g = g;
-	output->red.b = b;
+	output->Red.r = r;
+	output->Red.g = g;
+	output->Red.b = b;
 
 	s = r + g + b;
 
-	output->green.r = b;
-	output->green.g = r;
-	output->green.b = g;
+	output->Green.r = b;
+	output->Green.g = r;
+	output->Green.b = g;
 
 	q = 1.0 - s;
 
-	output->blue.r = g;
-	output->blue.g = b;
-	output->blue.b = r;
+	output->Blue.r = g;
+	output->Blue.g = b;
+	output->Blue.b = r;
 
-	output->cyan.r = q;
-	output->cyan.g = q;
-	output->cyan.b = q;
+	output->Cyan.r = q;
+	output->Cyan.g = q;
+	output->Cyan.b = q;
 	
-	output->magenta.r = q;
-	output->magenta.g = q;
-	output->magenta.b = q;
+	output->Magenta.r = q;
+	output->Magenta.g = q;
+	output->Magenta.b = q;
 
 	w = 2.0 * (s - 1.0);
 
-	output->yellow.r = q;
-	output->yellow.g = q;
-	output->yellow.b = q;
+	output->Yellow.r = q;
+	output->Yellow.g = q;
+	output->Yellow.b = q;
 
-	output->white.r = w;
-	output->white.g = w;
-	output->white.b = w;
+	output->White.r = w;
+	output->White.g = w;
+	output->White.b = w;
 
 	return output;
 }
