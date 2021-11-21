@@ -2,7 +2,7 @@
 
 	sltreset.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -55,49 +55,49 @@ KLBDC KOLIBA_SLUT * KOLIBA_ResetSlut(KOLIBA_SLUT *sLut) {
 
 KLBDC KOLIBA_SLUT * KOLIBA_ResetSlutBlack(KOLIBA_SLUT *sLut) {
 	if (sLut != NULL)
-		memcpy(&sLut->black, &KOLIBA_IdentitySlut.black, sizeof(KOLIBA_VERTEX));
+		memcpy(&sLut->Black, &KOLIBA_IdentitySlut.Black, sizeof(KOLIBA_VERTEX));
 	return sLut;
 }
 
 KLBDC KOLIBA_SLUT * KOLIBA_ResetSlutBlue(KOLIBA_SLUT *sLut) {
 	if (sLut != NULL)
-		memcpy(&sLut->blue, &KOLIBA_IdentitySlut.blue, sizeof(KOLIBA_VERTEX));
+		memcpy(&sLut->Blue, &KOLIBA_IdentitySlut.Blue, sizeof(KOLIBA_VERTEX));
 	return sLut;
 }
 
 KLBDC KOLIBA_SLUT * KOLIBA_ResetSlutGreen(KOLIBA_SLUT *sLut) {
 	if (sLut != NULL)
-		memcpy(&sLut->green, &KOLIBA_IdentitySlut.green, sizeof(KOLIBA_VERTEX));
+		memcpy(&sLut->Green, &KOLIBA_IdentitySlut.Green, sizeof(KOLIBA_VERTEX));
 	return sLut;
 }
 
 KLBDC KOLIBA_SLUT * KOLIBA_ResetSlutCyan(KOLIBA_SLUT *sLut) {
 	if (sLut != NULL)
-		memcpy(&sLut->cyan, &KOLIBA_IdentitySlut.cyan, sizeof(KOLIBA_VERTEX));
+		memcpy(&sLut->Cyan, &KOLIBA_IdentitySlut.Cyan, sizeof(KOLIBA_VERTEX));
 	return sLut;
 }
 
 KLBDC KOLIBA_SLUT * KOLIBA_ResetSlutRed(KOLIBA_SLUT *sLut) {
 	if (sLut != NULL)
-		memcpy(&sLut->red, &KOLIBA_IdentitySlut.red, sizeof(KOLIBA_VERTEX));
+		memcpy(&sLut->Red, &KOLIBA_IdentitySlut.Red, sizeof(KOLIBA_VERTEX));
 	return sLut;
 }
 
 KLBDC KOLIBA_SLUT * KOLIBA_ResetSlutMagenta(KOLIBA_SLUT *sLut) {
 	if (sLut != NULL)
-		memcpy(&sLut->magenta, &KOLIBA_IdentitySlut.magenta, sizeof(KOLIBA_VERTEX));
+		memcpy(&sLut->Magenta, &KOLIBA_IdentitySlut.Magenta, sizeof(KOLIBA_VERTEX));
 	return sLut;
 }
 
 KLBDC KOLIBA_SLUT * KOLIBA_ResetSlutYellow(KOLIBA_SLUT *sLut) {
 	if (sLut != NULL)
-		memcpy(&sLut->yellow, &KOLIBA_IdentitySlut.yellow, sizeof(KOLIBA_VERTEX));
+		memcpy(&sLut->Yellow, &KOLIBA_IdentitySlut.Yellow, sizeof(KOLIBA_VERTEX));
 	return sLut;
 }
 
 KLBDC KOLIBA_SLUT * KOLIBA_ResetSlutWhite(KOLIBA_SLUT *sLut) {
 	if (sLut != NULL)
-		memcpy(&sLut->white, &KOLIBA_IdentitySlut.white, sizeof(KOLIBA_VERTEX));
+		memcpy(&sLut->White, &KOLIBA_IdentitySlut.White, sizeof(KOLIBA_VERTEX));
 	return sLut;
 }
 
