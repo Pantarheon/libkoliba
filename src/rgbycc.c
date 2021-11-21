@@ -2,7 +2,7 @@
 
 	rgbycc.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -52,18 +52,18 @@ KLBDC KOLIBA_MATRIX * KOLIBA_RgbToYcc(KOLIBA_MATRIX * output, const KOLIBA_RGB *
 	double d;
 
 	if ((KOLIBA_GrayscaleMatrix(output, rec) == NULL) ||
-	(output->red.r == 1.0) ||
-	(output->red.b == 1.0))
+	(output->Red.r == 1.0) ||
+	(output->Red.b == 1.0))
 		return NULL;
 
-	output->green.b  = 0.5;
-	output->blue.r   = 0.5;
-	d                = 0.5 / (output->red.b - 1.0);
-	output->green.r *= d;
-	output->green.g *= d;
-	d                = 0.5 / (output->red.r - 1.0);
-	output->blue.g  *= d;
-	output->blue.b  *= d;
+	output->Green.b  = 0.5;
+	output->Blue.r   = 0.5;
+	d                = 0.5 / (output->Red.b - 1.0);
+	output->Green.r *= d;
+	output->Green.g *= d;
+	d                = 0.5 / (output->Red.r - 1.0);
+	output->Blue.g  *= d;
+	output->Blue.b  *= d;
 
 	return output;
 }
