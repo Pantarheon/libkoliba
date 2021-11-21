@@ -2,7 +2,7 @@
 
 	pltreset.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -55,41 +55,41 @@ KLBDC KOLIBA_PALETTE * KOLIBA_ResetPalette(KOLIBA_PALETTE *plt) {
 }
 
 KLBDC KOLIBA_PALETTE * KOLIBA_ResetPaletteBlack(KOLIBA_PALETTE *plt) {
-	if (plt != NULL) memcpy(&plt->black, &KOLIBA_IdentityPalette.black, sizeof(KOLIBA_PIGMENT));
+	if (plt != NULL) memcpy(&plt->Black, &KOLIBA_IdentityPalette.Black, sizeof(KOLIBA_PIGMENT));
 	return plt;
 }
 
 KLBDC KOLIBA_PALETTE * KOLIBA_ResetPaletteWhite(KOLIBA_PALETTE *plt) {
-	if (plt != NULL) memcpy(&plt->white, &KOLIBA_IdentityPalette.white, sizeof(KOLIBA_PIGMENT));
+	if (plt != NULL) memcpy(&plt->White, &KOLIBA_IdentityPalette.White, sizeof(KOLIBA_PIGMENT));
 	return plt;
 }
 
 KLBDC KOLIBA_PALETTE * KOLIBA_ResetPaletteRed(KOLIBA_PALETTE *plt) {
-	if (plt != NULL) memcpy(&plt->red, &KOLIBA_IdentityPalette.red, sizeof(KOLIBA_PIGMENT));
+	if (plt != NULL) memcpy(&plt->Red, &KOLIBA_IdentityPalette.Red, sizeof(KOLIBA_PIGMENT));
 	return plt;
 }
 
 KLBDC KOLIBA_PALETTE * KOLIBA_ResetPaletteGreen(KOLIBA_PALETTE *plt) {
-	if (plt != NULL) memcpy(&plt->green, &KOLIBA_IdentityPalette.green, sizeof(KOLIBA_PIGMENT));
+	if (plt != NULL) memcpy(&plt->Green, &KOLIBA_IdentityPalette.Green, sizeof(KOLIBA_PIGMENT));
 	return plt;
 }
 
 KLBDC KOLIBA_PALETTE * KOLIBA_ResetPaletteBlue(KOLIBA_PALETTE *plt) {
-	if (plt != NULL) memcpy(&plt->blue, &KOLIBA_IdentityPalette.blue, sizeof(KOLIBA_PIGMENT));
+	if (plt != NULL) memcpy(&plt->Blue, &KOLIBA_IdentityPalette.Blue, sizeof(KOLIBA_PIGMENT));
 	return plt;
 }
 
 KLBDC KOLIBA_PALETTE * KOLIBA_ResetPaletteCyan(KOLIBA_PALETTE *plt) {
-	if (plt != NULL) memcpy(&plt->cyan, &KOLIBA_IdentityPalette.cyan, sizeof(KOLIBA_PIGMENT));
+	if (plt != NULL) memcpy(&plt->Cyan, &KOLIBA_IdentityPalette.Cyan, sizeof(KOLIBA_PIGMENT));
 	return plt;
 }
 
 KLBDC KOLIBA_PALETTE * KOLIBA_ResetPaletteMagenta(KOLIBA_PALETTE *plt) {
-	if (plt != NULL) memcpy(&plt->magenta, &KOLIBA_IdentityPalette.magenta, sizeof(KOLIBA_PIGMENT));
+	if (plt != NULL) memcpy(&plt->Magenta, &KOLIBA_IdentityPalette.Magenta, sizeof(KOLIBA_PIGMENT));
 	return plt;
 }
 
 KLBDC KOLIBA_PALETTE * KOLIBA_ResetPaletteYellow(KOLIBA_PALETTE *plt) {
-	if (plt != NULL) memcpy(&plt->yellow, &KOLIBA_IdentityPalette.yellow, sizeof(KOLIBA_PIGMENT));
+	if (plt != NULL) memcpy(&plt->Yellow, &KOLIBA_IdentityPalette.Yellow, sizeof(KOLIBA_PIGMENT));
 	return plt;
 }
