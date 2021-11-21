@@ -2,7 +2,7 @@
 
 	matrixlift.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -57,14 +57,14 @@ KLBDC KOLIBA_MATRIX * KOLIBA_MatrixLift(KOLIBA_MATRIX *output, const KOLIBA_MATR
 
 	i = (input != NULL) ? input : &KOLIBA_IdentityMatrix;
 
-	KOLIBA_Interpolate((double *)&temp.red, (double *)&KOLIBA_Ones, (lifts != NULL) ? lifts->r : 0.0, (double *)&(i->red), 3);
-	temp.red.o = i->red.o;
+	KOLIBA_Interpolate((double *)&temp.Red, (double *)&KOLIBA_Ones, (lifts != NULL) ? lifts->r : 0.0, (double *)&(i->Red), 3);
+	temp.Red.o = i->Red.o;
 
-	KOLIBA_Interpolate((double *)&temp.green, (double *)&KOLIBA_Ones, (lifts != NULL) ? lifts->g : 0.0, (double *)&(i->green), 3);
-	temp.green.o = i->green.o;
+	KOLIBA_Interpolate((double *)&temp.Green, (double *)&KOLIBA_Ones, (lifts != NULL) ? lifts->g : 0.0, (double *)&(i->Green), 3);
+	temp.Green.o = i->Green.o;
 
-	KOLIBA_Interpolate((double *)&temp.blue, (double *)&KOLIBA_Ones, (lifts != NULL) ? lifts->b : 0.0, (double *)&(i->blue), 3);
-	temp.blue.o = i->blue.o;
+	KOLIBA_Interpolate((double *)&temp.Blue, (double *)&KOLIBA_Ones, (lifts != NULL) ? lifts->b : 0.0, (double *)&(i->Blue), 3);
+	temp.Blue.o = i->Blue.o;
 
 	return memcpy(output, &temp, sizeof(KOLIBA_MATRIX));
 }
