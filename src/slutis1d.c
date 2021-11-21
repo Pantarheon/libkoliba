@@ -48,28 +48,23 @@
 
 KLBDC bool KOLIBA_SlutIs1D(const KOLIBA_SLUT * const s) {
 	return ((s != NULL) &&
-		(s->black.r == s->blue.r) &&
-		(s->black.r == s->green.r) &&
-		(s->black.r == s->cyan.r) &&
-
-		(s->black.g == s->red.g) &&
-		(s->black.g == s->blue.g) &&
-		(s->black.g == s->magenta.g) &&
-
-		(s->black.b == s->red.b) &&
-		(s->black.b == s->green.b) &&
-		(s->black.b == s->yellow.b) &&
-
-		(s->white.r == s->red.r) &&
-		(s->white.r == s->magenta.r) &&
-		(s->white.r == s->yellow.r) &&
-
-		(s->white.g == s->green.g) &&
-		(s->white.g == s->cyan.g) &&
-		(s->white.g == s->yellow.g) &&
-
-		(s->white.b == s->blue.b) &&
-		(s->white.b == s->cyan.b) &&
-		(s->white.b == s->magenta.b)
+		(s->Black.r == s->Blue.r) &&
+		(s->Black.r == s->Green.r) &&
+		(s->Black.r == s->Cyan.r) &&
+		(s->Black.g == s->Red.g) &&
+		(s->Black.g == s->Blue.g) &&
+		(s->Black.g == s->Magenta.g) &&
+		(s->Black.b == s->Red.b) &&
+		(s->Black.b == s->Green.b) &&
+		(s->Black.b == s->Yellow.b) &&
+		(s->White.r == s->Red.r) &&
+		(s->White.r == s->Magenta.r) &&
+		(s->White.r == s->Yellow.r) &&
+		(s->White.g == s->Green.g) &&
+		(s->White.g == s->Cyan.g) &&
+		(s->White.g == s->Yellow.g) &&
+		(s->White.b == s->Blue.b) &&
+		(s->White.b == s->Cyan.b) &&
+		(s->White.b == s->Magenta.b)
 	);
 }
