@@ -2,7 +2,7 @@
 
 	effiflut.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -69,9 +69,9 @@ KLBDC KOLIBA_FLUT * KOLIBA_FlutEfficacy(KOLIBA_FLUT * output, const KOLIBA_FLUT 
 
 	d			 = 1.0 - efficacy;
 
-	f.red.r		+= d;
-	f.green.g	+= d;
-	f.blue.b	+= d;
+	f.Red.r		+= d;
+	f.Green.g	+= d;
+	f.Blue.b	+= d;
 
 	return memcpy(output, &f, sizeof(KOLIBA_FLUT));
 }
