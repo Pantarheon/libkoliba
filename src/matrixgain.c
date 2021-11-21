@@ -2,7 +2,7 @@
 
 	matrixgain.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -59,14 +59,14 @@ KLBDC KOLIBA_MATRIX * KOLIBA_MatrixGain(KOLIBA_MATRIX * output, const KOLIBA_MAT
 
 	i = (input != NULL) ? input : &KOLIBA_IdentityMatrix;
 
-	KOLIBA_Interpolate((double *)&temp.red, (double *)&(i->red), (gains != NULL) ? gains->r : 1.0, KOLIBA_Zeroes, 3);
-	temp.red.o = i->red.o;
+	KOLIBA_Interpolate((double *)&temp.Red, (double *)&(i->Red), (gains != NULL) ? gains->r : 1.0, KOLIBA_Zeroes, 3);
+	temp.Red.o = i->Red.o;
 
-	KOLIBA_Interpolate((double *)&temp.green, (double *)&(i->green), (gains != NULL) ? gains->g : 1.0, KOLIBA_Zeroes, 3);
-	temp.green.o = i->green.o;
+	KOLIBA_Interpolate((double *)&temp.Green, (double *)&(i->Green), (gains != NULL) ? gains->g : 1.0, KOLIBA_Zeroes, 3);
+	temp.Green.o = i->Green.o;
 
-	KOLIBA_Interpolate((double *)&temp.blue, (double *)&(i->blue), (gains != NULL) ? gains->b : 1.0, KOLIBA_Zeroes, 3);
-	temp.blue.o = i->blue.o;
+	KOLIBA_Interpolate((double *)&temp.Blue, (double *)&(i->Blue), (gains != NULL) ? gains->b : 1.0, KOLIBA_Zeroes, 3);
+	temp.Blue.o = i->Blue.o;
 
 	return memcpy(output, &temp, sizeof(KOLIBA_MATRIX));
 }
