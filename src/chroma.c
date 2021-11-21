@@ -2,7 +2,7 @@
 
 	chroma.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -59,23 +59,23 @@ KLBDC KOLIBA_MATRIX * KOLIBA_ChromaMatrix(KOLIBA_MATRIX *output, const KOLIBA_CH
 	if ((chroma == NULL) || (model == NULL)) return NULL;
 
 	angle = KOLIBA_ConvertDegreesToRadians(chroma->angle);
-	c.red.r    =  chroma->white - chroma->black;
-	c.red.g    =  0.0;
-	c.red.b    =  0.0;
-	c.red.o    =  chroma->black;
-	c.green.r  =  0.0;
-	c.green.g  =  cos(angle);
-	c.green.b  =  sin(angle);
-	c.green.o  =  0.0;
-	c.blue.r   =  0.0;
-	c.blue.g   = -c.green.b;
-	c.blue.b   =  c.green.g;
-	c.blue.o   =  0.0;
-	KOLIBA_Interpolate((double*)&c.green, (double*)&c.green, chroma->magnitude, (double *)&KOLIBA_IdentityMatrix.green, 8);
-	c.green.g *= chroma->saturation;
-	c.green.b *= chroma->saturation;
-	c.blue.g  *= chroma->saturation;
-	c.blue.b  *= chroma->saturation;
+	c.Red.r    =  chroma->white - chroma->black;
+	c.Red.g    =  0.0;
+	c.Red.b    =  0.0;
+	c.Red.o    =  chroma->black;
+	c.Green.r  =  0.0;
+	c.Green.g  =  cos(angle);
+	c.Green.b  =  sin(angle);
+	c.Green.o  =  0.0;
+	c.Blue.r   =  0.0;
+	c.Blue.g   = -c.Green.b;
+	c.Blue.b   =  c.Green.g;
+	c.Blue.o   =  0.0;
+	KOLIBA_Interpolate((double*)&c.Green, (double*)&c.Green, chroma->magnitude, (double *)&KOLIBA_IdentityMatrix.Green, 8);
+	c.Green.g *= chroma->saturation;
+	c.Green.b *= chroma->saturation;
+	c.Blue.g  *= chroma->saturation;
+	c.Blue.b  *= chroma->saturation;
 	return KOLIBA_MultiplyMatrices(output, KOLIBA_MultiplyMatrices(output, KOLIBA_RgbToYcc(&b, model), &c), KOLIBA_YccToRgb(&a, model));
 }
 
