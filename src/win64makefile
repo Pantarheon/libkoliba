@@ -101,6 +101,23 @@ koliba.dll: $(objects) dllres.o
 dllres.o: dll.rc
 	windres -i dll.rc -o dllres.o
 
+koliba_wrap.c: koliba.h koliba.i
+	swig -keyword -py3 -python koliba.i
+	sed -i \
+	-e 's/(arg1)->divisor = arg2/(arg1)->divisor = (arg2<1.0) ? 1.0 : arg2/g' \
+	-e 's/(arg1)->rp = arg2/(arg1)->rp = (arg2<0.0)?0.0:(arg2>1.0)?1.0:arg2/g' \
+	-e 's/(arg1)->gp = arg2/(arg1)->gp = (arg2<0.0)?0.0:(arg2>1.0)?1.0:arg2/g' \
+	-e 's/(arg1)->bp = arg2/(arg1)->bp = (arg2<0.0)?0.0:(arg2>1.0)?1.0:arg2/g' \
+	-e 's/(arg1)->Black = \*arg2/memcpy(\&arg1->Black,arg2,sizeof(\*arg2))/g' \
+	-e 's/(arg1)->White = \*arg2/memcpy(\&arg1->White,arg2,sizeof(\*arg2))/g' \
+	-e 's/(arg1)->Red = \*arg2/memcpy(\&arg1->Red,arg2,sizeof(\*arg2))/g' \
+	-e 's/(arg1)->Green = \*arg2/memcpy(\&arg1->Green,arg2,sizeof(\*arg2))/g' \
+	-e 's/(arg1)->Blue = \*arg2/memcpy(\&arg1->Blue,arg2,sizeof(\*arg2))/g' \
+	-e 's/(arg1)->Cyan = \*arg2/memcpy(\&arg1->Cyan,arg2,sizeof(\*arg2))/g' \
+	-e 's/(arg1)->Magenta = \*arg2/memcpy(\&arg1->Magenta,arg2,sizeof(\*arg2))/g' \
+	-e 's/(arg1)->Yellow = \*arg2/memcpy(\&arg1->Yellow,arg2,sizeof(\*arg2))/g' \
+	koliba_wrap.c
+
 %.o: %.c koliba.h
 	$(CC) -c $(CFLAGS) $< -o $@
 

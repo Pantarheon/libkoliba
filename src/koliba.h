@@ -2634,10 +2634,10 @@ KLBDC KOLIBA_MATRIX * KOLIBA_InvertMatrix(
 // KOLIBA_PALETTE and KOLIBA_PALETTE2 after a typecast),
 // i.e., check all RGB values are within the [0..1] range.
 //
-// Return value of 0 (false) means the palette is not valid,
+// Return value of false means the palette is not valid,
 // otherwise it is valid.
 
-KLBDC unsigned int KOLIBA_IsPaletteValid(
+KLBDC bool KOLIBA_IsPaletteValid(
 	const KOLIBA_PALETTE * const plt
 );
 // Apply a ring to a palette.

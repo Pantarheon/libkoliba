@@ -2,7 +2,7 @@
 
 	pltvalid.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -49,17 +49,14 @@
 // Verify the validity of a palette, usually after loading
 // it from a file. This can be used with KOLIBA_PALETTE,
 // as well as with KOLIBA_PALETTE2 (after typecasting).
-//
-// The value is Boolean, but declared as unsigned int
-// because there is no Boolean type in standard C.
 
-KLBDC unsigned int KOLIBA_IsPaletteValid(const KOLIBA_PALETTE * const plt) {
+KLBDC bool KOLIBA_IsPaletteValid(const KOLIBA_PALETTE * const plt) {
 	unsigned int i, j;
 	double *ptr;
 
 	if (plt == NULL) return 0;
 	for (i = 0, ptr = (double *)plt; i < 8; i++, ptr++) {
-		for (j = 0; j < 3; j++, ptr++) if ((*ptr < 0.0) || (*ptr > 1.0)) return 0;
+		for (j = 0; j < 3; j++, ptr++) if ((*ptr < 0.0) || (*ptr > 1.0)) return false;
 	}
-	return 1;
+	return true;
 }

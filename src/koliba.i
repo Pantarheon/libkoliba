@@ -295,6 +295,20 @@
 %ignore KOLIBA_ResetChannelBlendGreen;
 %ignore KOLIBA_ResetChannelBlendBlue;
 
+%ignore KOLIBA_IsPaletteValid;
+%ignore KOLIBA_ApplyPaletteRing;
+%ignore KOLIBA_ResetPalette;
+%ignore KOLIBA_ResetPaletteBlack;
+%ignore KOLIBA_ResetPaletteWhite;
+%ignore KOLIBA_ResetPaletteRed;
+%ignore KOLIBA_ResetPaletteGreen;
+%ignore KOLIBA_ResetPaletteBlue;
+%ignore KOLIBA_ResetPaletteCyan;
+%ignore KOLIBA_ResetPaletteMagenta;
+%ignore KOLIBA_ResetPaletteYellow;
+%ignore KOLIBA_WritePaletteToNamedFile;
+%ignore KOLIBA_ReadPaletteFromNamedFile;
+
 #define	KOLIBA_FLUT	flut
 #define	KOLIBA_SLUT	slut
 #define	KOLIBA_PLUT	plut
@@ -1414,6 +1428,34 @@
 	}
 
 	~_KOLIBA_PIGMENT() {free($self);}
+}
+
+/* Convert the _KOLIBA_PALETTE structure into class koliba.palette(). */
+
+%extend _KOLIBA_PALETTE {
+	_KOLIBA_PALETTE(KOLIBA_PALETTE *p=&KOLIBA_IdentityPalette) {
+		KOLIBA_PALETTE *pal;
+		if ((p == NULL) || (!KOLIBA_IsPaletteValid(p))) return NULL;
+		pal = malloc(sizeof(KOLIBA_PALETTE));
+		if (pal) memcpy(pal,p,sizeof(KOLIBA_PALETTE));
+		return pal;
+	}
+
+	bool isvalid() {return KOLIBA_IsPaletteValid($self);}
+	void ring(KOLIBA_Pluts plut=KOLIBA_PlutRed) {KOLIBA_ApplyPaletteRing($self,$self,plut);}
+	void reset() {KOLIBA_ResetPalette($self);}
+	void resetBlack() {KOLIBA_ResetPaletteBlack($self);}
+	void resetWhite() {KOLIBA_ResetPaletteWhite($self);}
+	void resetRed() {KOLIBA_ResetPaletteRed($self);}
+	void resetGreen() {KOLIBA_ResetPaletteGreen($self);}
+	void resetBlue() {KOLIBA_ResetPaletteBlue($self);}
+	void resetCyan() {KOLIBA_ResetPaletteCyan($self);}
+	void resetMagenta() {KOLIBA_ResetPaletteMagenta($self);}
+	void resetYellow() {KOLIBA_ResetPaletteYellow($self);}
+	bool write(char *filename) {return (KOLIBA_WritePaletteToNamedFile($self,filename)==0);}
+	bool read(char *filename) {return(KOLIBA_ReadPaletteFromNamedFile($self,filename)!=NULL);}
+
+	~_KOLIBA_PALETTE() {free($self);}
 }
 
 #endif
