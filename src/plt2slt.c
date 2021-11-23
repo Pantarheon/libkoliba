@@ -60,7 +60,7 @@ KLBDC KOLIBA_SLUT * KOLIBA_ConvertPaletteToSlut(KOLIBA_SLUT * sLut, const KOLIBA
 	KOLIBA_Interpolate((double *)&sLut->White, (double *)&plt->White, plt->White.efficacy * effi, (double *)&KOLIBA_IdentitySlut.White, 3);
 	KOLIBA_Interpolate((double *)&sLut->Red, (double *)&plt->Red, plt->Red.efficacy * effi, (double *)&KOLIBA_IdentitySlut.Red, 3);
 
-	if (plt->erythropy != 0) return KOLIBA_ApplyErythropy(sLut, sLut);
+	if (plt->erythropy) return KOLIBA_ApplyErythropy(sLut, sLut);
 
 	KOLIBA_Interpolate((double *)&sLut->Green, (double *)&plt->Green, plt->Green.efficacy * effi, (double *)&KOLIBA_IdentitySlut.Green, 3);
 	KOLIBA_Interpolate((double *)&sLut->Blue, (double *)&plt->Blue, plt->Blue.efficacy * effi, (double *)&KOLIBA_IdentitySlut.Blue, 3);

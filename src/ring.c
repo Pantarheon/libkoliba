@@ -145,7 +145,7 @@ KLBDC KOLIBA_PALETTE * KOLIBA_ApplyPaletteRing(KOLIBA_PALETTE *output, const KOL
 	output->Yellow.bp         = c;
 	output->Yellow.efficacy  = efficacy;
 
-	output->erythropy        = 0;
+	output->erythropy        = false;
 
 	return output;
 }

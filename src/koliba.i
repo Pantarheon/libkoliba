@@ -395,14 +395,14 @@
 		static char s[1024];
 		sprintf(s,
 			"fLut   [\n"
-			"black   [%g, %g, %g],\n"
-			"red     [%g, %g, %g],\n"
-			"green   [%g, %g, %g],\n"
-			"blue    [%g, %g, %g],\n"
-			"yellow  [%g, %g, %g],\n"
-			"magenta [%g, %g, %g],\n"
-			"cyan    [%g, %g, %g],\n"
-			"white   [%g, %g, %g]\n"
+			"Black   [%g, %g, %g],\n"
+			"Red     [%g, %g, %g],\n"
+			"Green   [%g, %g, %g],\n"
+			"Blue    [%g, %g, %g],\n"
+			"Yellow  [%g, %g, %g],\n"
+			"Magenta [%g, %g, %g],\n"
+			"Cyan    [%g, %g, %g],\n"
+			"White   [%g, %g, %g]\n"
 			"       ]",
 			$self->Black.r,   $self->Black.g,   $self->Black.b,
 			$self->Red.r,     $self->Red.g,     $self->Red.b,
@@ -612,14 +612,14 @@
 		static char s[1024];
 		sprintf(s,
 			"sLut   [\n"
-			"black   [%g, %g, %g],\n"
-			"blue    [%g, %g, %g],\n"
-			"green   [%g, %g, %g],\n"
-			"cyan    [%g, %g, %g],\n"
-			"red     [%g, %g, %g],\n"
-			"magenta [%g, %g, %g],\n"
-			"yellow  [%g, %g, %g],\n"
-			"white   [%g, %g, %g]\n"
+			"Black   [%g, %g, %g],\n"
+			"Blue    [%g, %g, %g],\n"
+			"Green   [%g, %g, %g],\n"
+			"Cyan    [%g, %g, %g],\n"
+			"Red     [%g, %g, %g],\n"
+			"Magenta [%g, %g, %g],\n"
+			"Yellow  [%g, %g, %g],\n"
+			"White   [%g, %g, %g]\n"
 			"       ]",
 			$self->Black.r,   $self->Black.g,   $self->Black.b,
 			$self->Blue.r,    $self->Blue.g,    $self->Blue.b,
@@ -894,14 +894,14 @@
 		if ($self->divisor < 1.0) $self->divisor = 1.0;
 		sprintf(s,
 			"pLut   [[\n"
-			"black   [%g, %g, %g],\n"
-			"white   [%g, %g, %g],\n"
-			"red     [%g, %g, %g],\n"
-			"green   [%g, %g, %g],\n"
-			"blue    [%g, %g, %g],\n"
-			"cyan    [%g, %g, %g],\n"
-			"magenta [%g, %g, %g],\n"
-			"yellow  [%g, %g, %g]\n"
+			"Black   [%g, %g, %g],\n"
+			"White   [%g, %g, %g],\n"
+			"Red     [%g, %g, %g],\n"
+			"Green   [%g, %g, %g],\n"
+			"Blue    [%g, %g, %g],\n"
+			"Cyan    [%g, %g, %g],\n"
+			"Magenta [%g, %g, %g],\n"
+			"Yellow  [%g, %g, %g]\n"
 			"       ] / %g] * {%g}",
 			$self->Black.r,   $self->Black.g,   $self->Black.b,
 			$self->White.r,   $self->White.g,   $self->White.b,
@@ -1103,10 +1103,10 @@
 		static char s[512];
 		sprintf(s,
 			"matrix [\n"
-			"red     [%g, %g, %g, %g],\n"
-			"green   [%g, %g, %g, %g],\n"
-			"blue    [%g, %g, %g, %g],\n"
-			"offset  [0, 0, 0, 1]\n"
+			"Red     [%g, %g, %g, %g],\n"
+			"Green   [%g, %g, %g, %g],\n"
+			"Blue    [%g, %g, %g, %g],\n"
+			"Offset  [0, 0, 0, 1]\n"
 			"       ]",
 		$self->Red.r,   $self->Red.g,   $self->Red.b,   $self->Red.o,
 		$self->Green.r, $self->Green.g, $self->Green.b, $self->Green.o,
@@ -1235,16 +1235,16 @@
 		sprintf(s,
 			"geminix [\n"
 			"p        [\n"
-			"red       [%g, %g, %g, %g],\n"
-			"green     [%g, %g, %g, %g],\n"
-			"blue      [%g, %g, %g, %g],\n"
-			"offset    [0, 0, 0, 1]\n"
+			"Red       [%g, %g, %g, %g],\n"
+			"Green     [%g, %g, %g, %g],\n"
+			"Blue      [%g, %g, %g, %g],\n"
+			"Offset    [0, 0, 0, 1]\n"
 			"         ],\n"
 			"s        [\n"
-			"cyan      [%g, %g, %g, %g],\n"
-			"magenta   [%g, %g, %g, %g],\n"
-			"yellow    [%g, %g, %g, %g],\n"
-			"offset    [0, 0, 0, 1]\n"
+			"Cyan      [%g, %g, %g, %g],\n"
+			"Magenta   [%g, %g, %g, %g],\n"
+			"Yellow    [%g, %g, %g, %g],\n"
+			"Offset    [0, 0, 0, 1]\n"
 			"         ]\n"
 			"        ]",
 		$self->p.Red.r,   $self->p.Red.g,   $self->p.Red.b,   $self->p.Red.o,
@@ -1330,10 +1330,10 @@
 		static char s[640];
 		sprintf(s,
 			"blend  [\n"
-			"red     [%g, %g, %g, %g],\n"
-			"green   [%g, %g, %g, %g],\n"
-			"blue    [%g, %g, %g, %g],\n"
-			"offset  [0, 0, 0, 1]\n"
+			"Red     [%g, %g, %g, %g],\n"
+			"Green   [%g, %g, %g, %g],\n"
+			"Blue    [%g, %g, %g, %g],\n"
+			"Offset  [0, 0, 0, 1]\n"
 			"efficacy %g\n"
 			"a,r,g,b [%s, %s, %s, %s]\n"
 			"       ]",
@@ -1439,6 +1439,44 @@
 		pal = malloc(sizeof(KOLIBA_PALETTE));
 		if (pal) memcpy(pal,p,sizeof(KOLIBA_PALETTE));
 		return pal;
+	}
+
+	_KOLIBA_PALETTE(char *filename) {
+		KOLIBA_PALETTE *pal;
+		if ((filename == NULL) || (pal = malloc(sizeof(KOLIBA_PALETTE))) == NULL) return NULL;
+		if (KOLIBA_ReadPaletteFromNamedFile(pal,filename)!=NULL) return pal;
+		free(pal);
+		return NULL;
+	}
+
+	// Convert SLUT to a text string.
+	char *__str__() {
+		static char s[1140];
+		sprintf(s,
+			"palette [\n"
+			"Black    [%g, %g, %g, %g],\n"
+			"White    [%g, %g, %g, %g],\n"
+			"Red      [%g, %g, %g, %g],\n"
+			"Green    [%g, %g, %g, %g],\n"
+			"Blue     [%g, %g, %g, %g],\n"
+			"Cyan     [%g, %g, %g, %g],\n"
+			"Magenta  [%g, %g, %g, %g],\n"
+			"Yellow   [%g, %g, %g, %g],\n"
+			"erythropy %s\n"
+			"efficacy  %g\n"
+			"        ]",
+			$self->Black.rp,   $self->Black.gp,   $self->Black.bp, $self->Black.efficacy,
+			$self->White.rp,   $self->White.gp,   $self->White.bp, $self->White.efficacy,
+			$self->Red.rp,     $self->Red.gp,     $self->Red.bp, $self->Red.efficacy,
+			$self->Green.rp,   $self->Green.gp,   $self->Green.bp, $self->Green.efficacy,
+			$self->Blue.rp,    $self->Blue.gp,    $self->Blue.bp, $self->Blue.efficacy,
+			$self->Cyan.rp,    $self->Cyan.gp,    $self->Cyan.bp, $self->Cyan.efficacy,
+			$self->Magenta.rp, $self->Magenta.gp, $self->Magenta.bp, $self->Magenta.efficacy,
+			$self->Yellow.rp,  $self->Yellow.gp,  $self->Yellow.bp, $self->Yellow.efficacy,
+			($self->erythropy) ? "True" : "False",
+			$self->efficacy
+		);
+		return s;
 	}
 
 	bool isvalid() {return KOLIBA_IsPaletteValid($self);}

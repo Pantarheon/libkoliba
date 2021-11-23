@@ -63,7 +63,7 @@ KLBDC KOLIBA_PALETTE * KOLIBA_ReadPaletteFromOpenFile(KOLIBA_PALETTE *kPlt, FILE
 		KOLIBA_PALETTE2 p2;
 	} plt;
 	unsigned char header[SLTCFILEHEADERBYTES];
-	unsigned char ery;
+	bool ery;
 
 	if (kPlt == NULL) return NULL;
 	if (f == NULL) return invalid(kPlt);
@@ -71,9 +71,9 @@ KLBDC KOLIBA_PALETTE * KOLIBA_ReadPaletteFromOpenFile(KOLIBA_PALETTE *kPlt, FILE
 	if (fread(header, 1, SLTCFILEHEADERBYTES, f) != SLTCFILEHEADERBYTES)
 		return invalid(kPlt);
 	if (memcmp(header, &KOLIBA_kPltHeader00, SLTCFILEHEADERBYTES) == 0)
-		ery = '\0';
+		ery = false;
 	else if (memcmp(header, &KOLIBA_kPltHeader01, SLTCFILEHEADERBYTES) == 0)
-		ery = '\1';
+		ery = true;
 	else return invalid(kPlt);
 
 	if (fread(&plt.p2, 1, sizeof(KOLIBA_PALETTE2), f) != sizeof(KOLIBA_PALETTE2)) return invalid(kPlt);

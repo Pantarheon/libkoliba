@@ -62,7 +62,7 @@ KLBDC int KOLIBA_WritePaletteToOpenFile(const KOLIBA_PALETTE *kPlt, FILE *f) {
 	memcpy(&Plt, kPlt, sizeof(KOLIBA_PALETTE2) - sizeof(double));
 	Plt.checksum = KOLIBA_CalcSum((double *)&Plt, sizeof(KOLIBA_PALETTE2) / sizeof(double) - 1);
 	KOLIBA_NetDoubles((double *)&Plt, sizeof(KOLIBA_PALETTE2) / sizeof(double));
-	if (fwrite((kPlt->erythropy == '\0') ? &KOLIBA_kPltHeader00 : &KOLIBA_kPltHeader01, 1, SLTCFILEHEADERBYTES, f) != SLTCFILEHEADERBYTES) return 1;
+	if (fwrite((kPlt->erythropy == false) ? &KOLIBA_kPltHeader00 : &KOLIBA_kPltHeader01, 1, SLTCFILEHEADERBYTES, f) != SLTCFILEHEADERBYTES) return 1;
 	return (fwrite(&Plt, 1, sizeof(KOLIBA_PALETTE2), f) == sizeof(KOLIBA_PALETTE2)) ? 0 : 2;
 }
 

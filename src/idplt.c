@@ -52,5 +52,5 @@ KLBDC const KOLIBA_PALETTE KOLIBA_IdentityPalette = {
 	{1.0, 0.0, 1.0, 1.0},
 	{1.0, 1.0, 0.0, 1.0},
 	1.0,
-	0
+	false
 };
