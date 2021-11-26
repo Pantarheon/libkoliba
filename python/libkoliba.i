@@ -46,7 +46,7 @@
 #ifndef	LIBKOLIBA_SWG
 #define	LIBKOLIBA_SWG
 
-%module	libkoliba
+%module(package="koliba") libkoliba
 %{
 /*
 
@@ -146,7 +146,12 @@
 %rename(OneDiv360)	KOLIBA_1Div360;
 %rename(OneDFlutFlags) KOLIBA_1DFlutFlags;
 %rename(EightBitBuffer) KOLIBA_8BitBuffer;
-%ignore KOLIBA_360;
+%rename(ThreeSixty)	KOLIBA_360;
+%rename(Two)	KOLIBA_2;
+%rename(OneEighty)	KOLIBA_180;
+%rename(OneDivPi)	KOLIBA_1DivPi;
+%rename(OneDiv2)	KOLIBA_1Div2;
+%rename(OneDiv180)	KOLIBA_1Div180;
 
 %ignore KOLIBA_IdentityMallet;
 %ignore KOLIBA_TriFarbaF;
