@@ -41,7 +41,7 @@ ASFLAGS=--gstabs
 PREFIX=/usr
 
 objects = 8bitbuff.o abgr8xyz.o anachroma.o angledeg.o anglepi.o anglerad.o \
-	angleturn.o apppx.o appxyz.o argb8xyz.o \
+	anglesin.o angleturn.o apppx.o appxyz.o argb8xyz.o \
 	bgra32xyz.o bgra8xyz.o bindbxyz.o bindoxyz.o bindwxyz.o bindxyz.o \
 	byte255.o calcsum.o cb2mat.o \
 	cbreset.o cbsfmt.o cbstr.o cflthead.o checksum.o \
