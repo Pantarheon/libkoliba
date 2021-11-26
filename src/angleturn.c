@@ -1,6 +1,6 @@
 /*
 
-	angledeg.c
+	angleturn.c
 
 	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
@@ -47,10 +47,10 @@
 	#define	NULL	((void*)0)
 #endif
 
-KLBDC double KOLIBA_AngleDegrees(const KOLIBA_ANGLE * const angle) {
+KLBDC double KOLIBA_AngleTurns(const KOLIBA_ANGLE * const angle) {
 	return ((angle == NULL) || (angle->units > KAU_pis)) ? KOLIBA_NaN :
-		(angle->units == KAU_degrees) ? angle->angle :
-		(angle->units == KAU_radians) ? KOLIBA_ConvertRadiansToDegrees(angle->angle) :
-		(angle->units == KAU_turns) ? KOLIBA_ConvertTurnsToDegrees(angle->angle) :
-		KOLIBA_ConvertPisToDegrees(angle->angle);
+		(angle->units == KAU_turns) ? angle->angle :
+		(angle->units == KAU_degrees) ? KOLIBA_ConvertDegreesToTurns(angle->angle) :
+		(angle->units == KAU_radians) ? KOLIBA_ConvertRadiansToTurns(angle->angle) :
+		KOLIBA_ConvertPisToTurns(angle->angle);
 }

@@ -49,7 +49,7 @@
 
 KLBDC double KOLIBA_AngleRadians(const KOLIBA_ANGLE * const angle) {
 	return ((angle == NULL) || (angle->units > KAU_pis)) ? KOLIBA_NaN :
-		(angle->units == KAU_radians) ? angle->angle:
+		(angle->units == KAU_radians) ? angle->angle :
 		(angle->units == KAU_degrees) ? KOLIBA_ConvertDegreesToRadians(angle->angle) :
 		(angle->units == KAU_turns) ? KOLIBA_ConvertTurnsToRadians(angle->angle) :
 		KOLIBA_ConvertPisToRadians(angle->angle);
