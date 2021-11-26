@@ -91,6 +91,7 @@
 #define	KOLIBA_ABGR32PIXEL	abgr32pixel
 #define	KOLIBA_ABGR8PIXEL	abgr8pixel
 #define	KOLIBA_ANACHROMA	anachroma
+#define	KOLIBA_ANGLE	angle
 #define	KOLIBA_ARGB32PIXEL	argb32pixel
 #define	KOLIBA_ARGB8PIXEL	argb8pixel
 #define	KOLIBA_BGRA32PIXEL	bgra32pixel
@@ -164,6 +165,7 @@
 #define	KOLIBA_ABGR32PIXEL	abgr32pixel
 #define	KOLIBA_ABGR8PIXEL	abgr8pixel
 #define	KOLIBA_ANACHROMA	anachroma
+#define	KOLIBA_ANGLE	angle
 #define	KOLIBA_ARGB32PIXEL	argb32pixel
 #define	KOLIBA_ARGB8PIXEL	argb8pixel
 #define	KOLIBA_BGRA32PIXEL	bgra32pixel
