@@ -48,7 +48,7 @@
 
 // Initialize a vertex from another vertex.
 
-KLBDC KOLIBA_VERTEX * KOLIBA_VertexCopy(KOLIBA_VERTEX *destination, const KOLIBA_VERTEX const *source) {
+KLBDC KOLIBA_VERTEX * KOLIBA_VertexCopy(KOLIBA_VERTEX *destination, const KOLIBA_VERTEX * const source) {
 	return ((destination == NULL) || (source == NULL)) ? NULL : memcpy(destination, source, sizeof(KOLIBA_VERTEX));
 }
 
