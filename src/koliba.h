@@ -1006,6 +1006,7 @@ KLBDC extern const double KOLIBA_1DivPi;
 KLBDC extern const double KOLIBA_180;
 KLBDC extern const double KOLIBA_1Div180;
 KLBDC extern const double KOLIBA_2;
+KLBDC extern const double KOLIBA_Kappa;
 
 // And some macros/inlines for their use.
 #ifdef	NOKLINLIN

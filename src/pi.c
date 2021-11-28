@@ -2,7 +2,7 @@
 
 	pi.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -85,6 +85,8 @@ KLBDC const uint64_t KOLIBA_1DivPi   = 0x3FD45F306DC9C883;
 KLBDC const uint64_t KOLIBA_180      = 0x4066800000000000;
 KLBDC const uint64_t KOLIBA_1Div180  = 0x3F76C16C16C16C17;
 KLBDC const uint64_t KOLIBA_2        = 0x4000000000000000;
+
+KLBDC const uint64_t KOLIBA_Kappa    = 0x3FE1AC5111534A22;
 
 #ifdef __cplusplus
 }
