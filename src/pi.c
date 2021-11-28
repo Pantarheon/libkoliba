@@ -88,6 +88,7 @@ KLBDC const uint64_t KOLIBA_2         = 0x4000000000000000;
 
 KLBDC const uint64_t KOLIBA_Kappa     = 0x3FE1AC5111534A22;
 KLBDC const uint64_t KOLIBA_1DivKappa = 0x3FFCF876CCDF6CD9;
+KLBDC const uint64_t KOLIBA_1MinKappa = 0x3FDCA75DDD596BBD;
 
 #ifdef __cplusplus
 }
