@@ -60,18 +60,18 @@ KLBDC int KOLIBA_WriteM34tToOpenFile(const KOLIBA_MATRIX *m3x4, FILE *f) {
 	return fprintf(
 		f,
 		KOLIBA_PrintM34tFormat,
-		m3x4->red.r,
-		m3x4->red.g,
-		m3x4->red.b,
-		m3x4->red.o,
-		m3x4->green.r,
-		m3x4->green.g,
-		m3x4->green.b,
-		m3x4->green.o,
-		m3x4->blue.r,
-		m3x4->blue.g,
-		m3x4->blue.b,
-		m3x4->blue.o
+		m3x4->Red.r,
+		m3x4->Red.g,
+		m3x4->Red.b,
+		m3x4->Red.o,
+		m3x4->Green.r,
+		m3x4->Green.g,
+		m3x4->Green.b,
+		m3x4->Green.o,
+		m3x4->Blue.r,
+		m3x4->Blue.g,
+		m3x4->Blue.b,
+		m3x4->Blue.o
 	) - (MATAMINCHARS-1);
 }
 
