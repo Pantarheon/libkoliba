@@ -46,6 +46,8 @@
 // File open and close routines to be used only with
 // the "OpenFile" routines in the library.
 
+KLBDC KOLIBA_FPRINTF const KOLIBA_Fprintf = &fprintf;
+
 KLBDC FILE * KOLIBA_OpenToRead(const char const *filename) {
 	return fopen(filename, "rb");
 }
@@ -53,6 +55,8 @@ KLBDC FILE * KOLIBA_OpenToRead(const char const *filename) {
 KLBDC FILE * KOLIBA_OpenToWrite(const char const *filename) {
 	return fopen(filename, "wb");
 }
+
+KLBDC FILE * KOLIBA_StdOut(void) {return stdout;}
 
 KLBDC int KOLIBA_Close(FILE *f) {
 	return fclose(f);
