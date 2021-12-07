@@ -56,7 +56,10 @@ typedef	unsigned long long uint64_t;
 #include <stdint.h>
 #endif
 
-#if defined _WIN32
+#ifdef	NOKLIBLIB
+# define	KLBHID
+# define	KLBDC
+#elif defined _WIN32
 #ifdef	DLL
 # define	KLBDC	__declspec(dllexport)
 #else	// !DLL

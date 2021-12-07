@@ -2,7 +2,7 @@
 
 	srgba8bytes.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -56,7 +56,10 @@ typedef	unsigned long long uint64_t;
 #include <stdint.h>
 #endif
 
-#if defined _WIN32
+#ifdef	NOKLIBLIB
+# define	KLBHID
+# define	KLBDC
+#elif defined _WIN32
 #ifdef	DLL
 # define	KLBDC	__declspec(dllexport)
 #else	// !DLL

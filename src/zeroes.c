@@ -2,7 +2,7 @@
 
 	zeroes.c
 
-	Copyright 2019 G. Adam Stanislav
+	Copyright 2019-2021 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -41,7 +41,10 @@
 */
 
 
-#if defined _WIN32
+#ifdef	NOKLIBLIB
+# define	KLBHID
+# define	KLBDC
+#elif defined _WIN32
 # define	KLBHID
 #ifdef	DLL
 # define	KLBDC	__declspec(dllexport)
