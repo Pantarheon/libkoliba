@@ -48,11 +48,11 @@
 
 KLBDC KOLIBA_FPRINTF const KOLIBA_Fprintf = &fprintf;
 
-KLBDC FILE * KOLIBA_OpenToRead(const char const *filename) {
+KLBDC FILE * KOLIBA_OpenToRead(const char * filename) {
 	return fopen(filename, "rb");
 }
 
-KLBDC FILE * KOLIBA_OpenToWrite(const char const *filename) {
+KLBDC FILE * KOLIBA_OpenToWrite(const char * filename) {
 	return fopen(filename, "wb");
 }
 
