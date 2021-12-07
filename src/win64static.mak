@@ -38,7 +38,7 @@
 # compiled by the Microsoft C compiler.
 
 CC=cl
-CFLG=-Ox -DNOKLIBLIB -DUSECLIB
+CFLG=-Ox -DNOKLIBLIB
 CFLAGS=$(CFLG)
 
 objects = 8bitbuff.obj abgr8xyz.obj anachroma.obj anglecos.obj angledeg.obj anglepi.obj anglerad.obj \
