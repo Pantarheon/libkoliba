@@ -41,7 +41,7 @@ CC=cl
 CFLG=-Ox -DNOKLIBLIB
 CFLAGS=$(CFLG)
 
-objects = 8bitbuff.obj abgr8xyz.obj anachroma.obj anglecos.obj angledeg.obj \
+objects = 8bitbuff.obj abgr8xyz.obj anachroma.obj anglearea.o anglecos.obj angledeg.obj \
 	anglenorm.o anglepi.obj anglerad.obj \
 	angleset.obj anglesin.obj angleturn.obj apppx.obj appxyz.obj argb8xyz.obj \
 	bgra32xyz.obj bgra8xyz.obj bindbxyz.obj bindoxyz.obj bindwxyz.obj bindxyz.obj \
