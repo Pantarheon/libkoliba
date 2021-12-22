@@ -1,6 +1,6 @@
 /*
 
-	anglearea.c
+	arclength.c
 
 	Copyright 2021 G. Adam Stanislav
 	All rights reserved
@@ -47,7 +47,7 @@
 	#define	NULL	((void*)0)
 #endif
 
-// Area of a circular arc sector.
-KLBDC double  KOLIBA_CircularArcSectorArea(const KOLIBA_ANGLE * const kAngle, double radius) {
-	return (radius < 0.0) ? KOLIBA_NaN : KOLIBA_CanonicalAngle(kAngle)*radius*radius/2.0;
+// Length of a circular arc.
+KLBDC double  KOLIBA_CircularArcLength(const KOLIBA_ANGLE * const kAngle, double radius) {
+	return (radius < 0.0) ? KOLIBA_NaN : KOLIBA_CanonicalAngle(kAngle)*radius;
 }

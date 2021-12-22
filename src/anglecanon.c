@@ -1,6 +1,6 @@
 /*
 
-	anglearea.c
+	anglecanon.c
 
 	Copyright 2021 G. Adam Stanislav
 	All rights reserved
@@ -47,7 +47,10 @@
 	#define	NULL	((void*)0)
 #endif
 
-// Area of a circular arc sector.
-KLBDC double  KOLIBA_CircularArcSectorArea(const KOLIBA_ANGLE * const kAngle, double radius) {
-	return (radius < 0.0) ? KOLIBA_NaN : KOLIBA_CanonicalAngle(kAngle)*radius*radius/2.0;
+// Extract canonical angle from a KOLIBA_ANGLE.
+KLBDC double  KOLIBA_CanonicalAngle(const KOLIBA_ANGLE * const kAngle) {
+	double angle = KOLIBA_AngleRadians(kAngle);
+
+	if ((angle > KOLIBA_2Pi) || ((angle < 0.0) && ((angle = fmod(KOLIBA_2Pi + fmod(angle, KOLIBA_2Pi), KOLIBA_2Pi)) == 0.0))) angle = KOLIBA_2Pi;
+	return angle;
 }
