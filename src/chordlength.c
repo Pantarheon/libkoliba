@@ -49,5 +49,5 @@
 
 // Length of a circular chord.
 KLBDC double  KOLIBA_CircularChordLength(const KOLIBA_ANGLE * const kAngle, double radius) {
-	return (radius < 0.0) ? KOLIBA_NaN : 2.0*sin(KOLIBA_CanonicalAngle(kAngle)/2.0)*radius;
+	return (radius < 0.0) ? KOLIBA_NaN : radius * sqrt(2.0 * (1.0 - cos(KOLIBA_AngleRadians(kAngle))));
 }
