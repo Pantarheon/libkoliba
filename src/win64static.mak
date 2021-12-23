@@ -48,7 +48,7 @@ objects = 8bitbuff.obj abgr8xyz.obj anachroma.obj \
 	apppx.obj appxyz.obj arclength.o argb8xyz.obj \
 	bgra32xyz.obj bgra8xyz.obj bindbxyz.obj bindoxyz.obj bindwxyz.obj bindxyz.obj \
 	byte255.obj calcsum.obj cb2mat.obj \
-	cbreset.obj cbsfmt.obj cbstr.obj cflthead.obj checksum.obj \
+	cbreset.obj cbsfmt.obj cbstr.obj cflthead.obj checksum.obj chordlength.o \
 	chrmhead.obj chrmreset.obj chrmsfmt.obj chroma.obj \
 	chrreset.obj chrtstr.obj cmyx.obj colmask.obj contrasts.obj \
 	dblsrgb.obj deffiset.obj diachroma.obj dichroma.obj dicrhead.obj effiflut.obj \
