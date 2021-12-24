@@ -68,7 +68,7 @@ objects = 8bitbuff.obj abgr8xyz.obj anachroma.obj \
 	mal2slut.obj malinit.obj malsinit.obj \
 	mals2slut.obj mat2cb.obj mat3x3.obj matgem.obj \
 	matreset.obj matrixgain.obj matrixlift.obj matto3x3.obj mgemslt.obj mglspan.obj \
-	mkcube.obj mkidcube.obj mkpslut.obj mmals2slut.obj mofarslt.obj \
+	mkcube.obj mkidcube.obj mkpslut.obj mmals2slut.obj mofarslt.obj monocycl.o \
 	mrslslut.obj msflt.obj msltslt.obj msslt.obj mulgems.obj mulmats.obj mulsluts.obj \
 	nan.obj natcon.obj nfslut.obj \
 	nmatrow.obj nofarba.obj nosvit.obj offsetslut.obj \

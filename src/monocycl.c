@@ -1,6 +1,6 @@
 /*
 
-	anglecanon.c
+	monocycl.c
 
 	Copyright 2021 G. Adam Stanislav
 	All rights reserved
@@ -47,10 +47,9 @@
 	#define	NULL	((void*)0)
 #endif
 
-// Extract canonical angle from a KOLIBA_ANGLE.
-KLBDC double KOLIBA_CanonicalAngle(const KOLIBA_ANGLE * const kAngle) {
+// Extract monocyclical angle from a KOLIBA_ANGLE.
+KLBDC double KOLIBA_MonocyclicalAngle(const KOLIBA_ANGLE * const kAngle) {
 	double angle = KOLIBA_AngleRadians(kAngle);
 
-	if ((angle > KOLIBA_2Pi) || ((angle < 0.0) && ((angle = fmod(KOLIBA_2Pi + fmod(angle, KOLIBA_2Pi), KOLIBA_2Pi)) == 0.0))) angle = KOLIBA_2Pi;
-	return angle;
+	return (angle < 0.0) ? 0.0 : (angle <= KOLIBA_2Pi) ? angle : KOLIBA_2Pi;
 }
