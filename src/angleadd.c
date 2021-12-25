@@ -1,6 +1,6 @@
 /*
 
-	angleget.c
+	angleadd.c
 
 	Copyright 2021 G. Adam Stanislav
 	All rights reserved
@@ -41,16 +41,17 @@
 */
 
 #include "koliba.h"
+#include <math.h>
 
 #if !defined(NULL)
 	#define	NULL	((void*)0)
 #endif
 
-// Get an angle in requested units.
-KLBDC double KOLIBA_AngleGet(const KOLIBA_ANGLE * const kAng, KOLIBA_ANGLEUNITS units) {
-	return ((units >= KAU_COUNT) || (kAng == NULL)) ? KOLIBA_NaN :
-		(units == KAU_degrees) ? KOLIBA_AngleDegrees(kAng) :
-		(units == KAU_radians) ? KOLIBA_AngleRadians(kAng) :
-		(units == KAU_turns)   ? KOLIBA_AngleTurns(kAng)   :
-		KOLIBA_AnglePis(kAng);
+// Add two angles.
+KLBDC KOLIBA_ANGLE * KOLIBA_AngleAdd(KOLIBA_ANGLE * kAng, const KOLIBA_ANGLE * const augend, const KOLIBA_ANGLE * const addend) {
+	if ((kAng == NULL) || (augend == NULL) || (addend == NULL)) return NULL;
+
+	kAng->angle = augend->angle + KOLIBA_AngleGet(addend, augend->units);
+	kAng->units = augend->units;
+	return kAng;
 }
