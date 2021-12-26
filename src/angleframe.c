@@ -41,6 +41,7 @@
 */
 
 #include "koliba.h"
+#include <math.h>
 
 #if !defined(NULL)
 	#define	NULL	((void*)0)
@@ -56,6 +57,14 @@ KLBDC KOLIBA_ANGLE * KOLIBA_AngleFromFrame(KOLIBA_ANGLE * kAng, int frame, int f
 	if ((frames <= 0) || (kAng == NULL)) return NULL;
 
 	kAng->angle = (double)frame / (double)frames;
+	kAng->units = KAU_turns;
+	return kAng;
+}
+
+KLBDC KOLIBA_ANGLE * KOLIBA_AngleFromFrameWithShift(KOLIBA_ANGLE * kAng, int frame, int frames, double shift) {
+	if ((frames <= 0) || (kAng == NULL)) return NULL;
+
+	kAng->angle = (frame <= 0) ? 0.0 : (frame >= frames) ? 1.0 : pow((double)frame / (double)frames, shift);
 	kAng->units = KAU_turns;
 	return kAng;
 }
