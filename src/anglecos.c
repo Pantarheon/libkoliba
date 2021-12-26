@@ -50,3 +50,12 @@
 KLBDC double KOLIBA_AngleCosine(const KOLIBA_ANGLE * const angle) {
 	return cos(KOLIBA_AngleRadians(angle));
 }
+
+KLBDC double KOLIBA_AngleFactorCosine(const KOLIBA_ANGLE * const angle, double factor) {
+	return cos(KOLIBA_AngleRadians(angle)*factor);
+}
+
+KLBDC double KOLIBA_AngleCosineSquared(const KOLIBA_ANGLE * const angle) {
+	double c = cos(KOLIBA_AngleRadians(angle));
+	return c*c;
+}
