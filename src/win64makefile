@@ -94,7 +94,8 @@ abjects = asm/win64/fixdbl.obj asm/win64/fixslut.obj asm/win64/sltstr.obj \
 	asm/win64/chrtstr.obj asm/win64/readdbls.obj asm/win64/readchrt.obj \
 	asm/win64/writedbls.obj asm/win64/writechrt.obj asm/win64/pal8rgba.obj \
 	asm/win64/xyz8pxs.obj asm/win64/mulgems.obj asm/win64/matgem.obj \
-	asm/win64/mgemslt.obj asm/win64/msltslt.obj 
+	asm/win64/mgemslt.obj asm/win64/msltslt.obj \
+	asm/win64/midpointshift.obj 
 
 lib:	koliba.dll
 
