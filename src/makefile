@@ -42,7 +42,7 @@ PREFIX=/usr
 
 objects = 8bitbuff.o abgr8xyz.o anachroma.o \
 	angleadd.o anglearea.o anglecanon.o \
-	anglecos.o angledeg.o angleframe.o angleget.o anglemul.o \
+	anglecos.o angledeg.o anglediv.o angleframe.o angleget.o anglemul.o \
 	anglenorm.o anglepi.o anglepow.o anglerad.o \
 	angleset.o anglesin.o anglesub.o angleturn.o \
 	apppx.o appxyz.o arclength.o argb8xyz.o \
