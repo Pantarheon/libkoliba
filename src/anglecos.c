@@ -55,6 +55,14 @@ KLBDC double KOLIBA_AngleFactorCosine(const KOLIBA_ANGLE * const angle, double f
 	return cos(KOLIBA_AngleRadians(angle)*factor);
 }
 
+KLBDC double KOLIBA_AngleNormalizedCosine(const KOLIBA_ANGLE * const angle) {
+	return cos(fmod(KOLIBA_2Pi+fmod(KOLIBA_AngleRadians(angle), KOLIBA_2Pi), KOLIBA_2Pi));
+}
+
+KLBDC double KOLIBA_AngleFactorNormalizedCosine(const KOLIBA_ANGLE * const angle, double factor) {
+	return cos(fmod(KOLIBA_2Pi+fmod(KOLIBA_AngleRadians(angle), KOLIBA_2Pi), KOLIBA_2Pi)*factor);
+}
+
 KLBDC double KOLIBA_AngleCosineSquared(const KOLIBA_ANGLE * const angle) {
 	double c = cos(KOLIBA_AngleRadians(angle));
 	return c*c;
