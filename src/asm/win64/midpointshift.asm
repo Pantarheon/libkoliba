@@ -25,13 +25,12 @@ KOLIBA_MidpointShift:
 	;
 	lea		rax, [KOLIBA_Ones]
 	subsd	xmm2, xmm2
-	movsd	xmm1, xmm0
-	comisd	xmm1, xmm2
+	movq	[rsp+8], xmm0
+	comisd	xmm0, xmm2
 	movq	xmm0, [rax]
 	jbe		.done
 
-	comisd	xmm0, xmm1
-	movq	[rsp+8], xmm1
+	comisd	xmm0, [rsp+8]
 	jbe		.done
 
 	fld1
@@ -40,7 +39,7 @@ KOLIBA_MidpointShift:
 	fyl2x
 	fstp	qword [rsp+8]
 	fwait
-	movq	xmm0, [rsp+8]
+	divsd	xmm0, [rsp+8]
 
 .done:
 

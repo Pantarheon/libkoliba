@@ -50,10 +50,16 @@
 // Calculate midpoint "shift", i.e., the exponent needed
 // to shift a midpoint from 0.5 to another value.
 //
+// So when we raise the new midpoint to the shift, it will
+// become 0.5 and everything else will adjust accordingly.
+//
 // Only inputs 0 < midpoint < 1 are accepted, anything
-// else returns 1 (i.e., no shift).
+// else returns 1 (i.e., no shift). This guarantees that
+// any value greater than 0 and lesser than 1 raised to
+// the shift will still be greater that 0 and lesser than 1.
+// It also guarantees we do not end up with a division by 0.
 KLBDC double KOLIBA_MidpointShift(double midpoint) {
 	if ((midpoint <= 0.0) || (midpoint >= 1.0)) return 1.0;
 
-	return log(midpoint)/log(0.5);
+	return log(0.5)/log(midpoint);
 }
