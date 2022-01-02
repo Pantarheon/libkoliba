@@ -2,7 +2,7 @@
 
 	anglesin.c
 
-	Copyright 2021 G. Adam Stanislav
+	Copyright 2021-2022 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -61,6 +61,14 @@ KLBDC double KOLIBA_AngleNormalizedSine(const KOLIBA_ANGLE * const angle) {
 
 KLBDC double KOLIBA_AngleFactorNormalizedSine(const KOLIBA_ANGLE * const angle, double factor) {
 	return sin(fmod(KOLIBA_2Pi+fmod(KOLIBA_AngleRadians(angle), KOLIBA_2Pi), KOLIBA_2Pi)*factor);
+}
+
+KLBDC double KOLIBA_AngleMonocycleSine(const KOLIBA_ANGLE * const angle) {
+	return sin(KOLIBA_MonocyclicalAngle(angle));
+}
+
+KLBDC double KOLIBA_AngleFactorMonocycleSine(const KOLIBA_ANGLE * const angle, double factor) {
+	return sin(KOLIBA_MonocyclicalAngle(angle)*factor);
 }
 
 KLBDC double KOLIBA_AngleSineSquared(const KOLIBA_ANGLE * const angle) {

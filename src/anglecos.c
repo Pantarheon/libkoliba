@@ -2,7 +2,7 @@
 
 	anglecos.c
 
-	Copyright 2021 G. Adam Stanislav
+	Copyright 2021-2022 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -61,6 +61,14 @@ KLBDC double KOLIBA_AngleNormalizedCosine(const KOLIBA_ANGLE * const angle) {
 
 KLBDC double KOLIBA_AngleFactorNormalizedCosine(const KOLIBA_ANGLE * const angle, double factor) {
 	return cos(fmod(KOLIBA_2Pi+fmod(KOLIBA_AngleRadians(angle), KOLIBA_2Pi), KOLIBA_2Pi)*factor);
+}
+
+KLBDC double KOLIBA_AngleMonocycleCosine(const KOLIBA_ANGLE * const angle) {
+	return cos(KOLIBA_MonocyclicalAngle(angle));
+}
+
+KLBDC double KOLIBA_AngleFactorMonocycleCosine(const KOLIBA_ANGLE * const angle, double factor) {
+	return cos(KOLIBA_MonocyclicalAngle(angle)*factor);
 }
 
 KLBDC double KOLIBA_AngleCosineSquared(const KOLIBA_ANGLE * const angle) {
