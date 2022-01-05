@@ -43,7 +43,8 @@ CFLAGS=$(CFLG)
 
 objects = 8bitbuff.obj abgr8xyz.obj anachroma.obj \
 	angleadd.o anglearea.o anglecanon.o \
-	anglecos.obj angledeg.obj anglediv.o angleframe.o angleget.o anglemul.o \
+	anglecos.obj angledeg.obj anglediv.o angleframe.o \
+	angleget.o anglemono.o anglemul.o \
 	anglenorm.o anglepi.obj anglepow.o anglerad.obj \
 	angleset.obj anglesin.obj anglesub.o anglet.o angleturn.obj \
 	apppx.obj appxyz.obj arclength.o argb8xyz.obj \
