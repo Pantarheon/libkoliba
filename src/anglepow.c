@@ -2,7 +2,7 @@
 
 	anglepow.c
 
-	Copyright 2021 G. Adam Stanislav
+	Copyright 2021-2022 G. Adam Stanislav
 	All rights reserved
 
 	Redistribution and use in source and binary forms,
@@ -59,7 +59,7 @@ KLBDC KOLIBA_ANGLE * KOLIBA_AnglePower(KOLIBA_ANGLE * kAng, const KOLIBA_ANGLE *
 		KOLIBA_AngleNormalize(&angle);
 	}
 
-	kAng->angle = pow(angle.angle, exponent);
+	kAng->angle = (exponent == 0.0) ? 1.0 : (angle.angle <= 0.0) ? 0.0 : pow(angle.angle, exponent);
 	kAng->units = KAU_turns;
 	return kAng;
 }
